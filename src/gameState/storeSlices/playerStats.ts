@@ -8,6 +8,7 @@ export type PlayerStatsProps = {
     experience: number;
     goldCoins: number;
     level: number;
+    unspentSkillPoints: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -26,13 +27,14 @@ const initialState: PlayerStatsProps = {
     level: 1,
     experience: 0,
     goldCoins: 0,
+    unspentSkillPoints: 0,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps, gainedXp: number) => {
     const xpForNextLevel = calculateXp(state.level + 1);
     if (state.experience >= xpForNextLevel) {
         state.level++;
-        console.log(state.experience, gainedXp, xpForNextLevel);
+        state.unspentSkillPoints++;
         const leftoverXp = state.experience - xpForNextLevel;
         state.experience = leftoverXp > 0 ? leftoverXp : 0;
     }

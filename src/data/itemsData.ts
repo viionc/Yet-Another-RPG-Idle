@@ -6,6 +6,15 @@ export type ItemProps = {
     name: string;
 };
 
+export const ITEM_TIER_VALUE: Record<Tiers, number> = {
+    "Trash": 0,
+    "Normal": 1,
+    "Uncommon": 2,
+    "Rare": 3,
+    "Epic": 4,
+    "Legendary": 5,
+};
+
 const ITEM_DATA: Record<number, ItemProps> = {
     0: {
         id: 0,

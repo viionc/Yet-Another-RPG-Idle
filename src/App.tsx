@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {battleTickHandler} from "./tickHandler/battleInterval";
 import {RootState} from "./gameState/store";
 import {clearInterval, setInterval} from "worker-timers";
+import InventoryPanel from "./components/InventoryPanel";
 
 function App() {
     const dispatch = useDispatch();
@@ -23,9 +24,10 @@ function App() {
     return (
         <>
             <Header></Header>
-            <main className="container grid grid-cols-4 gap-2 text-white">
+            <main className="container grid grid-cols-4 grid-rows-2 gap-2 text-white">
                 <StatsPanel></StatsPanel>
                 <BattlePanel></BattlePanel>
+                <InventoryPanel></InventoryPanel>
             </main>
         </>
     );

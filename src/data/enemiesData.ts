@@ -1,10 +1,16 @@
 export type EnemyNames = "Slime";
-
+export type EnemyDrop = {
+    id: number;
+    minAmount: number;
+    maxAmount: number;
+    chance: number;
+};
 export interface EnemyProps {
     maxHp: number;
     name: EnemyNames;
     id: number;
     experience: number;
+    drops: EnemyDrop[];
 }
 
 const ENEMIES_DATA: Record<number, EnemyProps> = {
@@ -13,6 +19,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Slime",
         id: 0,
         experience: 5,
+        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 1}],
     },
 };
 
