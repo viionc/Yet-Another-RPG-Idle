@@ -30,7 +30,7 @@ const initialState: PlayerStatsProps = {
     unspentSkillPoints: 0,
 };
 
-const checkIfLeveledUp = (state: PlayerStatsProps, gainedXp: number) => {
+const checkIfLeveledUp = (state: PlayerStatsProps) => {
     const xpForNextLevel = calculateXp(state.level + 1);
     if (state.experience >= xpForNextLevel) {
         state.level++;
@@ -49,7 +49,7 @@ const playerStatsSlice = createSlice({
             for (const stat of payload) {
                 state[stat.id] += stat.amount;
                 if (stat.id === "experience") {
-                    checkIfLeveledUp(state, stat.amount);
+                    checkIfLeveledUp(state);
                 }
             }
         },
