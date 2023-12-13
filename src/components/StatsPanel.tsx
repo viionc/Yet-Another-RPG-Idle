@@ -1,16 +1,19 @@
-import React from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../gameState/store";
+import {calculateXp} from "../utils/levelUtils";
 
 function StatsPanel() {
-    const playerCombatStats = useSelector((state: RootState) => state.playerCombatStats);
+    const playerStats = useSelector((state: RootState) => state.playerStats);
     return (
         <section className="grid-span-1 border rounded-md p-2 border-slate-800 bg-neutral-800 h-[20rem]">
             <ul>
-                <li>Hit Points: {playerCombatStats.hp}</li>
-                <li>Mana: {playerCombatStats.mana}</li>
-                <li>Attack Power: {playerCombatStats.attackPower}</li>
-                <li>Attack Speed: {playerCombatStats.attackSpeed}</li>
+                <li>Level: {playerStats.level}</li>
+                <li>
+                    Xp: {playerStats.experience}/{calculateXp(playerStats.level + 1)}
+                </li>
+                <li>Mana: {playerStats.mana}</li>
+                <li>Attack Power: {playerStats.attackPower}</li>
+                <li>Attack Speed: {playerStats.attackSpeed}</li>
             </ul>
         </section>
     );
