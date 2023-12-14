@@ -69,6 +69,11 @@ const battleStateSlice = createSlice({
             state.currentKillCount = 0;
             state.currentWave = 1;
         },
+        changeWave: (state, action: BattleStateStartAction) => {
+            battleStateSlice.caseReducers.endBattle(state);
+            state.currentWave = action.payload;
+            state.currentKillCount = 0;
+        },
     },
 });
 

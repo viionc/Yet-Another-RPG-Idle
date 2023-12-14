@@ -9,6 +9,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const {playerStats, battleState} = gameState.getState();
     const statsToUpdate: IncreaseStatsPayload[] = [];
     const itemsToUpdate: InventoryItem[] = [];
+
     if (!battleState.isBattleStarted || !battleState.enemy) return;
     const hpAfterDamage = battleState.enemy.currentHp - playerStats.attackPower;
     dispatch(updateEnemyHp(hpAfterDamage));
@@ -18,6 +19,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
         statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave});
         calculateEnemyDrops(enemy, itemsToUpdate);
     }
+
     dispatch(addItemsToInventory(itemsToUpdate));
     dispatch(increaseStats(statsToUpdate));
 };
