@@ -1,5 +1,5 @@
 export type SkillTreeNames = "Damage" | "Exploration" | "Magic";
-export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill";
+export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | `temp${number}`;
 
 export type SkillProps = {
     id: number;
@@ -22,11 +22,11 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
     {id: 0, name: "Attack Power", skillPointCost: 1, unlockRequirements: null, row: 6, col: 2, maxLevel: 5},
     {id: 1, name: "Attack Speed", skillPointCost: 1, unlockRequirements: null, row: 5, col: 1, maxLevel: 5},
     {id: 2, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 5, col: 2, maxLevel: 5},
-    {id: 3, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 5, col: 3, maxLevel: 5},
-    {id: 4, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 4, col: 1, maxLevel: 5},
-    {id: 5, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 4, col: 2, maxLevel: 5},
-    {id: 6, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 4, col: 3, maxLevel: 5},
-    {id: 7, name: "Overkill", skillPointCost: 1, unlockRequirements: null, row: 3, col: 2, maxLevel: 1, special: true},
+    {id: 3, name: "temp3", skillPointCost: 1, unlockRequirements: null, row: 5, col: 3, maxLevel: 5},
+    {id: 4, name: "temp4", skillPointCost: 1, unlockRequirements: null, row: 4, col: 1, maxLevel: 5},
+    {id: 5, name: "temp5", skillPointCost: 1, unlockRequirements: null, row: 4, col: 2, maxLevel: 5},
+    {id: 6, name: "temp6", skillPointCost: 1, unlockRequirements: null, row: 4, col: 3, maxLevel: 5},
+    {id: 7, name: "temp7", skillPointCost: 1, unlockRequirements: null, row: 3, col: 2, maxLevel: 1, special: true},
 ];
 
 const SKILL_TREES_DATA: SkillTreeProps[] = [

@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import ENEMIES_DATA from "../../data/enemiesData";
 import ZONES_DATA from "../../data/zonesData";
-import {SimpleActionProps} from "../store";
+import {SimpleActionProps, resetAction} from "../store";
 
 export type BattleStateProps = {
     battleGlobalCooldown: number;
@@ -70,6 +70,9 @@ const battleStateSlice = createSlice({
             state.currentWave = action.payload;
             state.currentKillCount = 0;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(resetAction, () => initialState);
     },
 });
 

@@ -15,11 +15,11 @@ function Skill({skill}: {skill: SkillProps}) {
     const playerSkills = useSelector((state: RootState) => state.playerSkills);
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const dispatch = useDispatch();
-    const currentSkillPointLevel = playerSkills[skill.id] ?? 0;
+    const currentSkillPointLevel = playerSkills[skill.name] ?? 0;
 
     const useSkillPoint = () => {
         if (currentSkillPointLevel === skill.maxLevel || !playerStats.unspentSkillPoints) return;
-        dispatch(addSkillPoint(skill.id));
+        dispatch(addSkillPoint(skill.name));
         dispatch(decreaseStats([{id: "unspentSkillPoints", amount: 1}]));
     };
 

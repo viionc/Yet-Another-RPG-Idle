@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore, createAction} from "@reduxjs/toolkit";
 import playerStatsReducer from "./storeSlices/playerStats";
 import battleStateReducer from "./storeSlices/battleState";
 import playerInventoryReducer from "./storeSlices/playerInventory";
@@ -10,6 +10,8 @@ export type SimpleActionProps = {
     payload: number;
     type: string;
 };
+
+export const resetAction = createAction("RESET_STATES");
 
 const persistConfig = {
     key: "gameState",

@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {calculateXp} from "../../utils/levelUtils";
+import {resetAction} from "../store";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -59,6 +60,9 @@ const playerStatsSlice = createSlice({
                 state[stat.id] -= stat.amount;
             }
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(resetAction, () => initialState);
     },
 });
 

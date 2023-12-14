@@ -10,11 +10,13 @@ import {clearInterval, setInterval} from "worker-timers";
 import InventoryPanel from "./components/InventoryPanel";
 import SkillTreePanel from "./components/SkillTreePanel";
 
+export type Tabs = "Main" | "Skill Tree";
+
 function App() {
     const dispatch = useDispatch();
     const playerStats = useSelector((state: RootState) => state.playerStats);
 
-    const [skillTreeOpen, setSkillTreeOpen] = useState(false);
+    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
 
     useEffect(() => {
         const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
@@ -26,16 +28,16 @@ function App() {
     }, []); //eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
-            <Header></Header>
+            <Header setTabOpen={setTabOpen}></Header>
             <main className="container grid grid-cols-4 grid-rows-2 gap-2 text-white">
-                <StatsPanel callback={() => setSkillTreeOpen(() => !skillTreeOpen)}></StatsPanel>
-                {!skillTreeOpen ? (
+                <StatsPanel callback={() => setTabOpen("Skill Tree")}></StatsPanel>
+                {tabOpen === "Main" ? (
                     <>
                         <BattlePanel></BattlePanel>
                         <InventoryPanel></InventoryPanel>
                     </>
                 ) : null}
-                {skillTreeOpen ? <SkillTreePanel></SkillTreePanel> : null}
+                {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}
             </main>
         </>
     );

@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import ITEM_DATA, {ITEM_TIER_VALUE} from "../../data/itemsData";
+import {resetAction} from "../store";
 
 export type InventoryItem = {
     id: number;
@@ -36,6 +37,9 @@ const playerInventorySlice = createSlice({
                 }
             });
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(resetAction, () => initialState);
     },
 });
 
