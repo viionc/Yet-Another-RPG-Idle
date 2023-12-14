@@ -53,8 +53,14 @@ const playerStatsSlice = createSlice({
                 }
             }
         },
+        decreaseStats: (state, action: IncreaseStatsAction) => {
+            const {payload} = action;
+            for (const stat of payload) {
+                state[stat.id] -= stat.amount;
+            }
+        },
     },
 });
 
 export default playerStatsSlice.reducer;
-export const {increaseStats} = playerStatsSlice.actions;
+export const {increaseStats, decreaseStats} = playerStatsSlice.actions;
