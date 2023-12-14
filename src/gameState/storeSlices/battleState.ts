@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import ENEMIES_DATA, {EnemyProps} from "../../data/enemiesData";
+import ENEMIES_DATA from "../../data/enemiesData";
+import ZONES_DATA from "../../data/zonesData";
 
 export type BattleStateProps = {
     battleGlobalCooldown: number;
@@ -57,7 +58,7 @@ const battleStateSlice = createSlice({
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;
             state.currentKillCount++;
-            if (state.currentKillCount === state.requiredKillsToAdvance) {
+            if (state.currentKillCount === state.requiredKillsToAdvance && state.currentWave < ZONES_DATA[state.zoneId].maxWave) {
                 state.currentWave++;
                 state.currentKillCount = 0;
             }
