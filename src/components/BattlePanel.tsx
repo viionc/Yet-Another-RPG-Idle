@@ -15,6 +15,9 @@ function BattlePanel() {
     const getZoneName = () => {
         return ZONES_DATA[battleState.zoneId].name;
     };
+    const getZoneUrl = () => {
+        return ZONES_DATA[battleState.zoneId].url;
+    };
     const maxKillCount = battleState.currentWave === ZONES_DATA[battleState.zoneId].maxWave ? "~" : ZONES_DATA[battleState.zoneId].enemiesPerWave;
 
     return (
@@ -23,7 +26,7 @@ function BattlePanel() {
                 {getZoneName()} {getEnemyName()}
             </h1>
             <div className="w-full h-[16.9rem] relative">
-                <img src="./backgrounds/plains.png" className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
+                <img src={getZoneUrl()} className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
                     Kill Count: {battleState.currentKillCount}/{maxKillCount}
                 </span>

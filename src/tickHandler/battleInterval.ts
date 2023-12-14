@@ -8,6 +8,7 @@ import {PlayerSkillsProps} from "../gameState/storeSlices/playerSkills";
 
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const {playerStats, battleState, playerSkills} = gameState.getState();
+    console.log(Date.now());
     const statsToUpdate: IncreaseStatsPayload[] = [];
     const itemsToUpdate: InventoryItem[] = [];
 
@@ -38,4 +39,9 @@ const calculateEnemyDrops = (enemy: EnemyProps, itemsToUpdate: InventoryItem[]) 
 export const calculateAttackPower = (attackPower: number, playerSkills: PlayerSkillsProps): number => {
     const attackPowerSkill = playerSkills["Attack Power"] ?? 0;
     return attackPower + attackPowerSkill;
+};
+
+export const calculateAttackSpeed = (attackSpeed: number, playerSkills: PlayerSkillsProps): number => {
+    const attackSpeedSkill = playerSkills["Attack Speed"] ?? 0;
+    return attackSpeed - attackSpeedSkill * 0.2;
 };

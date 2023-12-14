@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import StatsPanel from "./components/StatsPanel";
 import {gameTickHandler} from "./tickHandler/gameInterval";
 import {useDispatch, useSelector} from "react-redux";
-import {battleTickHandler} from "./tickHandler/battleInterval";
+import {battleTickHandler, calculateAttackSpeed} from "./tickHandler/battleInterval";
 import {RootState} from "./gameState/store";
 import {clearInterval, setInterval} from "worker-timers";
 import InventoryPanel from "./components/InventoryPanel";
@@ -15,17 +15,18 @@ export type Tabs = "Main" | "Skill Tree";
 function App() {
     const dispatch = useDispatch();
     const playerStats = useSelector((state: RootState) => state.playerStats);
+    const playerSkills = useSelector((state: RootState) => state.playerSkills);
 
     const [tabOpen, setTabOpen] = useState<Tabs>("Main");
 
     useEffect(() => {
         const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
-        const battleInterval = setInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000);
+        const battleInterval = setInterval(() => battleTickHandler(dispatch), calculateAttackSpeed(playerStats.attackSpeed, playerSkills) * 1000);
         return () => {
             clearInterval(gameInterval);
             clearInterval(battleInterval);
         };
-    }, []); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [playerSkills]); //eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
             <Header setTabOpen={setTabOpen}></Header>

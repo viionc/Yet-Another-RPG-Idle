@@ -1,7 +1,7 @@
 export type ZoneNames = "Plains";
 export type ZoneProps = {
     zoneId: number;
-    bgUrl: string;
+    url: string;
     enemies: number[];
     maxWave: number;
     enemiesPerWave: number;
@@ -12,7 +12,7 @@ const ZONES_DATA: Record<number, ZoneProps> = {
     0: {
         zoneId: 0,
         name: "Plains",
-        bgUrl: "plains.png",
+        url: "./backgrounds/plains.png",
         enemies: [0, 1, 2],
         maxWave: 10,
         enemiesPerWave: 10,

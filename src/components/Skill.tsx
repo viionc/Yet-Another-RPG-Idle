@@ -16,9 +16,10 @@ function Skill({skill}: {skill: SkillProps}) {
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const dispatch = useDispatch();
     const currentSkillPointLevel = playerSkills[skill.name] ?? 0;
+    const isMaxLevel = currentSkillPointLevel === skill.maxLevel;
 
     const useSkillPoint = () => {
-        if (currentSkillPointLevel === skill.maxLevel || !playerStats.unspentSkillPoints) return;
+        if (isMaxLevel || !playerStats.unspentSkillPoints) return;
         dispatch(addSkillPoint(skill.name));
         dispatch(decreaseStats([{id: "unspentSkillPoints", amount: 1}]));
     };
@@ -26,22 +27,29 @@ function Skill({skill}: {skill: SkillProps}) {
     return (
         <>
             <div
-                className={`border flex justify-center items-center border-zinc-600 bg-zinc-800 flex-col ${
+                className={`border flex justify-center items-center border-zinc-600 bg-zinc-800 flex-col bg-no-repeat bg-cover bg-center ${
                     skill.special ? "rounded-full" : "rounded-md"
-                }`}
+                } ${isMaxLevel ? "bg-green-700" : "bg-zinc-700"}`}
                 ref={setReferenceElement}
                 onMouseEnter={() => setShow(true)}
                 onMouseLeave={() => setShow(false)}
                 onClick={useSkillPoint}
-                style={{gridRowStart: skill.row, gridColumnStart: skill.col}}>
-                <div>
-                    {currentSkillPointLevel} / {skill.maxLevel}
+                style={{gridRowStart: skill.row, gridColumnStart: skill.col, backgroundImage: `url('${skill.url}')`}}>
+                <div className="bg-black bg-opacity-[40%] p-1 rounded-md flex flex-col items-center">
+                    <div className={`${isMaxLevel ? "text-green-500" : "text-white"}`}>
+                        {currentSkillPointLevel} / {skill.maxLevel}
+                    </div>
+                    {!isMaxLevel ? <div>{skill.skillPointCost} SP</div> : null}
                 </div>
-                {currentSkillPointLevel < skill.maxLevel ? <div>{skill.skillPointCost} SP</div> : null}
             </div>
             {show ? (
-                <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                    {skill.name}
+                <div
+                    ref={setPopperElement}
+                    style={styles.popper}
+                    {...attributes.popper}
+                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex flex-col gap-1 max-w-[350px]">
+                    <div className="text-yellow-500">{skill.name}</div>
+                    <div>{skill.description}</div>
                 </div>
             ) : null}
         </>
