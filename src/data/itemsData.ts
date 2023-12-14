@@ -4,6 +4,7 @@ export type ItemProps = {
     tier: Tiers;
     value: number;
     name: string;
+    url: string;
 };
 
 export const ITEM_TIER_VALUE: Record<Tiers, number> = {
@@ -20,6 +21,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 0,
         tier: "Normal",
         name: "Slime Residue",
+        url: "slimeResidue.png",
         value: 1,
     },
 };

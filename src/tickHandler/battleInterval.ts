@@ -2,7 +2,7 @@ import {gameState} from "../gameState/store";
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import {endBattle, updateEnemyHp} from "../gameState/storeSlices/battleState";
 import {IncreaseStatsPayload, increaseStats} from "../gameState/storeSlices/playerStats";
-import {EnemyProps} from "../data/enemiesData";
+import ENEMIES_DATA, {EnemyProps} from "../data/enemiesData";
 import {InventoryItem, addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
@@ -14,8 +14,9 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     dispatch(updateEnemyHp(hpAfterDamage));
     if (hpAfterDamage <= 0) {
         dispatch(endBattle());
-        statsToUpdate.push({id: "experience", amount: battleState.enemy.experience});
-        calculateEnemyDrops(battleState.enemy, itemsToUpdate);
+        const enemy = ENEMIES_DATA[battleState.enemy.id];
+        statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave});
+        calculateEnemyDrops(enemy, itemsToUpdate);
     }
     dispatch(addItemsToInventory(itemsToUpdate));
     dispatch(increaseStats(statsToUpdate));

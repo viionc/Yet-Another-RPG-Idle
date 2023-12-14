@@ -5,10 +5,16 @@ export type BattleStateProps = {
     battleGlobalCooldown: number;
     battleCurrentCooldown: number;
     isBattleStarted: boolean;
+    zoneId: number;
+    currentWave: number;
+    requiredKillsToAdvance: number;
+    currentKillCount: number;
     enemy: BattleStateEnemyProps | null;
 };
 
-export interface BattleStateEnemyProps extends EnemyProps {
+export interface BattleStateEnemyProps {
+    maxHp: number;
+    id: number;
     currentHp: number;
 }
 
@@ -20,6 +26,10 @@ type BattleStateStartAction = {
 const initialState: BattleStateProps = {
     battleGlobalCooldown: 3,
     battleCurrentCooldown: 0,
+    zoneId: 0,
+    currentWave: 1,
+    requiredKillsToAdvance: 10,
+    currentKillCount: 0,
     isBattleStarted: false,
     enemy: null,
 };
@@ -31,7 +41,8 @@ const battleStateSlice = createSlice({
         startBattle: (state, action: BattleStateStartAction) => {
             const enemy = ENEMIES_DATA[action.payload];
             state.isBattleStarted = true;
-            state.enemy = {...enemy, currentHp: enemy.maxHp};
+            const hpBasedOnWave = enemy.maxHp * state.currentWave;
+            state.enemy = {id: enemy.id, maxHp: hpBasedOnWave, currentHp: hpBasedOnWave};
         },
         reduceCooldown: (state) => {
             state.battleCurrentCooldown -= 1;
@@ -40,10 +51,22 @@ const battleStateSlice = createSlice({
             if (!state.enemy) return;
             state.enemy.currentHp = action.payload;
         },
+
         endBattle: (state) => {
             state.enemy = null;
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;
+            state.currentKillCount++;
+            if (state.currentKillCount === state.requiredKillsToAdvance) {
+                state.currentWave++;
+                state.currentKillCount = 0;
+            }
+        },
+        changeZone: (state, action: BattleStateStartAction) => {
+            battleStateSlice.caseReducers.endBattle(state);
+            state.zoneId = action.payload;
+            state.currentKillCount = 0;
+            state.currentWave = 1;
         },
     },
 });
