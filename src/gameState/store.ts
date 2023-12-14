@@ -5,6 +5,11 @@ import playerInventoryReducer from "./storeSlices/playerInventory";
 import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+export type SimpleActionProps = {
+    payload: number;
+    type: string;
+};
+
 const persistConfig = {
     key: "gameState",
     storage,

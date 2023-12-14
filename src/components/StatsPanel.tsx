@@ -3,7 +3,7 @@ import {RootState} from "../gameState/store";
 import {calculateXp} from "../utils/levelUtils";
 import {increaseStats} from "../gameState/storeSlices/playerStats";
 
-function StatsPanel() {
+function StatsPanel({callback}: {callback: () => void}) {
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const dispatch = useDispatch();
     return (
@@ -12,7 +12,9 @@ function StatsPanel() {
                 <li className="flex gap-2 items-center">
                     Level: {playerStats.level}{" "}
                     {playerStats.unspentSkillPoints ? (
-                        <span className="border border-yellow-500 flex w-5 h-5 items-center justify-center hover:bg-white hover:text-neutral-800 cursor-pointer">
+                        <span
+                            className="border border-yellow-500 flex w-5 h-5 items-center justify-center hover:bg-white hover:text-neutral-800 cursor-pointer"
+                            onClick={callback}>
                             +
                         </span>
                     ) : null}

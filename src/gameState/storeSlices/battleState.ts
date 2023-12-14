@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import ENEMIES_DATA from "../../data/enemiesData";
 import ZONES_DATA from "../../data/zonesData";
+import {SimpleActionProps} from "../store";
 
 export type BattleStateProps = {
     battleGlobalCooldown: number;
@@ -19,11 +20,6 @@ export interface BattleStateEnemyProps {
     currentHp: number;
 }
 
-type BattleStateStartAction = {
-    payload: number;
-    type: string;
-};
-
 const initialState: BattleStateProps = {
     battleGlobalCooldown: 3,
     battleCurrentCooldown: 0,
@@ -39,7 +35,7 @@ const battleStateSlice = createSlice({
     initialState,
     name: "battleState",
     reducers: {
-        startBattle: (state, action: BattleStateStartAction) => {
+        startBattle: (state, action: SimpleActionProps) => {
             const enemy = ENEMIES_DATA[action.payload];
             state.isBattleStarted = true;
             const hpBasedOnWave = enemy.maxHp * state.currentWave;
@@ -48,7 +44,7 @@ const battleStateSlice = createSlice({
         reduceCooldown: (state) => {
             state.battleCurrentCooldown -= 1;
         },
-        updateEnemyHp: (state, action: BattleStateStartAction) => {
+        updateEnemyHp: (state, action: SimpleActionProps) => {
             if (!state.enemy) return;
             state.enemy.currentHp = action.payload;
         },
@@ -63,13 +59,13 @@ const battleStateSlice = createSlice({
                 state.currentKillCount = 0;
             }
         },
-        changeZone: (state, action: BattleStateStartAction) => {
+        changeZone: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state);
             state.zoneId = action.payload;
             state.currentKillCount = 0;
             state.currentWave = 1;
         },
-        changeWave: (state, action: BattleStateStartAction) => {
+        changeWave: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state);
             state.currentWave = action.payload;
             state.currentKillCount = 0;

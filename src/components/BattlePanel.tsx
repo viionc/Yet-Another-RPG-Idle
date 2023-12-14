@@ -7,16 +7,21 @@ import ENEMIES_DATA from "../data/enemiesData";
 function BattlePanel() {
     const battleState = useSelector((state: RootState) => state.battleState);
     const getEnemyName = () => {
-        return battleState.enemy ? ENEMIES_DATA[battleState.enemy.id].name : "";
+        return battleState.enemy ? " - " + ENEMIES_DATA[battleState.enemy.id].name : "";
     };
     const getEnemyUrl = () => {
         return battleState.enemy ? ENEMIES_DATA[battleState.enemy.id].url : "";
+    };
+    const getZoneName = () => {
+        return ZONES_DATA[battleState.zoneId].name;
     };
     const maxKillCount = battleState.currentWave === ZONES_DATA[battleState.zoneId].maxWave ? "~" : ZONES_DATA[battleState.zoneId].enemiesPerWave;
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">
-            <h1 className="h-[2rem]">Plains - {getEnemyName()} lv. 1</h1>
+            <h1 className="h-[2rem]">
+                {getZoneName()} {getEnemyName()}
+            </h1>
             <div className="w-full h-[16.9rem] relative">
                 <img src="./backgrounds/plains.png" className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
