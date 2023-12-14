@@ -9,6 +9,10 @@ function BattlePanel() {
     const getEnemyName = () => {
         return battleState.enemy ? ENEMIES_DATA[battleState.enemy.id].name : "";
     };
+    const getEnemyUrl = () => {
+        return battleState.enemy ? ENEMIES_DATA[battleState.enemy.id].url : "";
+    };
+    const maxKillCount = battleState.currentWave === ZONES_DATA[battleState.zoneId].maxWave ? "~" : ZONES_DATA[battleState.zoneId].enemiesPerWave;
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">
@@ -16,7 +20,7 @@ function BattlePanel() {
             <div className="w-full h-[16.9rem] relative">
                 <img src="./backgrounds/plains.png" className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
-                    Kill Count: {battleState.currentKillCount}/{ZONES_DATA[battleState.zoneId].enemiesPerWave}
+                    Kill Count: {battleState.currentKillCount}/{maxKillCount}
                 </span>
                 <span className="absolute top-1 right-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
                     Wave: {battleState.currentWave}/{ZONES_DATA[battleState.zoneId].maxWave}
@@ -32,7 +36,7 @@ function BattlePanel() {
                                 style={{width: (battleState.enemy.currentHp / battleState.enemy.maxHp) * 100 + "%"}}></span>
                         </div>
 
-                        <img src="./enemies/slime.png" className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[7rem]"></img>
+                        <img src={getEnemyUrl()} className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[7rem]"></img>
                     </div>
                 ) : (
                     <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

@@ -28,7 +28,7 @@ const calculateEnemyDrops = (enemy: EnemyProps, itemsToUpdate: InventoryItem[]) 
     for (const drop of enemy.drops) {
         const roll = Math.ceil(Math.random() * drop.chance);
         if (roll === drop.chance) {
-            const amount = Math.floor(Math.random() * (drop.maxAmount - drop.minAmount) + drop.maxAmount);
+            const amount = Math.floor(Math.random() * (drop.maxAmount - drop.minAmount + 1) + drop.minAmount);
             itemsToUpdate.push({id: drop.id, amount});
         }
     }

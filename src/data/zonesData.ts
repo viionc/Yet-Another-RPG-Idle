@@ -10,7 +10,7 @@ const ZONES_DATA: Record<number, ZoneProps> = {
     0: {
         zoneId: 0,
         bgUrl: "plains.png",
-        enemies: [0],
+        enemies: [0, 1, 2],
         maxWave: 10,
         enemiesPerWave: 10,
     },

@@ -20,7 +20,7 @@ function App() {
             clearInterval(gameInterval);
             clearInterval(battleInterval);
         };
-    }, []);
+    }, []); //eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
             <Header></Header>
