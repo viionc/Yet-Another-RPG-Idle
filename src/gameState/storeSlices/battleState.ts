@@ -71,7 +71,7 @@ const battleStateSlice = createSlice({
                 state.currentWave < ZONES_DATA[state.zoneId].maxWave
             ) {
                 state.currentWave++;
-                state.zoneWaveProgression[state.zoneId][state.currentWave] = 0;
+                state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
             }
         },
         changeZone: (state, action: SimpleActionProps) => {
