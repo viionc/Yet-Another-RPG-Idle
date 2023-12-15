@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import ENEMIES_DATA from "../../data/enemiesData";
 import ZONES_DATA from "../../data/zonesData";
-import {SimpleActionProps, resetAction} from "../store";
+import {SimpleActionProps} from "../store";
 
 export type BattleStateProps = {
     battleGlobalCooldown: number;
