@@ -7,6 +7,9 @@ TODO:
 -   rework enemy xp and hp system
 -   magic system
 
+<br><br>
+
+-   animate enemies? canvas? gifs bad
 -   quests?
 -   equipment?
 -   crafting?
