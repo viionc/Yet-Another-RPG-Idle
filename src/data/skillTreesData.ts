@@ -1,5 +1,5 @@
 export type SkillTreeNames = "Damage" | "Exploration" | "Magic";
-export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | `temp${number}`;
+export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | "Auto Wave Progress" | `temp${number}`;
 
 export type SkillProps = {
     id: number;
@@ -19,6 +19,20 @@ export type SkillTreeProps = {
     skills: SkillProps[];
     unlockedRequirement: null;
 };
+
+const EXPLORATION_SKILLS_DATA: SkillProps[] = [
+    {
+        id: 0,
+        name: "Auto Wave Progress",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 6,
+        col: 2,
+        maxLevel: 1,
+        url: "./skills/autoWaveProgress.png",
+        description: "Automatically progresses to next wave.",
+    },
+];
 
 const DAMAGE_SKILLS_DATA: SkillProps[] = [
     {
@@ -114,7 +128,7 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
 
 const SKILL_TREES_DATA: SkillTreeProps[] = [
     {id: 0, name: "Damage", skills: DAMAGE_SKILLS_DATA, unlockedRequirement: null},
-    {id: 1, name: "Exploration", skills: [], unlockedRequirement: null},
+    {id: 1, name: "Exploration", skills: EXPLORATION_SKILLS_DATA, unlockedRequirement: null},
     {id: 2, name: "Magic", skills: [], unlockedRequirement: null},
 ];
 

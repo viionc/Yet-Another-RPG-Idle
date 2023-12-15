@@ -16,7 +16,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const hpAfterDamage = battleState.enemy.currentHp - calculateAttackPower(playerStats.attackPower, playerSkills);
     dispatch(updateEnemyHp(hpAfterDamage));
     if (hpAfterDamage <= 0) {
-        dispatch(endBattle());
+        dispatch(endBattle({autoWaveProgress: playerSkills["Auto Wave Progress"]}));
         const enemy = ENEMIES_DATA[battleState.enemy.id];
         statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave});
         calculateEnemyDrops(enemy, itemsToUpdate);

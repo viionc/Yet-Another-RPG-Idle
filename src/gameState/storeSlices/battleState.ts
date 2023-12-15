@@ -19,6 +19,13 @@ export interface BattleStateEnemyProps {
     id: number;
     currentHp: number;
 }
+export type EndBattleActionProps = {
+    payload: EndBattlePropsProps;
+    type: string;
+};
+export type EndBattlePropsProps = {
+    autoWaveProgress?: undefined | number;
+};
 
 const initialState: BattleStateProps = {
     battleGlobalCooldown: 3,
@@ -48,33 +55,38 @@ const battleStateSlice = createSlice({
             if (!state.enemy) return;
             state.enemy.currentHp = action.payload;
         },
-
-        endBattle: (state) => {
+        endBattle: (state, action: EndBattleActionProps) => {
             state.enemy = null;
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;
             state.currentKillCount++;
-            if (state.currentKillCount === state.requiredKillsToAdvance && state.currentWave < ZONES_DATA[state.zoneId].maxWave) {
+            if (!action) return;
+            if (
+                action.payload.autoWaveProgress &&
+                state.currentKillCount >= state.requiredKillsToAdvance &&
+                state.currentWave < ZONES_DATA[state.zoneId].maxWave
+            ) {
                 state.currentWave++;
                 state.currentKillCount = 0;
             }
         },
         changeZone: (state, action: SimpleActionProps) => {
-            battleStateSlice.caseReducers.endBattle(state);
+            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {}});
             state.zoneId = action.payload;
             state.currentKillCount = 0;
             state.currentWave = 1;
         },
         changeWave: (state, action: SimpleActionProps) => {
-            battleStateSlice.caseReducers.endBattle(state);
+            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {}});
             state.currentWave = action.payload;
             state.currentKillCount = 0;
         },
     },
-    extraReducers: (builder) => {
-        builder.addCase(resetAction, () => initialState);
-    },
+    // this causes "Cannot access 'battleStateReducer' before initialization" only in this slice idk why
+    // extraReducers: (builder) => {
+    //     builder.addCase(resetAction, () => initialState);
+    // },
 });
 
 export default battleStateSlice.reducer;
-export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave} = battleStateSlice.actions;
+export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone} = battleStateSlice.actions;
