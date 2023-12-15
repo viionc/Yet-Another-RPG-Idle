@@ -1,4 +1,4 @@
-export type EnemyNames = "Green Slime" | "Red Slime" | "Blue Slime";
+export type EnemyNames = "Green Slime" | "Red Slime" | "Blue Slime" | "King Slime";
 export type EnemyDrop = {
     id: number;
     minAmount: number;
@@ -20,7 +20,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Green Slime",
         id: 0,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 1}],
+        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/greenSlime.png",
     },
     1: {
@@ -28,7 +28,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Red Slime",
         id: 1,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 1}],
+        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/redSlime.png",
     },
     2: {
@@ -36,8 +36,16 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Blue Slime",
         id: 2,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 1}],
+        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/blueSlime.png",
+    },
+    3: {
+        maxHp: 100,
+        name: "King Slime",
+        id: 3,
+        experience: 40,
+        drops: [{id: 0, minAmount: 2, maxAmount: 5, chance: 1}],
+        url: "./enemies/kingSlime.png",
     },
 };
 

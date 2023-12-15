@@ -6,6 +6,7 @@ export type ZoneProps = {
     maxWave: number;
     enemiesPerWave: number;
     name: ZoneNames;
+    bossEnemyId: number;
 };
 
 const ZONES_DATA: Record<number, ZoneProps> = {
@@ -16,6 +17,7 @@ const ZONES_DATA: Record<number, ZoneProps> = {
         enemies: [0, 1, 2],
         maxWave: 10,
         enemiesPerWave: 10,
+        bossEnemyId: 3,
     },
 };
 
