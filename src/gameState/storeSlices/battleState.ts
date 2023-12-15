@@ -77,4 +77,4 @@ const battleStateSlice = createSlice({
 });
 
 export default battleStateSlice.reducer;
-export const {startBattle, reduceCooldown, updateEnemyHp, endBattle} = battleStateSlice.actions;
+export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave} = battleStateSlice.actions;
