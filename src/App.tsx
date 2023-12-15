@@ -17,7 +17,7 @@ function App() {
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const playerSkills = useSelector((state: RootState) => state.playerSkills);
 
-    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
+    const [tabOpen, setTabOpen] = useState<Tabs>("Skill Tree");
     useEffect(() => {
         const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
         const battleInterval = setInterval(() => battleTickHandler(dispatch), calculateAttackSpeed(playerStats.attackSpeed, playerSkills) * 1000);

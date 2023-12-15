@@ -1,6 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAction, createSlice} from "@reduxjs/toolkit";
 import {calculateXp} from "../../utils/levelUtils";
-import {resetAction} from "../store";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -20,7 +19,7 @@ export type IncreaseStatsPayload = {
     id: keyof PlayerStatsProps;
     amount: number;
 };
-
+const resetAction = createAction("RESET_STATES");
 const initialState: PlayerStatsProps = {
     mana: 0,
     attackPower: 1,
@@ -66,5 +65,5 @@ const playerStatsSlice = createSlice({
     },
 });
 
-export default playerStatsSlice.reducer;
 export const {increaseStats, decreaseStats} = playerStatsSlice.actions;
+export default playerStatsSlice.reducer;

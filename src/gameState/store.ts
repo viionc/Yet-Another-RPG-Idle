@@ -5,6 +5,7 @@ import playerStatsReducer from "./storeSlices/playerStats";
 import playerInventoryReducer from "./storeSlices/playerInventory";
 import playerSkillsReducer from "./storeSlices/playerSkills";
 import battleStateReducer from "./storeSlices/battleState";
+import playerSettingsReducer from "./storeSlices/playerSettings";
 
 export type SimpleActionProps = {
     payload: number;
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     playerInventory: playerInventoryReducer,
     playerSkills: playerSkillsReducer,
     battleState: battleStateReducer,
+    playerSettings: playerSettingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

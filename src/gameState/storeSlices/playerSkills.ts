@@ -1,13 +1,12 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAction, createSlice} from "@reduxjs/toolkit";
 import {SkillNames} from "../../data/skillTreesData";
-import {resetAction} from "../store";
 
 export type PlayerSkillsProps = Partial<Record<SkillNames, number>>;
 export type AddSkillPointsAction = {
     payload: SkillNames;
     type: string;
 };
-
+const resetAction = createAction("RESET_STATES");
 const initialState: PlayerSkillsProps = {};
 
 const playerSkillsSlice = createSlice({
@@ -27,5 +26,5 @@ const playerSkillsSlice = createSlice({
     },
 });
 
-export default playerSkillsSlice.reducer;
 export const {addSkillPoint} = playerSkillsSlice.actions;
+export default playerSkillsSlice.reducer;

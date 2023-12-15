@@ -1,6 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAction, createSlice} from "@reduxjs/toolkit";
 import ITEM_DATA, {ITEM_TIER_VALUE} from "../../data/itemsData";
-import {resetAction} from "../store";
 
 export type InventoryItem = {
     id: number;
@@ -11,7 +10,7 @@ type InventoryAddItemsAction = {
     payload: InventoryItem[];
     type: string;
 };
-
+const resetAction = createAction("RESET_STATES");
 const initialState: Array<InventoryItem | null> = new Array(40).fill(null);
 
 const playerInventorySlice = createSlice({
@@ -43,5 +42,5 @@ const playerInventorySlice = createSlice({
     },
 });
 
-export default playerInventorySlice.reducer;
 export const {addItemsToInventory} = playerInventorySlice.actions;
+export default playerInventorySlice.reducer;
