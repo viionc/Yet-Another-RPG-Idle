@@ -7,7 +7,7 @@ import {changeWave} from "../gameState/storeSlices/battleState";
 import {isMaxWave} from "../utils/wavesUtils";
 
 function BattlePanel() {
-    const {currentKillCount, currentWave, zoneId, enemy} = useSelector((state: RootState) => state.battleState);
+    const {zoneWaveProgression, currentWave, zoneId, enemy} = useSelector((state: RootState) => state.battleState);
     const dispatch = useDispatch();
 
     const currentZoneData = ZONES_DATA[zoneId];
@@ -16,6 +16,9 @@ function BattlePanel() {
     };
     const getEnemyUrl = () => {
         return enemy ? ENEMIES_DATA[enemy.id].url : "";
+    };
+    const getCurrentKillCount = () => {
+        return zoneWaveProgression[zoneId][currentWave] ?? 0;
     };
 
     const maxKillCount = currentWave === ZONES_DATA[zoneId].maxWave ? "~" : ZONES_DATA[zoneId].enemiesPerWave;
@@ -33,7 +36,7 @@ function BattlePanel() {
             <div className="w-full h-[16.9rem] relative">
                 <img src={currentZoneData.url} className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
-                    Kill Count: {currentKillCount}/{maxKillCount}
+                    Kill Count: {getCurrentKillCount()}/{maxKillCount}
                 </span>
                 <div className="absolute top-1 right-1 p-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md flex justify-center items-center ">
                     {currentWave > 1 ? (
@@ -46,7 +49,7 @@ function BattlePanel() {
                     <span className={`${isMaxWave(currentWave, currentZoneData.maxWave) ? "text-yellow-500" : "text-white"} px-2`}>
                         Wave: {currentWave}/{currentZoneData.maxWave}
                     </span>
-                    {!isMaxWave(currentWave, currentZoneData.maxWave) ? (
+                    {!isMaxWave(currentWave, currentZoneData.maxWave) && getCurrentKillCount() >= currentZoneData.enemiesPerWave ? (
                         <span
                             className="border text-yellow-500 flex items-center justify-center px-1 w-8 cursor-pointer hover:bg-white rounded-md"
                             onClick={() => _changeWave(1)}>

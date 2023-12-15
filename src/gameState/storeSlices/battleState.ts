@@ -8,9 +8,9 @@ export type BattleStateProps = {
     battleCurrentCooldown: number;
     isBattleStarted: boolean;
     zoneId: number;
+    zoneWaveProgression: Record<number, Record<number, number>>;
     currentWave: number;
     requiredKillsToAdvance: number;
-    currentKillCount: number;
     enemy: BattleStateEnemyProps | null;
 };
 
@@ -24,6 +24,7 @@ export type EndBattleActionProps = {
     type: string;
 };
 export type EndBattlePropsProps = {
+    change?: true;
     autoWaveProgress?: undefined | number;
 };
 
@@ -32,8 +33,8 @@ const initialState: BattleStateProps = {
     battleCurrentCooldown: 0,
     zoneId: 0,
     currentWave: 1,
+    zoneWaveProgression: {0: {0: 0}},
     requiredKillsToAdvance: 10,
-    currentKillCount: 0,
     isBattleStarted: false,
     enemy: null,
 };
@@ -59,27 +60,26 @@ const battleStateSlice = createSlice({
             state.enemy = null;
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;
-            state.currentKillCount++;
-            if (!action) return;
+            if (action.payload.change) return;
+            const currentKillCount = (state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0) + 1;
+            state.zoneWaveProgression[state.zoneId][state.currentWave] = currentKillCount;
             if (
                 action.payload.autoWaveProgress &&
-                state.currentKillCount >= state.requiredKillsToAdvance &&
+                currentKillCount >= state.requiredKillsToAdvance &&
                 state.currentWave < ZONES_DATA[state.zoneId].maxWave
             ) {
                 state.currentWave++;
-                state.currentKillCount = 0;
+                state.zoneWaveProgression[state.zoneId][state.currentWave] = 0;
             }
         },
         changeZone: (state, action: SimpleActionProps) => {
-            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {}});
+            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
             state.zoneId = action.payload;
-            state.currentKillCount = 0;
             state.currentWave = 1;
         },
         changeWave: (state, action: SimpleActionProps) => {
-            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {}});
+            battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
             state.currentWave = action.payload;
-            state.currentKillCount = 0;
         },
     },
     // this causes "Cannot access 'battleStateReducer' before initialization" only in this slice idk why
