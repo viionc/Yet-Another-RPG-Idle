@@ -7,6 +7,15 @@ export type ItemProps = {
     url: string;
 };
 
+export const colorsByItemTier: Record<Tiers, string> = {
+    "Trash": "rgb(180, 180, 180, 0.6)",
+    "Normal": "rgb(255, 255, 255, 0.6)",
+    "Uncommon": "rgb(60, 179, 113, 0.6)",
+    "Rare": "rgb(0, 118, 255, 0.6)",
+    "Epic": "rgb(179, 64, 255, 0.6)",
+    "Legendary": "rgb(255, 152, 25, 0.6)",
+};
+
 export const ITEM_TIER_VALUE: Record<Tiers, number> = {
     "Trash": 0,
     "Normal": 1,
@@ -47,14 +56,14 @@ const ITEM_DATA: Record<number, ItemProps> = {
     },
     4: {
         id: 4,
-        tier: "Normal",
+        tier: "Uncommon",
         name: "Slime Golden Crown",
         url: "slimeGoldenCrown.png",
         value: 150,
     },
     5: {
         id: 5,
-        tier: "Normal",
+        tier: "Uncommon",
         name: "Knife",
         url: "knife.png",
         value: 150,
