@@ -1,11 +1,9 @@
 import {useSelector} from "react-redux";
 import {RootState} from "../gameState/store";
 import {calculateXp} from "../utils/levelUtils";
-import {calculateAttackPower, calculateAttackSpeed} from "../tickHandler/battleInterval";
 
 function StatsPanel({callback}: {callback: () => void}) {
     const playerStats = useSelector((state: RootState) => state.playerStats);
-    const playerSkills = useSelector((state: RootState) => state.playerSkills);
     return (
         <section className="grid-span-1 border rounded-md p-2 border-slate-800 bg-neutral-800 h-[20rem]">
             <ul>
@@ -26,8 +24,14 @@ function StatsPanel({callback}: {callback: () => void}) {
                     Xp: {playerStats.experience}/{calculateXp(playerStats.level + 1)}
                 </li>
                 <li>Mana: {playerStats.mana}</li>
-                <li>Attack Power: {calculateAttackPower(playerStats.attackPower, playerSkills)}</li>
-                <li>Attack Speed: {calculateAttackSpeed(playerStats.attackSpeed, playerSkills)}</li>
+                <li>Attack Power: {playerStats.attackPower}</li>
+                <li>Attack Speed: {playerStats.attackSpeed}</li>
+                {playerStats.critChance > 0 ? (
+                    <>
+                        <li>Crit Chance: {playerStats.critChance}%</li>
+                        <li>Crit Multi: {Math.floor((playerStats.critMulti - 1) * 100)}%</li>
+                    </>
+                ) : null}
             </ul>
         </section>
     );

@@ -13,6 +13,7 @@ export type BattleStateProps = {
     requiredKillsToAdvance: number;
     enemy: BattleStateEnemyProps | null;
     autoWaveProgression: boolean;
+    overkillDamage: number;
 };
 
 export interface BattleStateEnemyProps {
@@ -27,6 +28,7 @@ export type EndBattleActionProps = {
 export type EndBattlePropsProps = {
     change?: true;
     autoWaveProgress?: undefined | number;
+    overkillDamage?: undefined | number;
 };
 const resetAction = createAction("RESET_STATES");
 const initialState: BattleStateProps = {
@@ -39,6 +41,7 @@ const initialState: BattleStateProps = {
     isBattleStarted: false,
     enemy: null,
     autoWaveProgression: false,
+    overkillDamage: 0,
 };
 
 const battleStateSlice = createSlice({
@@ -49,7 +52,8 @@ const battleStateSlice = createSlice({
             const enemy = ENEMIES_DATA[action.payload];
             state.isBattleStarted = true;
             const hpBasedOnWave = enemy.maxHp * state.currentWave;
-            state.enemy = {id: enemy.id, maxHp: hpBasedOnWave, currentHp: hpBasedOnWave};
+            state.enemy = {id: enemy.id, maxHp: hpBasedOnWave, currentHp: hpBasedOnWave - state.overkillDamage};
+            state.overkillDamage = 0;
         },
         reduceCooldown: (state) => {
             state.battleCurrentCooldown -= 1;
@@ -62,6 +66,9 @@ const battleStateSlice = createSlice({
             state.enemy = null;
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;
+            if (action.payload.overkillDamage) {
+                state.overkillDamage = action.payload.overkillDamage;
+            }
             if (action.payload.change) return;
             const currentKillCount = (state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0) + 1;
             state.zoneWaveProgression[state.zoneId][state.currentWave] = currentKillCount;

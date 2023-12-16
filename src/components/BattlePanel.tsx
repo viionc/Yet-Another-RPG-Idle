@@ -12,7 +12,7 @@ function BattlePanel() {
     const currentZoneData = ZONES_DATA[zoneId];
     const currentKillCount = zoneWaveProgression[zoneId][currentWave] ?? 0;
     const hasReachedRequiredKillCount = currentKillCount >= ZONES_DATA[zoneId].enemiesPerWave;
-    const maxKillCount = currentWave === ZONES_DATA[zoneId].maxWave ? "~" : ZONES_DATA[zoneId].enemiesPerWave;
+    const maxKillCount = currentWave === ZONES_DATA[zoneId].maxWave ? "1" : ZONES_DATA[zoneId].enemiesPerWave;
 
     const getEnemyName = () => {
         return enemy ? " - " + ENEMIES_DATA[enemy.id].name : "";

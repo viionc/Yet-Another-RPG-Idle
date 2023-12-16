@@ -1,10 +1,13 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {calculateXp} from "../../utils/levelUtils";
+import {addSkillPoint} from "./playerSkills";
 
 export type PlayerStatsProps = {
     mana: number;
     attackPower: number;
     attackSpeed: number;
+    critChance: number;
+    critMulti: number;
     experience: number;
     goldCoins: number;
     level: number;
@@ -24,6 +27,8 @@ const initialState: PlayerStatsProps = {
     mana: 0,
     attackPower: 1,
     attackSpeed: 3,
+    critChance: 0,
+    critMulti: 2,
     level: 1,
     experience: 0,
     goldCoins: 0,
@@ -61,7 +66,24 @@ const playerStatsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(resetAction, () => initialState);
+        builder
+            .addCase(resetAction, () => initialState)
+            .addCase(addSkillPoint, (state, action) => {
+                switch (action.payload) {
+                    case "Attack Power":
+                        state.attackPower++;
+                        break;
+                    case "Attack Speed":
+                        state.attackSpeed -= 0.2;
+                        break;
+                    case "Crit Chance":
+                        state.critChance += 2;
+                        break;
+                    case "Crit Multi":
+                        state.critMulti += 0.1;
+                        break;
+                }
+            });
     },
 });
 

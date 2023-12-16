@@ -1,5 +1,5 @@
 export type SkillTreeNames = "Damage" | "Exploration" | "Magic";
-export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | "Auto Wave Progress" | `temp${number}`;
+export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | "Auto Wave Progress" | "Crit Chance" | "Crit Multi" | `temp${number}`;
 
 export type SkillProps = {
     id: number;
@@ -29,7 +29,7 @@ const EXPLORATION_SKILLS_DATA: SkillProps[] = [
         row: 6,
         col: 2,
         maxLevel: 1,
-        url: "./skills/autoWaveProgress.png",
+        url: "./skills/autoWaveProgression.png",
         description: "Automatically progresses to next wave.",
     },
 ];
@@ -70,25 +70,25 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
     },
     {
         id: 3,
-        name: "temp3",
+        name: "Crit Chance",
         skillPointCost: 1,
         unlockRequirements: null,
         row: 5,
         col: 3,
         maxLevel: 5,
-        url: "",
-        description: "Increases attack power by 1.",
+        url: "./skills/critChance.png",
+        description: "Increases crit chance by 1.",
     },
     {
         id: 4,
-        name: "temp4",
+        name: "Crit Multi",
         skillPointCost: 1,
         unlockRequirements: null,
         row: 4,
-        col: 1,
+        col: 3,
         maxLevel: 5,
-        url: "",
-        description: "Increases attack power by 1.",
+        url: "./skills/critMulti.png",
+        description: "Increases crit multiplier by 10%.",
     },
     {
         id: 5,
@@ -107,7 +107,7 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         skillPointCost: 1,
         unlockRequirements: null,
         row: 4,
-        col: 3,
+        col: 1,
         maxLevel: 5,
         url: "",
         description: "Increases attack power by 1.",

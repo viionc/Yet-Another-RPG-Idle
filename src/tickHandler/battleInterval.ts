@@ -1,7 +1,7 @@
 import {gameState} from "../gameState/store";
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import {endBattle, updateEnemyHp} from "../gameState/storeSlices/battleState";
-import {IncreaseStatsPayload, increaseStats} from "../gameState/storeSlices/playerStats";
+import {IncreaseStatsPayload, PlayerStatsProps, increaseStats} from "../gameState/storeSlices/playerStats";
 import ENEMIES_DATA, {EnemyProps} from "../data/enemiesData";
 import {InventoryItem, addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {PlayerSkillsProps} from "../gameState/storeSlices/playerSkills";
@@ -13,12 +13,14 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const itemsToUpdate: InventoryItem[] = [];
 
     if (!battleState.isBattleStarted || !battleState.enemy) return;
-    const hpAfterDamage = battleState.enemy.currentHp - calculateAttackPower(playerStats.attackPower, playerSkills);
+    const hpAfterDamage = battleState.enemy.currentHp - calculateDamageDone(playerStats);
     dispatch(updateEnemyHp(hpAfterDamage));
     if (hpAfterDamage <= 0) {
-        dispatch(endBattle({autoWaveProgress: playerSkills["Auto Wave Progress"]}));
+        // fix overkill damage
+        //const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
+        dispatch(endBattle({autoWaveProgress: playerSkills["Auto Wave Progress"], overkillDamage: 0}));
         const enemy = ENEMIES_DATA[battleState.enemy.id];
-        statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave});
+        statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave * 100});
         calculateEnemyDrops(enemy, itemsToUpdate);
     }
 
@@ -44,4 +46,19 @@ export const calculateAttackPower = (attackPower: number, playerSkills: PlayerSk
 export const calculateAttackSpeed = (attackSpeed: number, playerSkills: PlayerSkillsProps): number => {
     const attackSpeedSkill = playerSkills["Attack Speed"] ?? 0;
     return attackSpeed - attackSpeedSkill * 0.2;
+};
+
+export const calculateDamageDone = (playerStats: PlayerStatsProps): number => {
+    const {critChance, critMulti, attackPower} = playerStats;
+
+    let damage = attackPower;
+    if (critChance) {
+        const critRoll = Math.floor(Math.random() * 100) + 1; // 1 - 100
+        // crit chance 2, 1 or 2 will pass
+        if (critChance >= critRoll) {
+            damage = Math.ceil(damage * critMulti);
+        }
+        console.log("Damage: ", damage, "Crit Chance: ", critChance, "crit roll:", critRoll);
+    }
+    return damage;
 };
