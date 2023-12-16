@@ -24,6 +24,41 @@ const ITEM_DATA: Record<number, ItemProps> = {
         url: "slimeResidue.png",
         value: 1,
     },
-};
+    1: {
+        id: 1,
+        tier: "Normal",
+        name: "Crab Meat",
+        url: "crabMeat.png",
+        value: 1,
+    },
+    2: {
+        id: 2,
+        tier: "Normal",
+        name: "Feather",
+        url: "feather.png",
+        value: 1,
+    },
+    3: {
+        id: 3,
+        tier: "Normal",
+        name: "Turtle Shell",
+        url: "turtleShell.png",
+        value: 1,
+    },
+    4: {
+        id: 4,
+        tier: "Normal",
+        name: "Slime Golden Crown",
+        url: "slimeGoldenCrown.png",
+        value: 150,
+    },
+    5: {
+        id: 5,
+        tier: "Normal",
+        name: "Knife",
+        url: "knife.png",
+        value: 150,
+    },
+} as const;
 
 export default ITEM_DATA;

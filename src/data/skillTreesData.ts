@@ -54,7 +54,7 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         row: 5,
         col: 1,
         maxLevel: 5,
-        url: "",
+        url: "./skills/attackSpeed.png",
         description: "Increases attack speed by 0.2.",
     },
     {
@@ -65,7 +65,7 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         row: 5,
         col: 2,
         maxLevel: 4,
-        url: "",
+        url: "./skills/overkill.png",
         description: "25% of overkill damage carries over to the next battle per point.",
     },
     {

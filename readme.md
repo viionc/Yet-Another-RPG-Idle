@@ -9,6 +9,7 @@ TODO:
 
 <br><br>
 
+-   some rare enemy that can spawn in every zone?
 -   animate enemies? canvas? gifs bad
 -   quests?
 -   equipment?

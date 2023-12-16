@@ -10,13 +10,13 @@ function InventorySlot({item}: {item: InventoryItem | null}) {
     const [show, setShow] = useState(false);
     return (
         <div
-            className="border h-[60px] flex justify-center items-center rounded-md border-zinc-600 bg-zinc-800 flex-col"
+            className="border h-[60px] flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
             ref={setReferenceElement}
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}>
             {item !== null ? (
                 <>
-                    <img src={`./items/${ITEM_DATA[item.id].url}`}></img>
+                    <img src={`./items/${ITEM_DATA[item.id].url}`} className="h-7"></img>
                     <span>{item.amount}</span>
                     {show ? (
                         <div

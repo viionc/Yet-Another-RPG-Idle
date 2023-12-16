@@ -1,4 +1,4 @@
-export type EnemyNames = "Green Slime" | "Red Slime" | "Blue Slime" | "King Slime";
+export type EnemyNames = "Green Slime" | "Red Slime" | "Blue Slime" | "King Slime" | "Crab" | "Seagull" | "Turtle" | "Gangster Crab";
 export type EnemyDrop = {
     id: number;
     minAmount: number;
@@ -44,8 +44,46 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "King Slime",
         id: 3,
         experience: 40,
-        drops: [{id: 0, minAmount: 2, maxAmount: 5, chance: 1}],
+        drops: [
+            {id: 4, minAmount: 1, maxAmount: 1, chance: 10},
+            {id: 0, minAmount: 1, maxAmount: 10, chance: 1},
+        ],
         url: "./enemies/kingSlime.png",
+    },
+    4: {
+        maxHp: 2,
+        name: "Crab",
+        id: 4,
+        experience: 5,
+        drops: [{id: 1, minAmount: 1, maxAmount: 1, chance: 2}],
+        url: "./enemies/crab.png",
+    },
+    5: {
+        maxHp: 3,
+        name: "Seagull",
+        id: 5,
+        experience: 8,
+        drops: [{id: 2, minAmount: 1, maxAmount: 2, chance: 2}],
+        url: "./enemies/seagull.png",
+    },
+    6: {
+        maxHp: 5,
+        name: "Turtle",
+        id: 6,
+        experience: 10,
+        drops: [{id: 3, minAmount: 1, maxAmount: 1, chance: 3}],
+        url: "./enemies/turtle.png",
+    },
+    7: {
+        maxHp: 50,
+        name: "Gangster Crab",
+        id: 7,
+        experience: 50,
+        drops: [
+            {id: 5, minAmount: 1, maxAmount: 1, chance: 10},
+            {id: 1, minAmount: 1, maxAmount: 3, chance: 1},
+        ],
+        url: "./enemies/gangsterCrab.png",
     },
 };
 

@@ -34,7 +34,7 @@ const initialState: BattleStateProps = {
     battleCurrentCooldown: 0,
     zoneId: 0,
     currentWave: 1,
-    zoneWaveProgression: {0: {0: 0}},
+    zoneWaveProgression: {0: {1: 0}}, // {zoneId: {wave: kill count}}
     requiredKillsToAdvance: 10,
     isBattleStarted: false,
     enemy: null,
@@ -65,19 +65,23 @@ const battleStateSlice = createSlice({
             if (action.payload.change) return;
             const currentKillCount = (state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0) + 1;
             state.zoneWaveProgression[state.zoneId][state.currentWave] = currentKillCount;
-            if (
-                state.autoWaveProgression &&
-                currentKillCount >= state.requiredKillsToAdvance &&
-                state.currentWave < ZONES_DATA[state.zoneId].maxWave
-            ) {
-                state.currentWave++;
-                state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
+            if (state.autoWaveProgression) {
+                const maxWave = ZONES_DATA[state.zoneId].maxWave;
+                if (currentKillCount >= state.requiredKillsToAdvance && state.currentWave < maxWave) {
+                    state.currentWave++;
+                    state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
+                } else if (state.currentWave === maxWave && currentKillCount >= 1 && ZONES_DATA[state.zoneId + 1]) {
+                    state.zoneId++;
+                    state.currentWave = 1;
+                    if (!state.zoneWaveProgression[state.zoneId]) state.zoneWaveProgression[state.zoneId] = {1: 0};
+                    state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
+                }
             }
         },
         changeZone: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
+            state.currentWave = action.payload < state.zoneId ? 10 : 1;
             state.zoneId = action.payload;
-            state.currentWave = 1;
         },
         changeWave: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
