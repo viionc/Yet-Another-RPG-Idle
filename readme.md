@@ -1,13 +1,15 @@
 TODO:
 
--   skills and skill icons
--   zone transitions
+-   fix overkill damage
 -   unlock requirements system
 -   more items to test inventory system
 -   rework enemy xp and hp system
--   magic system
+-   magic/spells system
 
 <br><br>
+
+-   more zones, more enemies
+-   more skills and skill icons <br><br>
 
 -   some rare enemy that can spawn in every zone?
 -   animate enemies? canvas? gifs bad
