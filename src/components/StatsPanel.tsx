@@ -25,7 +25,7 @@ function StatsPanel({callback}: {callback: () => void}) {
                 </li>
                 <li>Mana: {playerStats.mana}</li>
                 <li>Attack Power: {playerStats.attackPower}</li>
-                <li>Attack Speed: {playerStats.attackSpeed}</li>
+                <li>Attack Speed: {playerStats.attackSpeed.toFixed(1)}</li>
                 {playerStats.critChance > 0 ? (
                     <>
                         <li>Crit Chance: {playerStats.critChance}%</li>

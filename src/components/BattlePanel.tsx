@@ -1,13 +1,17 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../gameState/store";
 import Spinner from "./Spinner";
 import ZONES_DATA from "../data/zonesData";
 import ENEMIES_DATA from "../data/enemiesData";
 import WaveCounterComponent from "./WaveCounterComponent";
 import EnemyComponent from "./EnemyComponent";
+import {motion} from "framer-motion";
+import {useEffect} from "react";
+import {updateDamageHitSplat} from "../gameState/storeSlices/battleState";
 
 function BattlePanel() {
-    const {zoneWaveProgression, currentWave, zoneId, enemy} = useSelector((state: RootState) => state.battleState);
+    const {zoneWaveProgression, currentWave, zoneId, enemy, damageForHitSplat} = useSelector((state: RootState) => state.battleState);
+    const dispatch = useDispatch();
 
     const currentZoneData = ZONES_DATA[zoneId];
     const currentKillCount = zoneWaveProgression[zoneId][currentWave] ?? 0;
@@ -17,6 +21,13 @@ function BattlePanel() {
     const getEnemyName = () => {
         return enemy ? " - " + ENEMIES_DATA[enemy.id].name : "";
     };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            dispatch(updateDamageHitSplat(""));
+        }, 1000);
+        return () => clearTimeout(timeout);
+    }, [damageForHitSplat]);
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">
@@ -36,6 +47,17 @@ function BattlePanel() {
                         <Spinner variant="xl" />
                     </div>
                 )}
+                {damageForHitSplat ? (
+                    <motion.span
+                        initial={{top: "50%", right: "30%"}}
+                        animate={{top: "30%", right: "33%"}}
+                        transition={{duration: 2, type: "spring"}}
+                        className={`absolute text-4xl z-30 flex justify-center items-center ${
+                            damageForHitSplat.includes("!") ? "text-yellow-500" : "text-white"
+                        }`}>
+                        {damageForHitSplat}
+                    </motion.span>
+                ) : null}
             </div>
         </section>
     );

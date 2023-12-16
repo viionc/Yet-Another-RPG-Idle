@@ -13,8 +13,9 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const itemsToUpdate: InventoryItem[] = [];
 
     if (!battleState.isBattleStarted || !battleState.enemy) return;
-    const hpAfterDamage = battleState.enemy.currentHp - calculateDamageDone(playerStats);
-    dispatch(updateEnemyHp(hpAfterDamage));
+    const damageDone = calculateDamageDone(playerStats);
+    const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
+    dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${damageDone.damage}${damageDone.wasCrit ? "!" : ""}`}));
     if (hpAfterDamage <= 0) {
         // fix overkill damage
         //const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
@@ -48,17 +49,18 @@ export const calculateAttackSpeed = (attackSpeed: number, playerSkills: PlayerSk
     return attackSpeed - attackSpeedSkill * 0.2;
 };
 
-export const calculateDamageDone = (playerStats: PlayerStatsProps): number => {
+export const calculateDamageDone = (playerStats: PlayerStatsProps): {damage: number; wasCrit: boolean} => {
     const {critChance, critMulti, attackPower} = playerStats;
 
     let damage = attackPower;
+    let wasCrit = false;
     if (critChance) {
         const critRoll = Math.floor(Math.random() * 100) + 1; // 1 - 100
         // crit chance 2, 1 or 2 will pass
         if (critChance >= critRoll) {
             damage = Math.ceil(damage * critMulti);
+            wasCrit = true;
         }
-        console.log("Damage: ", damage, "Crit Chance: ", critChance, "crit roll:", critRoll);
     }
-    return damage;
+    return {damage, wasCrit};
 };

@@ -14,6 +14,7 @@ export type BattleStateProps = {
     enemy: BattleStateEnemyProps | null;
     autoWaveProgression: boolean;
     overkillDamage: number;
+    damageForHitSplat: string;
 };
 
 export interface BattleStateEnemyProps {
@@ -42,6 +43,16 @@ const initialState: BattleStateProps = {
     enemy: null,
     autoWaveProgression: false,
     overkillDamage: 0,
+    damageForHitSplat: "",
+};
+
+export type UpdateEnemyHpProps = {
+    hpAfterDamage: number;
+    damageForHitSplat: string;
+};
+export type UpdateEnemyHpAction = {
+    payload: UpdateEnemyHpProps;
+    type: string;
 };
 
 const battleStateSlice = createSlice({
@@ -58,9 +69,10 @@ const battleStateSlice = createSlice({
         reduceCooldown: (state) => {
             state.battleCurrentCooldown -= 1;
         },
-        updateEnemyHp: (state, action: SimpleActionProps) => {
+        updateEnemyHp: (state, action: UpdateEnemyHpAction) => {
             if (!state.enemy) return;
-            state.enemy.currentHp = action.payload;
+            state.enemy.currentHp = action.payload.hpAfterDamage;
+            state.damageForHitSplat = action.payload.damageForHitSplat;
         },
         endBattle: (state, action: EndBattleActionProps) => {
             state.enemy = null;
@@ -85,6 +97,9 @@ const battleStateSlice = createSlice({
                 }
             }
         },
+        updateDamageHitSplat: (state, action) => {
+            state.damageForHitSplat = action.payload;
+        },
         changeZone: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
             state.currentWave = action.payload < state.zoneId ? 10 : 1;
@@ -104,5 +119,6 @@ const battleStateSlice = createSlice({
     },
 });
 
-export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone, handleAutoProgression} = battleStateSlice.actions;
+export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone, handleAutoProgression, updateDamageHitSplat} =
+    battleStateSlice.actions;
 export default battleStateSlice.reducer;
