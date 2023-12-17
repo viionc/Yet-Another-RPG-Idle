@@ -4,6 +4,7 @@ import SPELLS_DATA, {SpellNames} from "../data/spellsData";
 import {useState} from "react";
 import {usePopper} from "react-popper";
 import {castSpell} from "../gameState/storeSlices/battleState";
+import {QuickBarSpell} from "../gameState/storeSlices/playerSpells";
 
 function SpellsPanel() {
     const playerSpells = useSelector((state: RootState) => state.playerSpells);
@@ -14,9 +15,10 @@ function SpellsPanel() {
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
 
-    const handleClick = (spellName: SpellNames) => {
+    const handleClick = (spellName: SpellNames, quickBarIndex: number) => {
         const spell = SPELLS_DATA[spellName];
-        if (spell.manaCost >= playerStats.mana) return;
+        const quickBarSpell = playerSpells.spellsQuickBar[quickBarIndex] as QuickBarSpell;
+        if (spell.manaCost >= playerStats.mana || quickBarSpell.currentCooldown > 0) return;
         dispatch(castSpell(spellName));
     };
     return (
@@ -26,16 +28,22 @@ function SpellsPanel() {
                     return (
                         <div key={index} className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>
                     );
-                const {name, url, description, manaCost} = SPELLS_DATA[spell];
+                const {name, url, description, manaCost} = SPELLS_DATA[spell.name];
                 return (
                     <div
                         key={index}
                         ref={setReferenceElement}
                         onMouseEnter={() => setShow(true)}
                         onMouseLeave={() => setShow(false)}
-                        onClick={() => handleClick(spell)}
+                        onClick={() => handleClick(spell.name, index)}
                         className="border flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer">
-                        <img src={url}></img>
+                        <div className="relative">
+                            {spell.currentCooldown > 0 ? (
+                                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">{spell.currentCooldown}</span>
+                            ) : null}
+                            <img src={url}></img>
+                        </div>
+
                         {show ? (
                             <div
                                 ref={setPopperElement}

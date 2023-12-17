@@ -1,6 +1,6 @@
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import {gameState} from "../gameState/store";
-import {reduceCooldown, startBattle} from "../gameState/storeSlices/battleState";
+import {reduceCooldowns, startBattle} from "../gameState/storeSlices/battleState";
 import ZONES_DATA from "../data/zonesData";
 import {isMaxWave} from "../utils/wavesUtils";
 import {increaseStats} from "../gameState/storeSlices/playerStats";
@@ -19,11 +19,11 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
             dispatch(startBattle(currentZone.enemies[randomEnemyId]));
         }
     } else {
-        dispatch(reduceCooldown());
+        dispatch(reduceCooldowns());
     }
     manaRegenCooldownTimer--;
     if (manaRegenCooldownTimer === 0) {
         if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
-        manaRegenCooldownTimer = 10;
+        manaRegenCooldownTimer = 30;
     }
 };

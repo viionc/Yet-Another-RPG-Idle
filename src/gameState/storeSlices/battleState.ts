@@ -67,7 +67,7 @@ const battleStateSlice = createSlice({
             state.enemy = {id: enemy.id, maxHp: hpBasedOnWave, currentHp: hpBasedOnWave - state.overkillDamage};
             state.overkillDamage = 0;
         },
-        reduceCooldown: (state) => {
+        reduceCooldowns: (state) => {
             state.battleCurrentCooldown -= 1;
         },
         updateEnemyHp: (state, action: UpdateEnemyHpAction) => {
@@ -123,6 +123,15 @@ const battleStateSlice = createSlice({
     },
 });
 
-export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone, handleAutoProgression, updateDamageHitSplat, castSpell} =
-    battleStateSlice.actions;
+export const {
+    startBattle,
+    reduceCooldowns,
+    updateEnemyHp,
+    endBattle,
+    changeWave,
+    changeZone,
+    handleAutoProgression,
+    updateDamageHitSplat,
+    castSpell,
+} = battleStateSlice.actions;
 export default battleStateSlice.reducer;
