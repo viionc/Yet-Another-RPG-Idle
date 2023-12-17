@@ -42,7 +42,7 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         unlockRequirements: null,
         row: 6,
         col: 2,
-        maxLevel: 5,
+        maxLevel: 10,
         url: "./skills/attackPower.png",
         description: "Increases attack power by 1.",
     },

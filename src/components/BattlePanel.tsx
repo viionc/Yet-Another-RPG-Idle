@@ -31,7 +31,7 @@ function BattlePanel() {
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">
-            <h1 className="h-[2rem]">
+            <h1 className="mb-2">
                 {currentZoneData.name} {getEnemyName()}
             </h1>
             <div className="w-full h-[16.9rem] relative">

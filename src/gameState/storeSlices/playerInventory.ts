@@ -1,5 +1,6 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import ITEM_DATA, {ITEM_TIER_VALUE} from "../../data/itemsData";
+import {equipItem} from "./playerEquipment";
 
 export type InventoryItem = {
     id: number;
@@ -36,9 +37,25 @@ const playerInventorySlice = createSlice({
                 }
             });
         },
+        removeItemsFromInventory: (state, action: InventoryAddItemsAction) => {
+            const {payload} = action;
+            payload.forEach((item) => {
+                const inventoryItemIndex = state.findIndex((_item) => (_item ? _item.id === item.id : null));
+                if (!state[inventoryItemIndex] || inventoryItemIndex === -1) return;
+                (state[inventoryItemIndex] as InventoryItem).amount -= item.amount;
+                if ((state[inventoryItemIndex] as InventoryItem).amount === 0) state[inventoryItemIndex] = null;
+            });
+        },
     },
     extraReducers: (builder) => {
-        builder.addCase(resetAction, () => initialState);
+        builder
+            .addCase(resetAction, () => initialState)
+            .addCase(equipItem, (state, action) => {
+                playerInventorySlice.caseReducers.removeItemsFromInventory(state, {
+                    payload: [{amount: 1, id: action.payload}],
+                    type: "playerInventory/removeItemsFromInventory",
+                });
+            });
     },
 });
 

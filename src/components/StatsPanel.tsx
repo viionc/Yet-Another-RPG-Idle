@@ -6,6 +6,7 @@ function StatsPanel({callback}: {callback: () => void}) {
     const playerStats = useSelector((state: RootState) => state.playerStats);
     return (
         <section className="grid-span-1 border rounded-md p-2 border-slate-800 bg-neutral-800 h-[20rem]">
+            <h1 className="mb-2">Stats:</h1>
             <ul>
                 <li className="flex gap-2 items-center">
                     Level: {playerStats.level}{" "}

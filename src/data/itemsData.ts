@@ -5,6 +5,13 @@ export type ItemProps = {
     value: number;
     name: string;
     url: string;
+    equipment?: EquipmentProps;
+};
+
+export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring1" | "ring2";
+export type EquipmentProps = {
+    stats: string;
+    type: EquipmentTypes;
 };
 
 export const colorsByItemTier: Record<Tiers, string> = {
@@ -60,6 +67,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Slime Golden Crown",
         url: "slimeGoldenCrown.png",
         value: 150,
+        equipment: {stats: "+2 coins from enemies", type: "helmet"},
     },
     5: {
         id: 5,
@@ -67,6 +75,15 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Knife",
         url: "knife.png",
         value: 150,
+        equipment: {stats: "+2 attack power", type: "weapon"},
+    },
+    6: {
+        id: 6,
+        tier: "Uncommon",
+        name: "Turtle Shell Helmet",
+        url: "turtleShell.png",
+        value: 150,
+        equipment: {stats: "+1 attack power", type: "helmet"},
     },
 } as const;
 

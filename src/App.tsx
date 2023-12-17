@@ -9,6 +9,7 @@ import {RootState} from "./gameState/store";
 import {clearInterval, setInterval} from "worker-timers";
 import InventoryPanel from "./components/InventoryPanel";
 import SkillTreePanel from "./components/SkillTreePanel";
+import PlayerEquipmentPanel from "./components/PlayerEquipmentPanel";
 
 export type Tabs = "Main" | "Skill Tree";
 
@@ -35,6 +36,7 @@ function App() {
                     <>
                         <BattlePanel></BattlePanel>
                         <InventoryPanel></InventoryPanel>
+                        <PlayerEquipmentPanel></PlayerEquipmentPanel>
                     </>
                 ) : null}
                 {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}
