@@ -1,6 +1,7 @@
 import {useSelector} from "react-redux";
 import {RootState} from "../gameState/store";
 import {calculateXp} from "../utils/levelUtils";
+import {short} from "../utils/misc";
 
 function StatsPanel() {
     const playerStats = useSelector((state: RootState) => state.playerStats);
@@ -19,8 +20,10 @@ function StatsPanel() {
                 <li>
                     Xp: {playerStats.experience.toLocaleString("en-US")}/{calculateXp(playerStats.level + 1).toLocaleString("en-US")}
                 </li>
-                <li className="text-yellow-500">Gold: {playerStats.goldCoins}</li>
-                <li>Mana: {playerStats.mana}</li>
+                <li className="text-yellow-500">Gold: {short(playerStats.goldCoins)}</li>
+                <li>
+                    Mana: {playerStats.mana} <span className="text-blue-500">1/30s</span>
+                </li>
                 <li>Attack Power: {playerStats.attackPower}</li>
                 <li>Attack Speed: {playerStats.attackSpeed.toFixed(1)}</li>
                 {playerStats.critChance > 0 ? (

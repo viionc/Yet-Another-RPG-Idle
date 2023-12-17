@@ -3,9 +3,13 @@ import {gameState} from "../gameState/store";
 import {reduceCooldown, startBattle} from "../gameState/storeSlices/battleState";
 import ZONES_DATA from "../data/zonesData";
 import {isMaxWave} from "../utils/wavesUtils";
+import {increaseStats} from "../gameState/storeSlices/playerStats";
+
+// regene mana every 30 seconds, change it later maybe if i add some mana regen boosts
+export let manaRegenCooldownTimer = 30;
 
 export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
-    const {battleState} = gameState.getState();
+    const {battleState, playerStats} = gameState.getState();
     if (battleState.battleCurrentCooldown <= 0 && !battleState.isBattleStarted) {
         const currentZone = ZONES_DATA[battleState.zoneId];
         if (isMaxWave(battleState.currentWave, currentZone.maxWave)) {
@@ -16,5 +20,10 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
         }
     } else {
         dispatch(reduceCooldown());
+    }
+    manaRegenCooldownTimer--;
+    if (manaRegenCooldownTimer === 0) {
+        if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
+        manaRegenCooldownTimer = 10;
     }
 };

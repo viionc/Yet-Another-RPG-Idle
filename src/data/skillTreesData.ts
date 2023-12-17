@@ -1,9 +1,20 @@
+import {SpellNames} from "./spellsData";
+
 export type SkillTreeNames = "Damage" | "Exploration" | "Magic";
-export type SkillNames = "Attack Power" | "Attack Speed" | "Overkill" | "Auto Wave Progress" | "Crit Chance" | "Crit Multi" | `temp${number}`;
+export type SkillNames =
+    | "Attack Power"
+    | "Attack Speed"
+    | "Overkill"
+    | "Auto Wave Progress"
+    | "Crit Chance"
+    | "Crit Multi"
+    | SpellNames
+    | `temp${number}`;
 
 export type SkillProps = {
     id: number;
     name: SkillNames;
+    spellName?: SpellNames;
     skillPointCost: number;
     unlockRequirements: null;
     row: number;
@@ -114,15 +125,16 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
     },
     {
         id: 7,
-        name: "temp7",
-        skillPointCost: 1,
+        name: "Double Attack",
+        spellName: "Double Attack",
+        skillPointCost: 2,
         unlockRequirements: null,
         row: 3,
         col: 2,
         maxLevel: 1,
         special: true,
-        url: "",
-        description: "Increases attack power by 1.",
+        url: "./skills/doubleAttack.png",
+        description: "Unlocks Double Attack Spell.",
     },
 ];
 

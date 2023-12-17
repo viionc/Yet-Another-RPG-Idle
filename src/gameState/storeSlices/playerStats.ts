@@ -3,9 +3,12 @@ import {calculateXp} from "../../utils/levelUtils";
 import {addSkillPoint} from "./playerSkills";
 import {equipItem, unequipItem} from "./playerEquipment";
 import ITEM_DATA from "../../data/itemsData";
+import {castSpell} from "./battleState";
+import SPELLS_DATA from "../../data/spellsData";
 
 export type PlayerStatsProps = {
     mana: number;
+    maxMana: number;
     attackPower: number;
     attackSpeed: number;
     critChance: number;
@@ -27,7 +30,8 @@ export type IncreaseStatsPayload = {
 };
 const resetAction = createAction("RESET_STATES");
 const initialState: PlayerStatsProps = {
-    mana: 0,
+    mana: 5,
+    maxMana: 5,
     attackPower: 1,
     attackSpeed: 3,
     critChance: 0,
@@ -136,6 +140,10 @@ const playerStatsSlice = createSlice({
                             break;
                     }
                 });
+            })
+            .addCase(castSpell, (state, action) => {
+                const spell = SPELLS_DATA[action.payload];
+                state.mana -= spell.manaCost;
             });
     },
 });

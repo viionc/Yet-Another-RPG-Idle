@@ -21,7 +21,7 @@ function Skill({skill}: {skill: SkillProps}) {
     const useSkillPoint = () => {
         if (isMaxLevel || !playerStats.unspentSkillPoints) return;
         dispatch(addSkillPoint(skill.name));
-        dispatch(decreaseStats([{id: "unspentSkillPoints", amount: 1}]));
+        dispatch(decreaseStats([{id: "unspentSkillPoints", amount: skill.skillPointCost}]));
     };
 
     return (
@@ -35,7 +35,7 @@ function Skill({skill}: {skill: SkillProps}) {
                 onMouseLeave={() => setShow(false)}
                 onClick={useSkillPoint}
                 style={{gridRowStart: skill.row, gridColumnStart: skill.col, backgroundImage: `url('${skill.url}')`}}>
-                <div className="bg-black bg-opacity-[60%] p-1 rounded-md flex flex-col items-center">
+                <div className="bg-black bg-opacity-[60%] p-1 rounded-md flex flex-col items-center select-none">
                     <div className={`${isMaxLevel ? "text-green-500" : "text-white"}`}>
                         {currentSkillPointLevel} / {skill.maxLevel}
                     </div>

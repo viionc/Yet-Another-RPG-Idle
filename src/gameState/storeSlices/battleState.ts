@@ -2,6 +2,7 @@ import {SimpleActionProps} from "../store";
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import ENEMIES_DATA from "../../data/enemiesData";
 import ZONES_DATA from "../../data/zonesData";
+import {SpellAction} from "./playerSpells";
 
 export type BattleStateProps = {
     battleGlobalCooldown: number;
@@ -100,6 +101,9 @@ const battleStateSlice = createSlice({
         updateDamageHitSplat: (state, action) => {
             state.damageForHitSplat = action.payload;
         },
+        castSpell: (state, action: SpellAction) => {
+            console.log(state, action.payload);
+        },
         changeZone: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
             state.currentWave = action.payload < state.zoneId ? 10 : 1;
@@ -119,6 +123,6 @@ const battleStateSlice = createSlice({
     },
 });
 
-export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone, handleAutoProgression, updateDamageHitSplat} =
+export const {startBattle, reduceCooldown, updateEnemyHp, endBattle, changeWave, changeZone, handleAutoProgression, updateDamageHitSplat, castSpell} =
     battleStateSlice.actions;
 export default battleStateSlice.reducer;

@@ -53,7 +53,7 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
                     ref={setPopperElement}
                     style={styles.popper}
                     {...attributes.popper}
-                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default">
+                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default select-none">
                     <span>{name}</span>
                     <span className="text-xs" style={{color: colorsByItemTier[tier]}}>
                         {tier} {equipment ? equipment.type : null}
