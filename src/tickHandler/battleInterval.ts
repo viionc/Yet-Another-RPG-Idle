@@ -72,6 +72,6 @@ export const calculateDamageDone = (playerStats: PlayerStatsProps): {damage: num
 
 export const calculateGoldGain = (baseGoldEarned: number, playerStats: PlayerStatsProps) => {
     let goldMulti = 0;
-    goldMulti += playerStats.goldCoinsMultiplier ?? 0;
+    goldMulti += playerStats.goldCoinsMultiplier;
     return baseGoldEarned * goldMulti;
 };

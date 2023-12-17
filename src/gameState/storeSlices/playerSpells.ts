@@ -16,6 +16,8 @@ export type QuickBarSpell = {
     name: SpellNames;
     cooldown: number;
     currentCooldown: number;
+    duration?: number;
+    currentDuration?: number;
 };
 
 const resetAction = createAction("RESET_STATES");
@@ -35,7 +37,10 @@ const playerSpellsSlice = createSlice({
             const freeSlotIndex = state.spellsQuickBar.findIndex((slot) => slot === null);
             const spell = SPELLS_DATA[action.payload];
             state.spellsQuickBar[freeSlotIndex] = {name: action.payload, cooldown: spell.cooldown, currentCooldown: 0};
-            console.log(state.spellsQuickBar[freeSlotIndex]);
+            if (spell.effect.duration) {
+                (state.spellsQuickBar[freeSlotIndex] as QuickBarSpell).duration = spell.effect.duration;
+                (state.spellsQuickBar[freeSlotIndex] as QuickBarSpell).currentDuration = 0;
+            }
         },
     },
     extraReducers: (builder) => {
@@ -55,12 +60,17 @@ const playerSpellsSlice = createSlice({
                 state.spellsQuickBar.forEach((spell) => {
                     if (!spell) return;
                     spell.currentCooldown = Math.max(0, (spell.currentCooldown -= 1));
+                    if (spell.currentDuration) spell.currentDuration--;
                 });
             })
             .addCase(castSpell, (state, action) => {
                 const index = state.spellsQuickBar.findIndex((spell) => spell?.name == action.payload);
                 if (index === -1 || !state.spellsQuickBar[index]) return;
-                (state.spellsQuickBar[index] as QuickBarSpell).currentCooldown = (state.spellsQuickBar[index] as QuickBarSpell).cooldown;
+                const spell = state.spellsQuickBar[index] as QuickBarSpell;
+                spell.currentCooldown = spell.cooldown;
+                if (spell.duration) {
+                    spell.currentDuration = spell.duration;
+                }
             });
     },
 });

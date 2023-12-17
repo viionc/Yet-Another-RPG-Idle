@@ -114,39 +114,39 @@ const playerStatsSlice = createSlice({
                 const equipment = ITEM_DATA[action.payload].equipment;
                 if (!equipment) return;
                 equipment.stats.forEach((stat) => {
-                    switch (stat.type) {
-                        case "attackPower":
-                            state.attackPower += stat.value;
-                            break;
-                        case "attackSpeed":
-                            state.attackSpeed -= stat.value;
-                            break;
-                        case "goldCoinsMultiplier":
-                            state.goldCoinsMultiplier += stat.value;
-                            break;
-                    }
+                    updateStats(state, stat.type, stat.value);
                 });
             })
             .addCase(unequipItem, (state, action) => {
                 const equipment = ITEM_DATA[action.payload].equipment;
                 if (!equipment) return;
                 equipment.stats.forEach((stat) => {
-                    switch (stat.type) {
-                        case "attackPower":
-                            state.attackPower -= stat.value;
-                            break;
-                        case "attackSpeed":
-                            state.attackSpeed += stat.value;
-                            break;
-                    }
+                    updateStats(state, stat.type, stat.value);
                 });
             })
             .addCase(castSpell, (state, action) => {
                 const spell = SPELLS_DATA[action.payload];
                 state.mana -= spell.manaCost;
+                if (spell.effect.playerStat && spell.effect.value) {
+                    updateStats(state, spell.effect.playerStat, spell.effect.value);
+                }
             });
     },
 });
+
+const updateStats = (state: PlayerStatsProps, stat: keyof PlayerStatsProps, value: number) => {
+    switch (stat) {
+        case "attackPower":
+            state.attackPower += value;
+            break;
+        case "attackSpeed":
+            state.attackSpeed -= value;
+            break;
+        case "goldCoinsMultiplier":
+            state.goldCoinsMultiplier += value;
+            break;
+    }
+};
 
 export const {increaseStats, decreaseStats} = playerStatsSlice.actions;
 export default playerStatsSlice.reducer;

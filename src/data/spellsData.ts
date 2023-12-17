@@ -1,3 +1,5 @@
+import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
+
 export type SpellNames = "Fire Strike" | "Haste" | "Double Attack";
 export type SpellProps = {
     id: number;
@@ -14,6 +16,8 @@ export type SpellEffectProps = {
     damageType?: "Magic" | "Melee";
     damage?: number;
     duration?: number;
+    playerStat?: keyof PlayerStatsProps;
+    value?: number;
 };
 
 const SPELLS_DATA: Record<SpellNames, SpellProps> = {
@@ -33,13 +37,15 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
     "Haste": {
         id: 0,
         name: "Haste",
-        manaCost: 10,
+        manaCost: 1,
         cooldown: 300,
         description: "Increases attack speed by 0.3 for 1 minute.",
-        url: "",
+        url: "./skills/haste.png",
         effect: {
             spellType: "Support",
             duration: 60,
+            playerStat: "attackSpeed",
+            value: 0.3,
         },
     },
     "Double Attack": {

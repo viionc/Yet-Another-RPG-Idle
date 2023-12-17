@@ -8,9 +8,11 @@ import EnemyComponent from "./EnemyComponent";
 import {motion} from "framer-motion";
 import {useEffect} from "react";
 import {updateDamageHitSplat} from "../gameState/storeSlices/battleState";
+import SPELLS_DATA from "../data/spellsData";
 
 function BattlePanel() {
     const {zoneWaveProgression, currentWave, zoneId, enemy, damageForHitSplat} = useSelector((state: RootState) => state.battleState);
+    const playerSpells = useSelector((state: RootState) => state.playerSpells);
     const dispatch = useDispatch();
 
     const currentZoneData = ZONES_DATA[zoneId];
@@ -47,6 +49,19 @@ function BattlePanel() {
                         <Spinner variant="xl" />
                     </div>
                 )}
+                <ul className="absolute bottom-1 left-1 flex gap-2">
+                    {playerSpells.spellsQuickBar.map((spell) => {
+                        if (!spell || !spell.currentDuration) return;
+                        const spellData = SPELLS_DATA[spell.name];
+                        if (spellData.effect.spellType !== "Support") return;
+                        return (
+                            <li className="w-12 h-12 relative">
+                                <img src={spellData.url}></img>
+                                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl">{spell.currentDuration}</span>
+                            </li>
+                        );
+                    })}
+                </ul>
                 {damageForHitSplat ? (
                     <motion.span
                         initial={{top: "50%", right: "30%"}}

@@ -43,6 +43,19 @@ const EXPLORATION_SKILLS_DATA: SkillProps[] = [
         url: "./skills/autoWaveProgression.png",
         description: "Automatically progresses to next wave.",
     },
+    {
+        id: 1,
+        name: "Haste",
+        spellName: "Haste",
+        skillPointCost: 2,
+        special: true,
+        unlockRequirements: null,
+        row: 5,
+        col: 1,
+        maxLevel: 1,
+        url: "./skills/haste.png",
+        description: "Unlocks Haste spell.",
+    },
 ];
 
 const DAMAGE_SKILLS_DATA: SkillProps[] = [

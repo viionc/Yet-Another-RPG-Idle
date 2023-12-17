@@ -3,13 +3,14 @@ import {gameState} from "../gameState/store";
 import {reduceCooldowns, startBattle} from "../gameState/storeSlices/battleState";
 import ZONES_DATA from "../data/zonesData";
 import {isMaxWave} from "../utils/wavesUtils";
-import {increaseStats} from "../gameState/storeSlices/playerStats";
+import {decreaseStats, increaseStats} from "../gameState/storeSlices/playerStats";
+import SPELLS_DATA from "../data/spellsData";
 
 // regene mana every 30 seconds, change it later maybe if i add some mana regen boosts
 export let manaRegenCooldownTimer = 30;
 
 export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
-    const {battleState, playerStats} = gameState.getState();
+    const {battleState, playerStats, playerSpells} = gameState.getState();
     if (battleState.battleCurrentCooldown <= 0 && !battleState.isBattleStarted) {
         const currentZone = ZONES_DATA[battleState.zoneId];
         if (isMaxWave(battleState.currentWave, currentZone.maxWave)) {
@@ -21,6 +22,18 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     } else {
         dispatch(reduceCooldowns());
     }
+
+    playerSpells.spellsQuickBar.forEach((spell) => {
+        if (!spell) return;
+        if (spell.currentDuration === 1) {
+            const effect = SPELLS_DATA[spell.name].effect;
+            if (effect.playerStat) {
+                const value = effect.playerStat === "attackSpeed" ? (effect.value as number) * -1 : (effect.value as number);
+                dispatch(decreaseStats([{id: effect.playerStat, amount: value}]));
+            }
+        }
+    });
+
     manaRegenCooldownTimer--;
     if (manaRegenCooldownTimer === 0) {
         if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
