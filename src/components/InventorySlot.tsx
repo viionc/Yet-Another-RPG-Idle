@@ -34,7 +34,7 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
 
     return (
         <div
-            className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50"
+            className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
             ref={setReferenceElement}
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}
@@ -53,12 +53,18 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
                     ref={setPopperElement}
                     style={styles.popper}
                     {...attributes.popper}
-                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col">
+                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default">
                     <span>{name}</span>
                     <span className="text-xs" style={{color: colorsByItemTier[tier]}}>
-                        {tier}
+                        {tier} {equipment ? equipment.type : null}
                     </span>
-                    {equipment ? <ul className="flex flex-col text-sm">{equipment.stats}</ul> : null}
+                    {equipment ? (
+                        <ul className="flex flex-col text-sm">
+                            {equipment.stats.map((stat) => (
+                                <li>{stat.description}</li>
+                            ))}
+                        </ul>
+                    ) : null}
                 </div>
             ) : null}
         </div>

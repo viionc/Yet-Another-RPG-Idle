@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {Tabs} from "../App";
 import {resetAction} from "../gameState/store";
+import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 
 function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>}) {
     const dispatch = useDispatch();
@@ -8,6 +9,9 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
         <header className="container h-8 py-8 text-white flex gap-2 text-xl">
             <button className="text-red-500" onClick={() => dispatch(resetAction())}>
                 Reset All
+            </button>
+            <button className="text-red-500" onClick={() => dispatch(addItemsToInventory([{id: 5, amount: 1}]))}>
+                add knife
             </button>
             <span>-----</span>
             <nav>

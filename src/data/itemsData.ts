@@ -1,3 +1,5 @@
+import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
+
 export type Tiers = "Trash" | "Normal" | "Uncommon" | "Rare" | "Epic" | "Legendary";
 export type ItemProps = {
     id: number;
@@ -8,9 +10,14 @@ export type ItemProps = {
     equipment?: EquipmentProps;
 };
 
+export type EquipmentStat = {
+    type: keyof PlayerStatsProps;
+    value: number;
+    description: string;
+};
 export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring1" | "ring2";
 export type EquipmentProps = {
-    stats: string;
+    stats: EquipmentStat[];
     type: EquipmentTypes;
 };
 
@@ -67,7 +74,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Slime Golden Crown",
         url: "slimeGoldenCrown.png",
         value: 150,
-        equipment: {stats: "+2 coins from enemies", type: "helmet"},
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "helmet"},
     },
     5: {
         id: 5,
@@ -75,15 +82,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Knife",
         url: "knife.png",
         value: 150,
-        equipment: {stats: "+2 attack power", type: "weapon"},
-    },
-    6: {
-        id: 6,
-        tier: "Uncommon",
-        name: "Turtle Shell Helmet",
-        url: "turtleShell.png",
-        value: 150,
-        equipment: {stats: "+1 attack power", type: "helmet"},
+        equipment: {stats: [{type: "attackPower", value: 3, description: "+3 attack power"}], type: "weapon"},
     },
 } as const;
 

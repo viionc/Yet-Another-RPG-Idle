@@ -1,6 +1,8 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {calculateXp} from "../../utils/levelUtils";
 import {addSkillPoint} from "./playerSkills";
+import {equipItem, unequipItem} from "./playerEquipment";
+import ITEM_DATA from "../../data/itemsData";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -42,8 +44,26 @@ const checkIfLeveledUp = (state: PlayerStatsProps) => {
         state.unspentSkillPoints++;
         const leftoverXp = state.experience - xpForNextLevel;
         state.experience = leftoverXp > 0 ? leftoverXp : 0;
+        checkIfLeveledUp(state);
     }
 };
+
+// const updateStats = (state, stat: keyof PlayerStatsProps)=> {
+//     switch (stat) {
+//         case "Attack Power":
+//             state.attackPower++;
+//             break;
+//         case "Attack Speed":
+//             state.attackSpeed -= 0.2;
+//             break;
+//         case "Crit Chance":
+//             state.critChance += 2;
+//             break;
+//         case "Crit Multi":
+//             state.critMulti += 0.1;
+//             break;
+//     }
+// }
 
 const playerStatsSlice = createSlice({
     initialState,
@@ -83,6 +103,34 @@ const playerStatsSlice = createSlice({
                         state.critMulti += 0.1;
                         break;
                 }
+            })
+            .addCase(equipItem, (state, action) => {
+                const equipment = ITEM_DATA[action.payload].equipment;
+                if (!equipment) return;
+                equipment.stats.forEach((stat) => {
+                    switch (stat.type) {
+                        case "attackPower":
+                            state.attackPower += stat.value;
+                            break;
+                        case "attackSpeed":
+                            state.attackSpeed -= stat.value;
+                            break;
+                    }
+                });
+            })
+            .addCase(unequipItem, (state, action) => {
+                const equipment = ITEM_DATA[action.payload].equipment;
+                if (!equipment) return;
+                equipment.stats.forEach((stat) => {
+                    switch (stat.type) {
+                        case "attackPower":
+                            state.attackPower -= stat.value;
+                            break;
+                        case "attackSpeed":
+                            state.attackSpeed += stat.value;
+                            break;
+                    }
+                });
             });
     },
 });

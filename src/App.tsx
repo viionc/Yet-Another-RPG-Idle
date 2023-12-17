@@ -10,6 +10,7 @@ import {clearInterval, setInterval} from "worker-timers";
 import InventoryPanel from "./components/InventoryPanel";
 import SkillTreePanel from "./components/SkillTreePanel";
 import PlayerEquipmentPanel from "./components/PlayerEquipmentPanel";
+import SpellsPanel from "./components/SpellsPanel";
 
 export type Tabs = "Main" | "Skill Tree";
 
@@ -30,11 +31,12 @@ function App() {
     return (
         <>
             <Header setTabOpen={setTabOpen}></Header>
-            <main className="container grid grid-cols-4 grid-rows-2 gap-2 text-white">
+            <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
                 <StatsPanel callback={() => setTabOpen("Skill Tree")}></StatsPanel>
                 {tabOpen === "Main" ? (
                     <>
                         <BattlePanel></BattlePanel>
+                        <SpellsPanel></SpellsPanel>
                         <InventoryPanel></InventoryPanel>
                         <PlayerEquipmentPanel></PlayerEquipmentPanel>
                     </>

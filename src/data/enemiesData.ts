@@ -71,10 +71,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Turtle",
         id: 6,
         experience: 10,
-        drops: [
-            {id: 3, minAmount: 1, maxAmount: 1, chance: 3},
-            {id: 6, minAmount: 1, maxAmount: 1, chance: 1},
-        ],
+        drops: [{id: 3, minAmount: 1, maxAmount: 1, chance: 3}],
         url: "./enemies/turtle.png",
     },
     7: {
