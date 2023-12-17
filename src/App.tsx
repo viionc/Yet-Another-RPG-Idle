@@ -12,7 +12,7 @@ import SkillTreePanel from "./components/SkillTreePanel";
 import PlayerEquipmentPanel from "./components/PlayerEquipmentPanel";
 import SpellsPanel from "./components/SpellsPanel";
 
-export type Tabs = "Main" | "Skill Tree";
+export type Tabs = "Main" | "Skill Tree" | "Crafting";
 
 function App() {
     const dispatch = useDispatch();
@@ -30,9 +30,9 @@ function App() {
     }, [playerSkills]); //eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
-            <Header setTabOpen={setTabOpen}></Header>
+            <Header setTabOpen={setTabOpen} skillPoints={playerStats.unspentSkillPoints}></Header>
             <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
-                <StatsPanel callback={() => setTabOpen("Skill Tree")}></StatsPanel>
+                <StatsPanel></StatsPanel>
                 {tabOpen === "Main" ? (
                     <>
                         <BattlePanel></BattlePanel>

@@ -12,6 +12,7 @@ export interface EnemyProps {
     experience: number;
     drops: EnemyDrop[];
     url: string;
+    isBossEnemy?: boolean;
 }
 
 const ENEMIES_DATA: Record<number, EnemyProps> = {
@@ -49,6 +50,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
             {id: 0, minAmount: 1, maxAmount: 10, chance: 1},
         ],
         url: "./enemies/kingSlime.png",
+        isBossEnemy: true,
     },
     4: {
         maxHp: 2,
@@ -84,6 +86,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
             {id: 1, minAmount: 1, maxAmount: 3, chance: 1},
         ],
         url: "./enemies/gangsterCrab.png",
+        isBossEnemy: true,
     },
 };
 

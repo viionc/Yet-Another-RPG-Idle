@@ -61,7 +61,7 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
                     {equipment ? (
                         <ul className="flex flex-col text-sm">
                             {equipment.stats.map((stat) => (
-                                <li>{stat.description}</li>
+                                <li key={stat.type}>{stat.description}</li>
                             ))}
                         </ul>
                     ) : null}

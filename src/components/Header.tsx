@@ -3,7 +3,7 @@ import {Tabs} from "../App";
 import {resetAction} from "../gameState/store";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 
-function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>}) {
+function Header({setTabOpen, skillPoints}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>; skillPoints: number}) {
     const dispatch = useDispatch();
     return (
         <header className="container h-8 py-8 text-white flex gap-2 text-xl">
@@ -13,14 +13,20 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
             <button className="text-red-500" onClick={() => dispatch(addItemsToInventory([{id: 5, amount: 1}]))}>
                 add knife
             </button>
+            <button className="text-red-500" onClick={() => dispatch(addItemsToInventory([{id: 4, amount: 1}]))}>
+                add crown
+            </button>
             <span>-----</span>
             <nav>
-                <ul className="flex gap-2">
+                <ul className="flex gap-4">
                     <li onClick={() => setTabOpen("Main")} className="cursor-pointer hover:text-yellow-500">
                         Main
                     </li>
                     <li onClick={() => setTabOpen("Skill Tree")} className="cursor-pointer hover:text-yellow-500">
-                        Skill Tree
+                        Skill Tree {skillPoints > 0 ? <span className="text-yellow-500">({skillPoints})</span> : null}
+                    </li>
+                    <li onClick={() => setTabOpen("Crafting")} className="cursor-pointer hover:text-yellow-500">
+                        Crafting
                     </li>
                 </ul>
             </nav>

@@ -14,6 +14,7 @@ export type PlayerStatsProps = {
     goldCoins: number;
     level: number;
     unspentSkillPoints: number;
+    goldCoinsMultiplier: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -35,6 +36,7 @@ const initialState: PlayerStatsProps = {
     experience: 0,
     goldCoins: 0,
     unspentSkillPoints: 0,
+    goldCoinsMultiplier: 1,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -114,6 +116,9 @@ const playerStatsSlice = createSlice({
                             break;
                         case "attackSpeed":
                             state.attackSpeed -= stat.value;
+                            break;
+                        case "goldCoinsMultiplier":
+                            state.goldCoinsMultiplier += stat.value;
                             break;
                     }
                 });

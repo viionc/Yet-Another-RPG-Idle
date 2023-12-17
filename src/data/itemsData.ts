@@ -74,7 +74,13 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Slime Golden Crown",
         url: "slimeGoldenCrown.png",
         value: 150,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "helmet"},
+        equipment: {
+            stats: [
+                {type: "goldCoinsMultiplier", value: 0.5, description: "50% more gold from enemies"},
+                {type: "attackPower", value: 1, description: "+1 attack power"},
+            ],
+            type: "helmet",
+        },
     },
     5: {
         id: 5,

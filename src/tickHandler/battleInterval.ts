@@ -20,7 +20,12 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
         // fix overkill damage
         //const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
         dispatch(endBattle({autoWaveProgress: playerSkills["Auto Wave Progress"], overkillDamage: 0}));
+
+        // rework gold gain, currently boosted for testing
+        dispatch(increaseStats([{id: "goldCoins", amount: calculateGoldGain(100, playerStats)}]));
         const enemy = ENEMIES_DATA[battleState.enemy.id];
+
+        // rework experience formula, for now boosted to *100 for testing
         statsToUpdate.push({id: "experience", amount: enemy.experience * battleState.currentWave * 100});
         calculateEnemyDrops(enemy, itemsToUpdate);
     }
@@ -63,4 +68,10 @@ export const calculateDamageDone = (playerStats: PlayerStatsProps): {damage: num
         }
     }
     return {damage, wasCrit};
+};
+
+export const calculateGoldGain = (baseGoldEarned: number, playerStats: PlayerStatsProps) => {
+    let goldMulti = 0;
+    goldMulti += playerStats.goldCoinsMultiplier ?? 0;
+    return baseGoldEarned * goldMulti;
 };

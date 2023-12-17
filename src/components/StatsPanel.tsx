@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../gameState/store";
 import {calculateXp} from "../utils/levelUtils";
 
-function StatsPanel({callback}: {callback: () => void}) {
+function StatsPanel() {
     const playerStats = useSelector((state: RootState) => state.playerStats);
     return (
         <section className="grid-span-1 border rounded-md p-2 border-slate-800 bg-neutral-800 h-[20rem]">
@@ -13,17 +13,13 @@ function StatsPanel({callback}: {callback: () => void}) {
                     {playerStats.unspentSkillPoints ? (
                         <>
                             <span>- Skill Points: {playerStats.unspentSkillPoints}</span>
-                            <span
-                                className="border border-yellow-500 flex w-5 h-5 items-center justify-center hover:bg-white hover:text-neutral-800 cursor-pointer"
-                                onClick={callback}>
-                                +
-                            </span>
                         </>
                     ) : null}
                 </li>
                 <li>
-                    Xp: {playerStats.experience}/{calculateXp(playerStats.level + 1)}
+                    Xp: {playerStats.experience.toLocaleString("en-US")}/{calculateXp(playerStats.level + 1).toLocaleString("en-US")}
                 </li>
+                <li className="text-yellow-500">Gold: {playerStats.goldCoins}</li>
                 <li>Mana: {playerStats.mana}</li>
                 <li>Attack Power: {playerStats.attackPower}</li>
                 <li>Attack Speed: {playerStats.attackSpeed.toFixed(1)}</li>
