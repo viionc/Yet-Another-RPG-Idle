@@ -2,7 +2,6 @@ import {createAction, createSlice} from "@reduxjs/toolkit";
 import {addSkillPoint} from "./playerSkills";
 import SPELLS_DATA, {SpellNames} from "../../data/spellsData";
 import SKILL_TREES_DATA from "../../data/skillTreesData";
-import {SimpleActionProps} from "../store";
 import {castSpell, reduceCooldowns} from "./battleState";
 
 export type SpellAction = {
