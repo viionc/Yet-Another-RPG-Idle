@@ -15,19 +15,20 @@ import SpellsPanel from "./components/SpellsPanel";
 export type Tabs = "Main" | "Skill Tree" | "Crafting";
 
 function App() {
+    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
+
     const dispatch = useDispatch();
     const playerStats = useSelector((state: RootState) => state.playerStats);
-    const playerSkills = useSelector((state: RootState) => state.playerSkills);
 
-    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
     useEffect(() => {
-        const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
         const battleInterval = setInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000);
+        const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
         return () => {
-            clearInterval(gameInterval);
             clearInterval(battleInterval);
+            clearInterval(gameInterval);
         };
-    }, [playerSkills]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [playerStats]); //eslint-disable-line react-hooks/exhaustive-deps
+
     return (
         <>
             <Header setTabOpen={setTabOpen} skillPoints={playerStats.unspentSkillPoints}></Header>

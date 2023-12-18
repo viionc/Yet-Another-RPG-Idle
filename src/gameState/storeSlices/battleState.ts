@@ -29,7 +29,6 @@ export type EndBattleActionProps = {
 };
 export type EndBattlePropsProps = {
     change?: true;
-    autoWaveProgress?: undefined | number;
     overkillDamage?: undefined | number;
 };
 const resetAction = createAction("RESET_STATES");

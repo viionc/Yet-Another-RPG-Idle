@@ -35,7 +35,7 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
         },
     },
     "Haste": {
-        id: 0,
+        id: 1,
         name: "Haste",
         manaCost: 1,
         cooldown: 300,
@@ -49,10 +49,10 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
         },
     },
     "Double Attack": {
-        id: 0,
+        id: 2,
         name: "Double Attack",
-        manaCost: 3,
-        cooldown: 60,
+        manaCost: 1,
+        cooldown: 2,
         description: "Quick double attack.",
         url: "./skills/doubleAttack.png",
         effect: {

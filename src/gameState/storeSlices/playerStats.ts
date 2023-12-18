@@ -100,7 +100,7 @@ const playerStatsSlice = createSlice({
                         state.attackPower++;
                         break;
                     case "Attack Speed":
-                        state.attackSpeed -= 0.2;
+                        state.attackSpeed -= 0.1;
                         break;
                     case "Crit Chance":
                         state.critChance += 2;
@@ -121,7 +121,7 @@ const playerStatsSlice = createSlice({
                 const equipment = ITEM_DATA[action.payload].equipment;
                 if (!equipment) return;
                 equipment.stats.forEach((stat) => {
-                    updateStats(state, stat.type, stat.value);
+                    updateStats(state, stat.type, stat.value * -1);
                 });
             })
             .addCase(castSpell, (state, action) => {

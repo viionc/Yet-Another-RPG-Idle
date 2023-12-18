@@ -2,9 +2,11 @@ import {useDispatch} from "react-redux";
 import {Tabs} from "../App";
 import {resetAction} from "../gameState/store";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
+import {changeWave} from "../gameState/storeSlices/battleState";
 
 function Header({setTabOpen, skillPoints}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>; skillPoints: number}) {
     const dispatch = useDispatch();
+
     return (
         <header className="container h-8 py-8 text-white flex gap-2 text-2xl mb-6">
             <div className="absolute top-24 left-1 flex flex-col gap-2">
@@ -16,6 +18,9 @@ function Header({setTabOpen, skillPoints}: {setTabOpen: React.Dispatch<React.Set
                 </button>
                 <button className="text-red-500" onClick={() => dispatch(addItemsToInventory([{id: 4, amount: 1}]))}>
                     add crown
+                </button>
+                <button className="text-red-500" onClick={() => dispatch(changeWave(10))}>
+                    skip to boss
                 </button>
             </div>
 
