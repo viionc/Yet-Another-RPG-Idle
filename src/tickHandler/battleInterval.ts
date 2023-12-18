@@ -4,15 +4,18 @@ import {BattleStateProps, endBattle, updateEnemyHp} from "../gameState/storeSlic
 import {IncreaseStatsPayload, PlayerStatsProps, increaseStats} from "../gameState/storeSlices/playerStats";
 import ENEMIES_DATA, {EnemyProps} from "../data/enemiesData";
 import {InventoryItem, addItemsToInventory} from "../gameState/storeSlices/playerInventory";
-import {PlayerSkillsProps} from "../gameState/storeSlices/playerSkills";
 import {SpellNames} from "../data/spellsData";
 
+export type DamageDoneProps = {damage: number; wasCrit: boolean};
+
 let timestmap = 0;
+
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const {playerStats, battleState} = gameState.getState();
     console.log("last tick duration: ", Date.now() - timestmap);
     timestmap = Date.now();
     if (!battleState.isBattleStarted || !battleState.enemy) return;
+
     const damageDone = calculateDamageDone(playerStats);
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
     dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${damageDone.damage}${damageDone.wasCrit ? "!" : ""}`}));
@@ -53,18 +56,6 @@ const calculateEnemyDrops = (enemy: EnemyProps) => {
     return itemsToUpdate;
 };
 
-export const calculateAttackPower = (attackPower: number, playerSkills: PlayerSkillsProps): number => {
-    const attackPowerSkill = playerSkills["Attack Power"] ?? 0;
-    return attackPower + attackPowerSkill;
-};
-
-export const calculateAttackSpeed = (attackSpeed: number, playerSkills: PlayerSkillsProps): number => {
-    const attackSpeedSkill = playerSkills["Attack Speed"] ?? 0;
-    return attackSpeed - attackSpeedSkill * 0.2;
-};
-
-export type DamageDoneProps = {damage: number; wasCrit: boolean};
-
 export const calculateDamageDone = (playerStats: PlayerStatsProps, double?: boolean): DamageDoneProps => {
     const {critChance, critMulti, attackPower} = playerStats;
 
@@ -92,10 +83,10 @@ export const calculateGoldGain = (baseGoldEarned: number, playerStats: PlayerSta
 
 export const calculateSpellDamage = (spellName: SpellNames, playerStats: PlayerStatsProps): DamageDoneProps => {
     // makeshift solution for now, rework later
-    const damageDone = {damage: 0, wasCrit: false};
+    let damageDone = {damage: 0, wasCrit: false};
     switch (spellName) {
         case "Double Attack":
-            damageDone.damage += calculateDamageDone(playerStats, true).damage;
+            damageDone = calculateDamageDone(playerStats, true);
             break;
         case "Fire Strike":
             damageDone.damage = 8;

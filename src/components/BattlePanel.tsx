@@ -29,7 +29,7 @@ function BattlePanel() {
             dispatch(updateDamageHitSplat(""));
         }, 1000);
         return () => clearTimeout(timeout);
-    }, [damageForHitSplat]);
+    }, [damageForHitSplat]); //eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">
@@ -55,7 +55,7 @@ function BattlePanel() {
                         const spellData = SPELLS_DATA[spell.name];
                         if (spellData.effect.spellType !== "Support") return;
                         return (
-                            <li className="w-12 h-12 relative">
+                            <li className="w-12 h-12 relative" key={spell.name}>
                                 <img src={spellData.url}></img>
                                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl">{spell.currentDuration}</span>
                             </li>

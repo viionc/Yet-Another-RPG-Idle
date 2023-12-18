@@ -18,6 +18,7 @@ export type PlayerStatsProps = {
     level: number;
     unspentSkillPoints: number;
     goldCoinsMultiplier: number;
+    manaRegenRate: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -41,6 +42,7 @@ const initialState: PlayerStatsProps = {
     goldCoins: 0,
     unspentSkillPoints: 0,
     goldCoinsMultiplier: 1,
+    manaRegenRate: 30,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {

@@ -7,11 +7,11 @@ import {decreaseStats, increaseStats} from "../gameState/storeSlices/playerStats
 import SPELLS_DATA from "../data/spellsData";
 
 // regene mana every 30 seconds, change it later maybe if i add some mana regen boosts
-export let manaRegenCooldownTimer = 2;
+let manaRegenCooldownTimer = 2;
 
 export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const {battleState, playerStats, playerSpells} = gameState.getState();
-    if (battleState.battleCurrentCooldown <= 0 && !battleState.isBattleStarted) {
+    if (battleState.battleCurrentCooldown <= 1 && !battleState.isBattleStarted) {
         const currentZone = ZONES_DATA[battleState.zoneId];
         if (isMaxWave(battleState.currentWave, currentZone.maxWave)) {
             dispatch(startBattle(currentZone.bossEnemyId));
@@ -37,6 +37,6 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     manaRegenCooldownTimer--;
     if (manaRegenCooldownTimer === 0) {
         if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
-        manaRegenCooldownTimer = 2;
+        manaRegenCooldownTimer = playerStats.manaRegenRate;
     }
 };
