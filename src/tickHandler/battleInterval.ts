@@ -9,6 +9,7 @@ import {SpellNames} from "../data/spellsData";
 
 let timestmap = 0;
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
+    console.log("d");
     const {playerStats, battleState} = gameState.getState();
     console.log("last tick duration: ", Date.now() - timestmap);
     timestmap = Date.now();

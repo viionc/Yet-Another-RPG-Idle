@@ -27,7 +27,7 @@ function App() {
             clearInterval(battleInterval);
             clearInterval(gameInterval);
         };
-    }, [playerStats]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [playerStats.attackSpeed]); //eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
