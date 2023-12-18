@@ -151,10 +151,26 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
     },
 ];
 
+const MAGIC_SKILLS_DATA: SkillProps[] = [
+    {
+        id: 0,
+        name: "Fire Strike",
+        spellName: "Fire Strike",
+        skillPointCost: 2,
+        unlockRequirements: null,
+        row: 6,
+        col: 2,
+        special: true,
+        maxLevel: 1,
+        url: "./skills/fireStrike.png",
+        description: "Unlocks Fire Strike Spell.",
+    },
+];
+
 const SKILL_TREES_DATA: SkillTreeProps[] = [
     {id: 0, name: "Damage", skills: DAMAGE_SKILLS_DATA, unlockedRequirement: null},
     {id: 1, name: "Exploration", skills: EXPLORATION_SKILLS_DATA, unlockedRequirement: null},
-    {id: 2, name: "Magic", skills: [], unlockedRequirement: null},
+    {id: 2, name: "Magic", skills: MAGIC_SKILLS_DATA, unlockedRequirement: null},
 ];
 
 export default SKILL_TREES_DATA;
