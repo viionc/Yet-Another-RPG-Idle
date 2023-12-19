@@ -1,6 +1,6 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
-import ITEM_DATA, {ITEM_TIER_VALUE} from "../../data/itemsData";
 import {equipItem} from "./playerEquipment";
+import {sortByTier} from "../../utils/misc";
 
 export type InventoryItem = {
     id: number;
@@ -20,11 +20,7 @@ const playerInventorySlice = createSlice({
     reducers: {
         addItemsToInventory: (state, action: InventoryAddItemsAction) => {
             const {payload} = action;
-            payload.sort((a, b) => {
-                const itemA = ITEM_DATA[a.id];
-                const itemB = ITEM_DATA[b.id];
-                return ITEM_TIER_VALUE[itemB.tier] - ITEM_TIER_VALUE[itemA.tier];
-            });
+            sortByTier(payload);
             payload.forEach((item) => {
                 const inventoryItem = state.find((_item) => (_item ? _item.id === item.id : null));
                 if (inventoryItem) {
@@ -46,6 +42,14 @@ const playerInventorySlice = createSlice({
                 if ((state[inventoryItemIndex] as InventoryItem).amount === 0) state[inventoryItemIndex] = null;
             });
         },
+        sortInventory: (state) => {
+            let items = [...state];
+            items = items.filter((item) => item !== null);
+            if (items.length < 2) return;
+            items = sortByTier(items as InventoryItem[]);
+            state = [...items, ...new Array(40 - items.length).fill(null)];
+            return state;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -59,5 +63,5 @@ const playerInventorySlice = createSlice({
     },
 });
 
-export const {addItemsToInventory} = playerInventorySlice.actions;
+export const {addItemsToInventory, sortInventory} = playerInventorySlice.actions;
 export default playerInventorySlice.reducer;
