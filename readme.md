@@ -1,5 +1,5 @@
 # Yet Another RPG Idle
-is an idle/incremental type of game.
+is an idle/incremental type of game. current version at: https://yet-another-rpg-idle.vercel.app/
 
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/ac33f7b5-ba03-45dc-9737-8c3033872ac6)
 
