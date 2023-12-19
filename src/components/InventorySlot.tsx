@@ -32,6 +32,8 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
         }
     };
 
+    const rightClickText = placeholderText ? "Unequip" : "Equip";
+
     return (
         <div
             className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
@@ -59,11 +61,17 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
                         {tier} {equipment ? equipment.type : null}
                     </span>
                     {equipment ? (
-                        <ul className="flex flex-col text-sm">
-                            {equipment.stats.map((stat) => (
-                                <li key={stat.type}>{stat.description}</li>
-                            ))}
-                        </ul>
+                        <>
+                            <ul className="flex flex-col text-sm">
+                                {equipment.stats.map((stat) => (
+                                    <li key={stat.type}>{stat.description}</li>
+                                ))}
+                            </ul>
+                            <span className="flex gap-1 ms-auto items-center text-xs">
+                                {rightClickText}
+                                <img src="./other/rightClick.png" alt={`right click to ${rightClickText}`} height={16} width={16}></img>
+                            </span>
+                        </>
                     ) : null}
                 </div>
             ) : null}
