@@ -21,14 +21,13 @@ function App() {
     const playerStats = useSelector((state: RootState) => state.playerStats);
 
     useEffect(() => {
-        // const battleInterval = setInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000);
-        // return () => {
-        //     clearInterval(battleInterval);
-        // };
+        const battleInterval = setInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000);
+        return () => {
+            clearInterval(battleInterval);
+        };
     }, [playerStats.attackSpeed]); //eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        battleTickHandler(dispatch);
         const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
         return () => {
             clearInterval(gameInterval);
