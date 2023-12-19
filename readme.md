@@ -23,7 +23,7 @@ is an idle/incremental type of game. current version at: https://yet-another-rpg
     (basically what happens is that whenever the attack speed changes, use effect that calls that interval gets updated, destroys the current interval, and creates a new one with an updated value which creates a delay equal to remaining time of previous interval)
 -   fix damage hit splat update
 -   fix overkill damage
--   unlock the requirements system
+-   requirements system
 -   rework enemy xp, hp, and gold gain systems
 -   fix bugs that show up after fixing other bugs
 
