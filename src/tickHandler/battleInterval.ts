@@ -5,6 +5,7 @@ import {IncreaseStatsPayload, PlayerStatsProps, increaseStats} from "../gameStat
 import ENEMIES_DATA, {EnemyProps} from "../data/enemiesData";
 import {InventoryItem, addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {SpellNames} from "../data/spellsData";
+import {setTimeout} from "worker-timers";
 
 export type DamageDoneProps = {damage: number; wasCrit: boolean};
 
@@ -22,6 +23,9 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     if (hpAfterDamage <= 0) {
         handleEndBattle(dispatch, battleState, playerStats);
     }
+    setTimeout(() => {
+        battleTickHandler(dispatch);
+    }, playerStats.attackSpeed * 1000);
 };
 
 export const handleEndBattle = (dispatch: Dispatch<UnknownAction>, battleState: BattleStateProps, playerStats: PlayerStatsProps) => {
