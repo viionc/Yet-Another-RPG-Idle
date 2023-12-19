@@ -8,13 +8,13 @@ import {SpellNames} from "../data/spellsData";
 
 export type DamageDoneProps = {damage: number; wasCrit: boolean};
 
-let timestmap = 0;
+let timestmap = Date.now();
 
-export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
+export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => {
     const {playerStats, battleState} = gameState.getState();
     console.log("last tick duration: ", Date.now() - timestmap);
     timestmap = Date.now();
-    if (!battleState.isBattleStarted || !battleState.enemy) return;
+    if (!battleState.isBattleStarted || !battleState.enemy) return playerStats.attackSpeed * 1000;
 
     const damageDone = calculateDamageDone(playerStats);
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
@@ -22,6 +22,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     if (hpAfterDamage <= 0) {
         handleEndBattle(dispatch, battleState, playerStats);
     }
+    return playerStats.attackSpeed * 1000;
 };
 
 export const handleEndBattle = (dispatch: Dispatch<UnknownAction>, battleState: BattleStateProps, playerStats: PlayerStatsProps) => {

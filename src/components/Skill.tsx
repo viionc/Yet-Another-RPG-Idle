@@ -19,7 +19,7 @@ function Skill({skill}: {skill: SkillProps}) {
     const isMaxLevel = currentSkillPointLevel === skill.maxLevel;
 
     const useSkillPoint = () => {
-        if (isMaxLevel || !playerStats.unspentSkillPoints) return;
+        if (isMaxLevel || !playerStats.unspentSkillPoints || playerStats.unspentSkillPoints < skill.skillPointCost) return;
         dispatch(addSkillPoint(skill.name));
         dispatch(decreaseStats([{id: "unspentSkillPoints", amount: skill.skillPointCost}]));
     };

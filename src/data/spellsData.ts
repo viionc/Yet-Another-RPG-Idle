@@ -38,7 +38,7 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
         id: 1,
         name: "Haste",
         manaCost: 1,
-        cooldown: 300,
+        cooldown: 61,
         description: "Increases attack speed by 0.3 for 1 minute.",
         url: "./skills/haste.png",
         effect: {

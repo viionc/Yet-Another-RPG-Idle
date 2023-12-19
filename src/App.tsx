@@ -11,21 +11,30 @@ import InventoryPanel from "./components/InventoryPanel";
 import SkillTreePanel from "./components/SkillTreePanel";
 import PlayerEquipmentPanel from "./components/PlayerEquipmentPanel";
 import SpellsPanel from "./components/SpellsPanel";
+// import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 
 export type Tabs = "Main" | "Skill Tree" | "Crafting";
 
 function App() {
-    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
-
-    const dispatch = useDispatch();
     const playerStats = useSelector((state: RootState) => state.playerStats);
+    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
+    const [delay, setDelay] = useState(playerStats.attackSpeed * 1000);
+    const dispatch = useDispatch();
+
+    // trying out useinterval hook from this thread: https://stackoverflow.com/questions/61971791/react-setinterval-in-useeffect-with-settimeout-delay
+    // const [start] = useInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000); // first try
+    // (start as () => void)();
+
+    //didnt work
 
     useEffect(() => {
-        const battleInterval = setInterval(() => battleTickHandler(dispatch), playerStats.attackSpeed * 1000);
+        const battleInterval = setInterval(() => {
+            setDelay(battleTickHandler(dispatch));
+        }, delay);
         return () => {
             clearInterval(battleInterval);
         };
-    }, [playerStats.attackSpeed]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [delay]); //eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         const gameInterval = setInterval(() => gameTickHandler(dispatch), 1000);
