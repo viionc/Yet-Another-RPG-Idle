@@ -1,6 +1,10 @@
 # Yet Another RPG Idle
 
-is an idle/incremental type of game. current version at: https://yet-another-rpg-idle.vercel.app/
+is an idle/incremental type of game. current version at: https://yet-another-rpg-idle.vercel.app/<br>
+
+built with React, Redux Toolkit, TypeScript, Tailwind, Vite<br>
+
+libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/ac33f7b5-ba03-45dc-9737-8c3033872ac6)
 
@@ -15,10 +19,6 @@ is an idle/incremental type of game. current version at: https://yet-another-rpg
 -   spells
 
 ## TODO:
-
-<s>- figure out how to fix battleInterval delay when players attack speed changes: </s>
-
-<s>basically what happens is that whenever the attack speed changes, use effect that calls that interval gets updated, destroys the current interval, and creates a new one with an updated value which creates a delay equal to remaining time of previous interval </s> <br><br> <s>possibly found a fix by using setTimeout instead of setInterval, but idk yet if it will create any issues</s><br><br> nvm, now it breaks when game goes out of focus
 
 -   fix damage hit splat update
 -   fix overkill damage
