@@ -18,7 +18,7 @@ is an idle/incremental type of game. current version at: https://yet-another-rpg
 
 <s>- figure out how to fix battleInterval delay when players attack speed changes: </s>
 
-<s>basically what happens is that whenever the attack speed changes, use effect that calls that interval gets updated, destroys the current interval, and creates a new one with an updated value which creates a delay equal to remaining time of previous interval </s> <br><br> possibly found a fix by using setTimeout instead of setInterval, but idk yet if it will create any issues
+<s>basically what happens is that whenever the attack speed changes, use effect that calls that interval gets updated, destroys the current interval, and creates a new one with an updated value which creates a delay equal to remaining time of previous interval </s> <br><br> <s>possibly found a fix by using setTimeout instead of setInterval, but idk yet if it will create any issues</s><br><br> nvm, now it breaks when game goes out of focus
 
 -   fix damage hit splat update
 -   fix overkill damage
