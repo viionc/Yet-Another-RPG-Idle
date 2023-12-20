@@ -24,8 +24,8 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
     "Fire Strike": {
         id: 0,
         name: "Fire Strike",
-        manaCost: 5,
-        cooldown: 60,
+        manaCost: 1,
+        cooldown: 5,
         description: "Weak Fire Spell that deals 8 damage.",
         url: "./skills/fireStrike.png",
         effect: {

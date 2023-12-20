@@ -1,7 +1,7 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {addSkillPoint} from "./playerSkills";
 import SPELLS_DATA, {SpellNames} from "../../data/spellsData";
-import SKILL_TREES_DATA from "../../data/skillTreesData";
+import {ALL_SKILLS, StatEffectProps} from "../../data/skillTreesData";
 import {castSpell, reduceCooldowns} from "./battleState";
 
 export type SpellAction = {
@@ -46,14 +46,20 @@ const playerSpellsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(addSkillPoint, (state, action) => {
-                for (const tree of SKILL_TREES_DATA) {
-                    for (const skill of tree.skills) {
-                        if (skill.spellName === action.payload) {
-                            state.spellsUnlocked[skill.spellName] = true;
-                            playerSpellsSlice.caseReducers.addToQuickBar(state, {type: "playerSpells/addToQuickBar", payload: skill.spellName});
-                        }
-                    }
+                const skill = ALL_SKILLS.find((skill) => skill.name === action.payload);
+                if (skill?.spellName) {
+                    state.spellsUnlocked[skill.spellName] = true;
+                    playerSpellsSlice.caseReducers.addToQuickBar(state, {type: "playerSpells/addToQuickBar", payload: skill.spellName});
                 }
+                if (skill && skill.statEffect && skill.statEffect.id === "cooldownReduction") {
+                    const temp = [...state.spellsQuickBar];
+                    temp.forEach((spell) => {
+                        if (!spell || spell.cooldown <= 10) return;
+                        spell.cooldown -= (skill.statEffect as StatEffectProps).value;
+                    });
+                    state.spellsQuickBar = [...temp];
+                }
+                return state;
             })
             .addCase(resetAction, () => initialState)
             .addCase(reduceCooldowns, (state) => {

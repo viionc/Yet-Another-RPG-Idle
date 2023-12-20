@@ -12,16 +12,20 @@ export type PlayerEquipment = {
     amulet: number | null;
     ring1: number | null;
     ring2: number | null;
+    gloves: number | null;
+    belt: number | null;
 };
 
 const resetAction = createAction("RESET_STATES");
 const initialState: PlayerEquipment = {
+    weapon: null,
     helmet: null,
     chest: null,
     legs: null,
     boots: null,
-    weapon: null,
     offhand: null,
+    gloves: null,
+    belt: null,
     amulet: null,
     ring1: null,
     ring2: null,

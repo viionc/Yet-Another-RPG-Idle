@@ -44,7 +44,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     };
 
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;
-    const {name, url, description, manaCost} = SPELLS_DATA[spell.name];
+    const {name, url, description, manaCost, cooldown} = SPELLS_DATA[spell.name];
     return (
         <div
             ref={setReferenceElement}
@@ -68,6 +68,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
                     <span className="text-yellow-500">
                         {name}
                         <span className="text-blue-500 ml-2">Mana: {manaCost}</span>
+                        <span className="text-green-500 ml-2">Cooldown: {cooldown - (cooldown > 10 ? playerStats.cooldownReduction : 0)}s</span>
                     </span>
                     <span>{description}</span>
                 </div>

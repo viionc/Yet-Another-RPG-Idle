@@ -32,10 +32,10 @@ export const handleEndBattle = (dispatch: Dispatch<UnknownAction>, battleState: 
     // fix overkill damage
     //const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
     dispatch(endBattle({overkillDamage: 0}));
-    // rework gold gain, currently boosted for testing
     const enemy = ENEMIES_DATA[battleState.enemy.id];
 
     // rework experience formula, for now boosted to *100 for testing
+    // rework gold gain, currently boosted for testing
     statsToUpdate.push(
         {id: "experience", amount: enemy.experience * battleState.currentWave * 100},
         {id: "goldCoins", amount: calculateGoldGain(100, playerStats)}
