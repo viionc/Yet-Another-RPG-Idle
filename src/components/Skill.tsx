@@ -27,7 +27,7 @@ function Skill({skill}: {skill: SkillProps}) {
     return (
         <>
             <div
-                className={`border flex justify-center items-center border-zinc-600 bg-zinc-800 flex-col bg-no-repeat bg-cover bg-center p-2 bg-origin-content cursor-pointer ${
+                className={`border flex justify-center items-center border-zinc-600 bg-zinc-800 flex-col bg-no-repeat bg-cover bg-center bg-origin-content cursor-pointer ${
                     skill.special ? "rounded-full" : "rounded-md"
                 } ${isMaxLevel ? "bg-green-700" : "bg-zinc-700"}`}
                 ref={setReferenceElement}

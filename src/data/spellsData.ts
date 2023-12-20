@@ -31,7 +31,7 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
         effect: {
             spellType: "Damage",
             damageType: "Magic",
-            damage: 6,
+            damage: 8,
         },
     },
     "Haste": {

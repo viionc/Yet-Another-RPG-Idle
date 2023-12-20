@@ -2,9 +2,8 @@ import ENEMIES_DATA from "../data/enemiesData";
 import {BattleStateEnemyProps} from "../gameState/storeSlices/battleState";
 
 function EnemyComponent({enemy}: {enemy: BattleStateEnemyProps}) {
-    const getEnemyUrl = () => {
-        return enemy ? ENEMIES_DATA[enemy.id].url : "";
-    };
+    const enemyUrl = ENEMIES_DATA[enemy.id].url;
+    const enemyName = ENEMIES_DATA[enemy.id].name;
 
     return (
         <div>
@@ -17,7 +16,10 @@ function EnemyComponent({enemy}: {enemy: BattleStateEnemyProps}) {
                     style={{width: (enemy.currentHp / enemy.maxHp) * 100 + "%"}}></span>
             </div>
 
-            <img src={getEnemyUrl()} className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[7rem]"></img>
+            <img
+                src={enemyUrl}
+                className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[7rem]"
+                alt={`${enemyName} enemy `}></img>
         </div>
     );
 }

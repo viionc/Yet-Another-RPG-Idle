@@ -5,7 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import SPELLS_DATA, {SpellNames} from "../data/spellsData";
 import {castSpell, updateEnemyHp} from "../gameState/storeSlices/battleState";
 import {RootState} from "../gameState/store";
-import {calculateSpellDamage, handleEndBattle} from "../tickHandler/battleInterval";
+import {handleEndBattle} from "../tickHandler/battleInterval";
+import {spellHit} from "../utils/combatUtils";
 
 export type SpellSlotProps = {
     spell: QuickBarSpell | null;
@@ -19,6 +20,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const playerSpells = useSelector((state: RootState) => state.playerSpells);
+    const playerSkills = useSelector((state: RootState) => state.playerSkills);
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const battleState = useSelector((state: RootState) => state.battleState);
 
@@ -32,10 +34,9 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     };
 
     const doSpellDamage = (spellName: SpellNames) => {
-        const hit = calculateSpellDamage(spellName, playerStats);
+        const hit = spellHit(spellName, playerSkills, playerStats);
         if (!battleState.enemy) return;
         const hpAfterDamage = Math.max(0, battleState.enemy.currentHp - hit.damage);
-        console.log(hpAfterDamage);
         dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${hit.damage}${hit.wasCrit ? "!" : ""}`}));
         if (hpAfterDamage <= 0) {
             handleEndBattle(dispatch, battleState, playerStats);
@@ -55,7 +56,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
                 {spell.currentCooldown > 0 ? (
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">{spell.currentCooldown}</span>
                 ) : null}
-                <img src={url}></img>
+                <img src={url} height="auto" width="auto" className="rounded-md" alt={`${name} spell`}></img>
             </div>
 
             {show ? (

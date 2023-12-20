@@ -22,7 +22,7 @@ function StatsPanel() {
                 </li>
                 <li className="text-yellow-500">Gold: {short(playerStats.goldCoins)}</li>
                 <li>
-                    Mana: {playerStats.mana} <span className="text-blue-500">1/30s</span>
+                    Mana: {playerStats.mana}/{playerStats.maxMana} <span className="text-blue-500">{playerStats.currentManaRegenTimer}</span>
                 </li>
                 <li>Attack Power: {playerStats.attackPower}</li>
                 <li>Attack Speed: {playerStats.attackSpeed.toFixed(1)}</li>

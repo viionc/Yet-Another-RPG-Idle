@@ -9,7 +9,11 @@ export type SkillNames =
     | "Crit Chance"
     | "Crit Multi"
     | SpellNames
-    | `temp${number}`;
+    | `temp${number}`
+    | "Magic Damage"
+    | "Max Mana"
+    | "Mana Regen"
+    | "Spell Crit";
 
 export type SkillProps = {
     id: number;
@@ -164,6 +168,51 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
         maxLevel: 1,
         url: "./skills/fireStrike.png",
         description: "Unlocks Fire Strike Spell.",
+    },
+    {
+        id: 2,
+        name: "Max Mana",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 5,
+        col: 1,
+        maxLevel: 5,
+        url: "./skills/maxMana.png",
+        description: "Increases max mana by 1.",
+    },
+    {
+        id: 3,
+        name: "Mana Regen",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 5,
+        col: 2,
+        maxLevel: 5,
+        url: "./skills/manaRegen.png",
+        description: "Increases mana regen rate by 2s.",
+    },
+    {
+        id: 4,
+        name: "Magic Damage",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 5,
+        col: 3,
+        maxLevel: 10,
+        url: "./skills/magicDamage.png",
+        description: "Increases damage of your magic spells by 1.",
+    },
+    {
+        id: 5,
+        name: "Spell Crit",
+        skillPointCost: 2,
+        unlockRequirements: null,
+        row: 4,
+        col: 2,
+        special: true,
+        maxLevel: 1,
+        url: "./skills/spellCrit.png",
+        description: "Your magic spells can crit.",
     },
 ];
 

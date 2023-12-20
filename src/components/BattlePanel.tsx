@@ -37,7 +37,7 @@ function BattlePanel() {
                 {currentZoneData.name} {getEnemyName()}
             </h1>
             <div className="w-full h-[16.9rem] relative">
-                <img src={currentZoneData.url} className="rounded-lg w-full object-cover max-h-full object-bottom "></img>
+                <img src={currentZoneData.url} className="rounded-lg w-full object-cover max-h-full object-bottom " alt=""></img>
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
                     Kill Count: {hasReachedRequiredKillCount ? currentKillCount : `${currentKillCount}/${maxKillCount}`}
                 </span>
@@ -56,7 +56,7 @@ function BattlePanel() {
                         if (spellData.effect.spellType !== "Support") return;
                         return (
                             <li className="w-12 h-12 relative" key={spell.name}>
-                                <img src={spellData.url}></img>
+                                <img src={spellData.url} className="h-12 w-12" alt={`${spellData.name} spell buff`}></img>
                                 <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl">{spell.currentDuration}</span>
                             </li>
                         );

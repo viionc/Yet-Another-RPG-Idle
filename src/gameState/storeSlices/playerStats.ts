@@ -3,7 +3,7 @@ import {calculateXp} from "../../utils/levelUtils";
 import {addSkillPoint} from "./playerSkills";
 import {equipItem, unequipItem} from "./playerEquipment";
 import ITEM_DATA from "../../data/itemsData";
-import {castSpell} from "./battleState";
+import {castSpell, reduceCooldowns} from "./battleState";
 import SPELLS_DATA from "../../data/spellsData";
 
 export type PlayerStatsProps = {
@@ -19,6 +19,7 @@ export type PlayerStatsProps = {
     unspentSkillPoints: number;
     goldCoinsMultiplier: number;
     manaRegenRate: number;
+    currentManaRegenTimer: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -43,6 +44,7 @@ const initialState: PlayerStatsProps = {
     unspentSkillPoints: 0,
     goldCoinsMultiplier: 1,
     manaRegenRate: 30,
+    currentManaRegenTimer: 30,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -110,6 +112,13 @@ const playerStatsSlice = createSlice({
                     case "Crit Multi":
                         state.critMulti += 0.1;
                         break;
+                    case "Max Mana":
+                        state.maxMana += 1;
+                        break;
+                    case "Mana Regen":
+                        state.manaRegenRate -= 2;
+                        if (state.currentManaRegenTimer > 2) state.currentManaRegenTimer -= 2;
+                        break;
                 }
             })
             .addCase(equipItem, (state, action) => {
@@ -132,6 +141,9 @@ const playerStatsSlice = createSlice({
                 if (spell.effect.playerStat && spell.effect.value) {
                     updateStats(state, spell.effect.playerStat, spell.effect.value);
                 }
+            })
+            .addCase(reduceCooldowns, (state) => {
+                state.currentManaRegenTimer--;
             });
     },
 });

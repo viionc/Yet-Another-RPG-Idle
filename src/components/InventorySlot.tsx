@@ -47,7 +47,7 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
                 //boxShadow: `${colorsByItemTier[tier]} 0px 2px 4px 0px, ${colorsByItemTier[tier]} 0px 2px 16px 0px`,
                 //boxShadow: `${colorsByItemTier[tier]} 0px 0px 0px 2px, ${colorsByItemTier[tier]} 0px 4px 6px -1px, ${colorsByItemTier[tier]} 0px 1px 0px inset`,
             }}>
-            <img src={`./items/${url}`} className="h-7"></img>
+            <img src={`./items/${url}`} className="h-7" alt={`${name} item`}></img>
             {!placeholderText ? <span>{item.amount}</span> : null}
 
             {show ? (
