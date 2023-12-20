@@ -7,6 +7,7 @@ import {castSpell, updateEnemyHp} from "../../gameState/storeSlices/battleState"
 import {RootState} from "../../gameState/store";
 import {handleEndBattle} from "../../tickHandler/battleInterval";
 import {spellHit} from "../../utils/combatUtils";
+import styles from "./SpellSlot.module.css";
 
 export type SpellSlotProps = {
     spell: QuickBarSpell | null;
@@ -16,7 +17,7 @@ export type SpellSlotProps = {
 function SpellSlot({spell, index}: SpellSlotProps) {
     const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
-    const {styles, attributes} = usePopper(referenceElement, popperElement);
+    const {styles: popperStyles, attributes} = usePopper(referenceElement, popperElement);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const playerSpells = useSelector((state: RootState) => state.playerSpells);
@@ -45,6 +46,12 @@ function SpellSlot({spell, index}: SpellSlotProps) {
 
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;
     const {name, url, description, manaCost, cooldown} = SPELLS_DATA[spell.name];
+
+    const getSpellCooldown = () => cooldown - (cooldown > 10 ? playerStats.cooldownReduction : 0);
+
+    const passedTime = (spell.currentCooldown / getSpellCooldown()) * 100;
+    if (referenceElement) referenceElement.style.setProperty("--time-left", `${passedTime}%`);
+
     return (
         <div
             ref={setReferenceElement}
@@ -52,7 +59,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
             onMouseLeave={() => setShow(false)}
             onClick={() => handleClick(spell.name, index)}
             className="border flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer">
-            <div className="relative">
+            <div className={`relative w-16 h-16 ${styles.spell}`}>
                 {spell.currentCooldown > 0 ? (
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl">{spell.currentCooldown}</span>
                 ) : null}
@@ -62,13 +69,13 @@ function SpellSlot({spell, index}: SpellSlotProps) {
             {show ? (
                 <div
                     ref={setPopperElement}
-                    style={styles.popper}
+                    style={popperStyles.popper}
                     {...attributes.popper}
                     className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default select-none">
                     <span className="text-yellow-500">
                         {name}
                         <span className="text-blue-500 ml-2">Mana: {manaCost}</span>
-                        <span className="text-green-500 ml-2">Cooldown: {cooldown - (cooldown > 10 ? playerStats.cooldownReduction : 0)}s</span>
+                        <span className="text-green-500 ml-2">Cooldown: {getSpellCooldown()}s</span>
                     </span>
                     <span>{description}</span>
                 </div>

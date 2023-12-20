@@ -1,0 +1,25 @@
+.spell {
+    overflow: hidden;
+}
+/* .spell::before {
+    content: "";
+    background: conic-gradient(rgba(0, 0, 0, 0.7) var(--time-left), rgba(0, 0, 0, 0.1) var(--time-left));
+    position: absolute;
+    opacity: 0.8;
+    top: 0;
+    left: 0p;
+    height: 100%;
+    width: 100%;
+} */
+
+.spell::before {
+    position: absolute;
+    background: conic-gradient(#000b var(--time-left), transparent var(--time-left));
+    border-radius: 8px;
+    opacity: 0.8;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
