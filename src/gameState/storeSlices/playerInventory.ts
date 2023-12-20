@@ -63,5 +63,5 @@ const playerInventorySlice = createSlice({
     },
 });
 
-export const {addItemsToInventory, sortInventory} = playerInventorySlice.actions;
+export const {addItemsToInventory, sortInventory, removeItemsFromInventory} = playerInventorySlice.actions;
 export default playerInventorySlice.reducer;

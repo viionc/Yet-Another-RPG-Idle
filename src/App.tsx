@@ -11,6 +11,7 @@ import InventoryPanel from "./components/inventoryPanel/InventoryPanel";
 import SkillTreePanel from "./components/skillTreePanel/SkillTreePanel";
 import PlayerEquipmentPanel from "./components/equipmentPanel/PlayerEquipmentPanel";
 import SpellsPanel from "./components/spellsPanel/SpellsPanel";
+import CraftingPanel from "./components/craftingPanel/CraftingPanel";
 // import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 
 export type Tabs = "Main" | "Skill Tree" | "Crafting";
@@ -57,6 +58,7 @@ function App() {
                     </>
                 ) : null}
                 {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}
+                {tabOpen === "Crafting" ? <CraftingPanel></CraftingPanel> : null}
             </main>
         </>
     );

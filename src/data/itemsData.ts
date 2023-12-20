@@ -15,7 +15,7 @@ export type EquipmentStat = {
     value: number;
     description: string;
 };
-export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring";
+export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring" | "gloves";
 export type EquipmentProps = {
     stats: EquipmentStat[];
     type: EquipmentTypes;
@@ -89,6 +89,46 @@ const ITEM_DATA: Record<number, ItemProps> = {
         url: "knife.png",
         value: 150,
         equipment: {stats: [{type: "attackPower", value: 3, description: "+3 attack power"}], type: "weapon"},
+    },
+    6: {
+        id: 6,
+        tier: "Uncommon",
+        name: "Turtle Shell Helmet",
+        url: "turtleShell.png",
+        value: 20,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "helmet"},
+    },
+    7: {
+        id: 7,
+        tier: "Uncommon",
+        name: "Turtle Shell Chest",
+        url: "turtleShell.png",
+        value: 50,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "chest"},
+    },
+    8: {
+        id: 8,
+        tier: "Uncommon",
+        name: "Turtle Shell Legs",
+        url: "turtleShell.png",
+        value: 40,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "legs"},
+    },
+    9: {
+        id: 9,
+        tier: "Uncommon",
+        name: "Turtle Shell Boots",
+        url: "turtleShell.png",
+        value: 20,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "boots"},
+    },
+    10: {
+        id: 10,
+        tier: "Uncommon",
+        name: "Turtle Shell Gloves",
+        url: "turtleShell.png",
+        value: 20,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "gloves"},
     },
 } as const;
 
