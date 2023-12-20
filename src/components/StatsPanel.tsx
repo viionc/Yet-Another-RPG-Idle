@@ -21,6 +21,7 @@ function StatsPanel() {
                     Xp: {playerStats.experience.toLocaleString("en-US")}/{calculateXp(playerStats.level + 1).toLocaleString("en-US")}
                 </li>
                 <li className="text-yellow-500">Gold: {short(playerStats.goldCoins)}</li>
+                <li className="text-yellow-500">Gold Multiplier: {Math.floor(playerStats.goldCoinsMultiplier * 100)}%</li>
                 <li>
                     Mana: {playerStats.mana}/{playerStats.maxMana} <span className="text-blue-500">{playerStats.currentManaRegenTimer}</span>
                 </li>

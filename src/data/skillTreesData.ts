@@ -1,3 +1,4 @@
+import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {SpellNames} from "./spellsData";
 
 export type SkillTreeNames = "Damage" | "Exploration" | "Magic";
@@ -13,7 +14,9 @@ export type SkillNames =
     | "Magic Damage"
     | "Max Mana"
     | "Mana Regen"
-    | "Spell Crit";
+    | "Spell Crit"
+    | "Spell Cooldown"
+    | "Gold Gain";
 
 export type SkillProps = {
     id: number;
@@ -27,6 +30,12 @@ export type SkillProps = {
     maxLevel: number;
     url: string;
     description: string;
+    statEffect?: StatEffectProps;
+};
+
+export type StatEffectProps = {
+    id: keyof PlayerStatsProps;
+    value: number;
 };
 export type SkillTreeProps = {
     id: number;
@@ -60,6 +69,21 @@ const EXPLORATION_SKILLS_DATA: SkillProps[] = [
         url: "./skills/haste.png",
         description: "Unlocks Haste spell.",
     },
+    {
+        id: 2,
+        name: "Gold Gain",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 5,
+        col: 2,
+        maxLevel: 5,
+        url: "./skills/goldGain.png",
+        description: "Increases gold gain by 10%.",
+        statEffect: {
+            id: "goldCoinsMultiplier",
+            value: 0.1,
+        },
+    },
 ];
 
 const DAMAGE_SKILLS_DATA: SkillProps[] = [
@@ -73,6 +97,10 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         maxLevel: 10,
         url: "./skills/attackPower.png",
         description: "Increases attack power by 1.",
+        statEffect: {
+            id: "attackPower",
+            value: 1,
+        },
     },
     {
         id: 1,
@@ -83,7 +111,11 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         col: 1,
         maxLevel: 5,
         url: "./skills/attackSpeed.png",
-        description: "Increases attack speed by 0.2.",
+        description: "Increases attack speed by 0.1.",
+        statEffect: {
+            id: "attackSpeed",
+            value: 0.1,
+        },
     },
     {
         id: 2,
@@ -105,7 +137,11 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         col: 3,
         maxLevel: 5,
         url: "./skills/critChance.png",
-        description: "Increases crit chance by 1.",
+        description: "Increases base crit chance by 2%.",
+        statEffect: {
+            id: "critChance",
+            value: 2,
+        },
     },
     {
         id: 4,
@@ -117,31 +153,13 @@ const DAMAGE_SKILLS_DATA: SkillProps[] = [
         maxLevel: 5,
         url: "./skills/critMulti.png",
         description: "Increases crit multiplier by 10%.",
+        statEffect: {
+            id: "critMulti",
+            value: 0.1,
+        },
     },
     {
         id: 5,
-        name: "temp5",
-        skillPointCost: 1,
-        unlockRequirements: null,
-        row: 4,
-        col: 2,
-        maxLevel: 5,
-        url: "",
-        description: "Increases attack power by 1.",
-    },
-    {
-        id: 6,
-        name: "temp6",
-        skillPointCost: 1,
-        unlockRequirements: null,
-        row: 4,
-        col: 1,
-        maxLevel: 5,
-        url: "",
-        description: "Increases attack power by 1.",
-    },
-    {
-        id: 7,
         name: "Double Attack",
         spellName: "Double Attack",
         skillPointCost: 2,
@@ -179,6 +197,10 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
         maxLevel: 5,
         url: "./skills/maxMana.png",
         description: "Increases max mana by 1.",
+        statEffect: {
+            id: "maxMana",
+            value: 1,
+        },
     },
     {
         id: 3,
@@ -189,7 +211,11 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
         col: 2,
         maxLevel: 5,
         url: "./skills/manaRegen.png",
-        description: "Increases mana regen rate by 2s.",
+        description: "Increases mana regen rate by 2 seconds.",
+        statEffect: {
+            id: "manaRegenRate",
+            value: 2,
+        },
     },
     {
         id: 4,
@@ -201,6 +227,10 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
         maxLevel: 10,
         url: "./skills/magicDamage.png",
         description: "Increases damage of your magic spells by 1.",
+        statEffect: {
+            id: "magicDamage",
+            value: 1,
+        },
     },
     {
         id: 5,
@@ -214,6 +244,21 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
         url: "./skills/spellCrit.png",
         description: "Your magic spells can crit.",
     },
+    {
+        id: 6,
+        name: "Spell Cooldown",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 3,
+        col: 2,
+        maxLevel: 5,
+        url: "./skills/spellCooldown.png",
+        description: "Reduces your spell cooldowns by 2 seconds.",
+        statEffect: {
+            id: "cooldownReduction",
+            value: 2,
+        },
+    },
 ];
 
 const SKILL_TREES_DATA: SkillTreeProps[] = [
@@ -223,3 +268,4 @@ const SKILL_TREES_DATA: SkillTreeProps[] = [
 ];
 
 export default SKILL_TREES_DATA;
+export const ALL_SKILLS = [...EXPLORATION_SKILLS_DATA, ...DAMAGE_SKILLS_DATA, ...MAGIC_SKILLS_DATA];

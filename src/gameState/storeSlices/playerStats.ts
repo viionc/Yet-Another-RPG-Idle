@@ -5,6 +5,7 @@ import {equipItem, unequipItem} from "./playerEquipment";
 import ITEM_DATA from "../../data/itemsData";
 import {castSpell, reduceCooldowns} from "./battleState";
 import SPELLS_DATA from "../../data/spellsData";
+import {ALL_SKILLS} from "../../data/skillTreesData";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -20,6 +21,8 @@ export type PlayerStatsProps = {
     goldCoinsMultiplier: number;
     manaRegenRate: number;
     currentManaRegenTimer: number;
+    magicDamage: number;
+    cooldownReduction: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -45,6 +48,8 @@ const initialState: PlayerStatsProps = {
     goldCoinsMultiplier: 1,
     manaRegenRate: 30,
     currentManaRegenTimer: 30,
+    magicDamage: 0,
+    cooldownReduction: 0,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -99,27 +104,30 @@ const playerStatsSlice = createSlice({
         builder
             .addCase(resetAction, () => initialState)
             .addCase(addSkillPoint, (state, action) => {
-                switch (action.payload) {
-                    case "Attack Power":
-                        state.attackPower++;
-                        break;
-                    case "Attack Speed":
-                        state.attackSpeed -= 0.1;
-                        break;
-                    case "Crit Chance":
-                        state.critChance += 2;
-                        break;
-                    case "Crit Multi":
-                        state.critMulti += 0.1;
-                        break;
-                    case "Max Mana":
-                        state.maxMana += 1;
-                        break;
-                    case "Mana Regen":
-                        state.manaRegenRate -= 2;
-                        if (state.currentManaRegenTimer > 2) state.currentManaRegenTimer -= 2;
-                        break;
-                }
+                const skill = ALL_SKILLS.find((skill) => skill.name === action.payload);
+                if (!skill || !skill.statEffect) return;
+                updateStats(state, skill.statEffect.id, skill.statEffect.value);
+                // switch (action.payload) {
+                //     case "Attack Power":
+                //         state.attackPower++;
+                //         break;
+                //     case "Attack Speed":
+                //         state.attackSpeed -= 0.1;
+                //         break;
+                //     case "Crit Chance":
+                //         state.critChance += 2;
+                //         break;
+                //     case "Crit Multi":
+                //         state.critMulti += 0.1;
+                //         break;
+                //     case "Max Mana":
+                //         state.maxMana += 1;
+                //         break;
+                //     case "Mana Regen":
+                //         state.manaRegenRate -= 2;
+                //         if (state.currentManaRegenTimer > 2) state.currentManaRegenTimer -= 2;
+                //         break;
+                // }
             })
             .addCase(equipItem, (state, action) => {
                 const equipment = ITEM_DATA[action.payload].equipment;
@@ -151,13 +159,17 @@ const playerStatsSlice = createSlice({
 const updateStats = (state: PlayerStatsProps, stat: keyof PlayerStatsProps, value: number) => {
     switch (stat) {
         case "attackPower":
-            state.attackPower += value;
+        case "goldCoinsMultiplier":
+        case "maxMana":
+        case "cooldownReduction":
+        case "critChance":
+        case "critMulti":
+        case "magicDamage":
+            state[stat] += value;
             break;
         case "attackSpeed":
-            state.attackSpeed -= value;
-            break;
-        case "goldCoinsMultiplier":
-            state.goldCoinsMultiplier += value;
+        case "manaRegenRate":
+            state[stat] -= value;
             break;
     }
 };

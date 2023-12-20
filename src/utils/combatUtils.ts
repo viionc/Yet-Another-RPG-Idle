@@ -66,7 +66,7 @@ export const calculateCritDamage = (critChance: number, critMulti: number, baseD
 export const calculateSpellDamageDone = (spellName: SpellNames, playerSkills: PlayerSkillsProps, playerStats: PlayerStatsProps): DamageDoneProps => {
     const {critChance, critMulti} = playerStats;
     const spellData = SPELLS_DATA[spellName];
-    const baseDamage = (spellData.effect.damage as number) + (playerSkills["Magic Damage"] ?? 0);
+    const baseDamage = (spellData.effect.damage as number) + playerStats.magicDamage;
     let hit: DamageDoneProps = {damage: baseDamage, wasCrit: false};
     if (playerSkills["Spell Crit"]) {
         hit = calculateCritDamage(critChance, critMulti, baseDamage);
