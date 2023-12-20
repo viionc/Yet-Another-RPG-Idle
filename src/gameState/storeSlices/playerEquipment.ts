@@ -10,8 +10,7 @@ export type PlayerEquipment = {
     weapon: number | null;
     offhand: number | null;
     amulet: number | null;
-    ring1: number | null;
-    ring2: number | null;
+    ring: number | null;
     gloves: number | null;
     belt: number | null;
 };
@@ -27,8 +26,7 @@ const initialState: PlayerEquipment = {
     gloves: null,
     belt: null,
     amulet: null,
-    ring1: null,
-    ring2: null,
+    ring: null,
 };
 
 const playerEquipmentSlice = createSlice({

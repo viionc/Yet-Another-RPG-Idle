@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {RootState} from "../gameState/store";
+import {RootState} from "../../gameState/store";
 
 import SpellSlot from "./SpellSlot";
 

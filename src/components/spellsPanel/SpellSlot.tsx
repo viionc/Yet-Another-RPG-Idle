@@ -1,12 +1,12 @@
 import {useState} from "react";
-import {QuickBarSpell} from "../gameState/storeSlices/playerSpells";
+import {QuickBarSpell} from "../../gameState/storeSlices/playerSpells";
 import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
-import SPELLS_DATA, {SpellNames} from "../data/spellsData";
-import {castSpell, updateEnemyHp} from "../gameState/storeSlices/battleState";
-import {RootState} from "../gameState/store";
-import {handleEndBattle} from "../tickHandler/battleInterval";
-import {spellHit} from "../utils/combatUtils";
+import SPELLS_DATA, {SpellNames} from "../../data/spellsData";
+import {castSpell, updateEnemyHp} from "../../gameState/storeSlices/battleState";
+import {RootState} from "../../gameState/store";
+import {handleEndBattle} from "../../tickHandler/battleInterval";
+import {spellHit} from "../../utils/combatUtils";
 
 export type SpellSlotProps = {
     spell: QuickBarSpell | null;

@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
-import ZONES_DATA from "../data/zonesData";
-import {changeWave, changeZone, handleAutoProgression} from "../gameState/storeSlices/battleState";
-import {RootState} from "../gameState/store";
-import {isMaxWave} from "../utils/wavesUtils";
+import ZONES_DATA from "../../data/zonesData";
+import {changeWave, changeZone, handleAutoProgression} from "../../gameState/storeSlices/battleState";
+import {RootState} from "../../gameState/store";
+import {isMaxWave} from "../../utils/wavesUtils";
 // import {disableSetting, enableSetting} from "../gameState/storeSlices/playerSettings";
 // import {disableSettings, enableSettings} from "../gameState/storeSlices/playerSettings";
 

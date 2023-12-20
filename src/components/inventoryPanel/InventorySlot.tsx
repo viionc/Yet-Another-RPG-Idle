@@ -1,10 +1,10 @@
 import {useState} from "react";
-import ITEM_DATA, {colorsByItemTier} from "../data/itemsData";
-import {InventoryItem, addItemsToInventory} from "../gameState/storeSlices/playerInventory";
+import ITEM_DATA, {colorsByItemTier} from "../../data/itemsData";
+import {InventoryItem, addItemsToInventory} from "../../gameState/storeSlices/playerInventory";
 import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
-import {equipItem, unequipItem} from "../gameState/storeSlices/playerEquipment";
-import {RootState} from "../gameState/store";
+import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
+import {RootState} from "../../gameState/store";
 
 function InventorySlot({item, placeholderText}: {item: InventoryItem | null; placeholderText?: string}) {
     const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);

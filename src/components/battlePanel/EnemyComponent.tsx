@@ -1,5 +1,5 @@
-import ENEMIES_DATA from "../data/enemiesData";
-import {BattleStateEnemyProps} from "../gameState/storeSlices/battleState";
+import ENEMIES_DATA from "../../data/enemiesData";
+import {BattleStateEnemyProps} from "../../gameState/storeSlices/battleState";
 
 function EnemyComponent({enemy}: {enemy: BattleStateEnemyProps}) {
     const enemyUrl = ENEMIES_DATA[enemy.id].url;

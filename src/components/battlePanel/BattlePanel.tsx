@@ -1,14 +1,14 @@
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../gameState/store";
-import Spinner from "./Spinner";
-import ZONES_DATA from "../data/zonesData";
-import ENEMIES_DATA from "../data/enemiesData";
+import {RootState} from "../../gameState/store";
+import Spinner from "../Spinner";
+import ZONES_DATA from "../../data/zonesData";
+import ENEMIES_DATA from "../../data/enemiesData";
 import WaveCounterComponent from "./WaveCounterComponent";
 import EnemyComponent from "./EnemyComponent";
 import {motion} from "framer-motion";
 import {useEffect} from "react";
-import {updateDamageHitSplat} from "../gameState/storeSlices/battleState";
-import SPELLS_DATA from "../data/spellsData";
+import {updateDamageHitSplat} from "../../gameState/storeSlices/battleState";
+import SPELLS_DATA from "../../data/spellsData";
 
 function BattlePanel() {
     const {zoneWaveProgression, currentWave, zoneId, enemy, damageForHitSplat} = useSelector((state: RootState) => state.battleState);

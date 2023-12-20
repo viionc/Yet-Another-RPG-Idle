@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import BattlePanel from "./components/BattlePanel";
+import BattlePanel from "./components/battlePanel/BattlePanel";
 import Header from "./components/Header";
 import StatsPanel from "./components/StatsPanel";
 import {gameTickHandler} from "./tickHandler/gameInterval";
@@ -7,10 +7,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {battleTickHandler} from "./tickHandler/battleInterval";
 import {RootState} from "./gameState/store";
 import {clearInterval, setInterval} from "worker-timers";
-import InventoryPanel from "./components/InventoryPanel";
-import SkillTreePanel from "./components/SkillTreePanel";
-import PlayerEquipmentPanel from "./components/PlayerEquipmentPanel";
-import SpellsPanel from "./components/SpellsPanel";
+import InventoryPanel from "./components/inventoryPanel/InventoryPanel";
+import SkillTreePanel from "./components/skillTreePanel/SkillTreePanel";
+import PlayerEquipmentPanel from "./components/equipmentPanel/PlayerEquipmentPanel";
+import SpellsPanel from "./components/spellsPanel/SpellsPanel";
 // import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 
 export type Tabs = "Main" | "Skill Tree" | "Crafting";

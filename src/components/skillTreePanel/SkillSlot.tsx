@@ -1,12 +1,12 @@
 import {useState} from "react";
-import {SkillProps} from "../data/skillTreesData";
+import {SkillProps} from "../../data/skillTreesData";
 import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../gameState/store";
-import {addSkillPoint} from "../gameState/storeSlices/playerSkills";
-import {decreaseStats} from "../gameState/storeSlices/playerStats";
+import {RootState} from "../../gameState/store";
+import {addSkillPoint} from "../../gameState/storeSlices/playerSkills";
+import {decreaseStats} from "../../gameState/storeSlices/playerStats";
 
-function Skill({skill}: {skill: SkillProps}) {
+function SkillSlot({skill}: {skill: SkillProps}) {
     const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
     const {styles, attributes} = usePopper(referenceElement, popperElement);
@@ -56,4 +56,4 @@ function Skill({skill}: {skill: SkillProps}) {
     );
 }
 
-export default Skill;
+export default SkillSlot;

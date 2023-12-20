@@ -1,7 +1,7 @@
 import InventorySlot from "./InventorySlot";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../gameState/store";
-import {sortInventory} from "../gameState/storeSlices/playerInventory";
+import {RootState} from "../../gameState/store";
+import {sortInventory} from "../../gameState/storeSlices/playerInventory";
 
 function InventoryPanel() {
     const playerInventory = useSelector((state: RootState) => state.playerInventory);

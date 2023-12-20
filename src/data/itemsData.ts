@@ -15,7 +15,7 @@ export type EquipmentStat = {
     value: number;
     description: string;
 };
-export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring1" | "ring2";
+export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring";
 export type EquipmentProps = {
     stats: EquipmentStat[];
     type: EquipmentTypes;
