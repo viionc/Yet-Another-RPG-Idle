@@ -3,7 +3,7 @@ import ITEM_DATA, {EquipmentProps, colorsByItemTier} from "../../data/itemsData"
 import {InventoryItem, addItemsToInventory} from "../../gameState/storeSlices/playerInventory";
 import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
-import {equipItem} from "../../gameState/storeSlices/playerEquipment";
+import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
 import {RootState} from "../../gameState/store";
 
 export type InventorySlotProps = {
@@ -55,7 +55,10 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
 
     const handleEquipItem = (equipment: EquipmentProps) => {
         const equippedItem = playerEquipment[equipment.type];
-        if (equippedItem) dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
+        if (equippedItem) {
+            dispatch(unequipItem(equippedItem));
+            dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
+        }
         dispatch(equipItem(item.id));
         setShow(false);
     };
