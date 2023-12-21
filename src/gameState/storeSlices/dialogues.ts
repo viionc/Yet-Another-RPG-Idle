@@ -1,10 +1,11 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAction, createSlice} from "@reduxjs/toolkit";
 import {SimpleActionProps} from "../store";
 
 export type DialoguesState = {
     currentNpcId: number | null;
     npcDialoguesProgress: Record<number, number>;
 };
+const resetAction = createAction("RESET_STATES");
 const initialState: DialoguesState = {
     currentNpcId: null,
     npcDialoguesProgress: {},
@@ -25,6 +26,9 @@ const dialoguesSlice = createSlice({
         closeDialogue: (state) => {
             state.currentNpcId = null;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(resetAction, () => initialState);
     },
 });
 
