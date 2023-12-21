@@ -10,14 +10,18 @@ import CraftingPanel from "./components/craftingPanel/CraftingPanel";
 import TownPanel from "./components/townPanel/TownPanel";
 
 import GameLoopComponent from "./components/GameLoopComponent";
+import DialogueModal from "./components/DialogueModal";
+import {useSelector} from "react-redux";
+import {RootState} from "./gameState/store";
 
 export type Tabs = "Main" | "Skill Tree" | "Crafting" | "Town";
 
 function App() {
     const [tabOpen, setTabOpen] = useState<Tabs>("Main");
-
+    const dialogues = useSelector((state: RootState) => state.dialogues);
     return (
         <>
+            {dialogues.currentNpcId !== null ? <DialogueModal id={dialogues.currentNpcId}></DialogueModal> : null}
             <GameLoopComponent></GameLoopComponent>
             <Header setTabOpen={setTabOpen}></Header>
             <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
