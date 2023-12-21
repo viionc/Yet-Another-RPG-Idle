@@ -29,7 +29,7 @@ function BattlePanel() {
             dispatch(updateDamageHitSplat(""));
         }, 1000);
         return () => clearTimeout(timeout);
-    }, [damageForHitSplat]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [damageForHitSplat, dispatch]);
 
     return (
         <section className="border rounded-md col-span-2 p-2 border-slate-800 bg-neutral-800 h-[20rem]">

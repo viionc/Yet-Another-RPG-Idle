@@ -16,11 +16,10 @@ function InventoryPanel() {
 
     useEffect(() => {
         if (selectedIndex === null || targetIndex === null) return;
-        console.log(selectedIndex, targetIndex);
         dispatch(moveItemsInInventory({selectedIndex, targetIndex}));
         setSelectedIndex(null);
         setTargetIndex(null);
-    }, [targetIndex, selectedIndex]);
+    }, [targetIndex, selectedIndex, dispatch]);
 
     return (
         <section className="col-start-2 col-span-2 row-start-3 border rounded-md p-2 border-slate-800 bg-neutral-800 h-[20rem] flex flex-col items-center">

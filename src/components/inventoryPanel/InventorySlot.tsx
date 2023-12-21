@@ -1,9 +1,9 @@
 import {useState} from "react";
-import ITEM_DATA, {colorsByItemTier} from "../../data/itemsData";
+import ITEM_DATA, {EquipmentProps, colorsByItemTier} from "../../data/itemsData";
 import {InventoryItem, addItemsToInventory} from "../../gameState/storeSlices/playerInventory";
 import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
-import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
+import {equipItem} from "../../gameState/storeSlices/playerEquipment";
 import {RootState} from "../../gameState/store";
 
 export type InventorySlotProps = {
@@ -11,12 +11,11 @@ export type InventorySlotProps = {
     setTargetIndex: React.Dispatch<React.SetStateAction<number | null>>;
     setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
     isDragging: boolean;
-    placeholderText?: string;
     inventoryIndex: number;
     item: InventoryItem | null;
 };
 
-function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex, setTargetIndex, setIsDragging, isDragging}: InventorySlotProps) {
+function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, setIsDragging, isDragging}: InventorySlotProps) {
     const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
     const {styles, attributes} = usePopper(referenceElement, popperElement);
@@ -26,15 +25,17 @@ function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex,
 
     const handleOnMouseEnter = () => {
         if (isDragging) {
-            setTargetIndex(inventoryIndex);
+            setShow(false);
             setIsDragging(false);
+            setTargetIndex(inventoryIndex);
+        } else {
+            setShow(true);
         }
-        setShow(true);
     };
 
     const onDragStart = () => {
-        setShow(false);
         setIsDragging(true);
+        setShow(false);
         setSelectedIndex(inventoryIndex);
     };
 
@@ -42,30 +43,29 @@ function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex,
         return (
             <div
                 className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
-                onMouseEnter={handleOnMouseEnter}>
-                {placeholderText ? <span className="text-zinc-400 text-md ">{placeholderText}</span> : null}
-            </div>
+                onMouseEnter={handleOnMouseEnter}></div>
         );
 
     const {tier, url, name, equipment} = ITEM_DATA[item.id];
+
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
-        if (equipment) {
-            const equippedItem = playerEquipment[equipment.type];
-            if (equippedItem) dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
-            placeholderText ? dispatch(unequipItem(item.id)) : dispatch(equipItem(item.id));
-            setShow(false);
-        }
+        if (equipment) handleEquipItem(equipment);
     };
 
-    const rightClickText = placeholderText ? "Unequip" : "Equip";
+    const handleEquipItem = (equipment: EquipmentProps) => {
+        const equippedItem = playerEquipment[equipment.type];
+        if (equippedItem) dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
+        dispatch(equipItem(item.id));
+        setShow(false);
+    };
 
     return (
         <div
             className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
             ref={setReferenceElement}
             draggable
-            onDrag={onDragStart}
+            onDragStart={onDragStart}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={() => setShow(false)}
             onContextMenu={(e) => handleRightClick(e)}
@@ -73,7 +73,7 @@ function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex,
                 boxShadow: `${colorsByItemTier[tier]} 0px 3px 8px`,
             }}>
             <img src={`./items/${url}`} className="h-7" alt={`${name} item`}></img>
-            {!placeholderText ? <span>{item.amount}</span> : null}
+            <span>{item.amount}</span>
 
             {show ? (
                 <div
@@ -93,8 +93,8 @@ function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex,
                                 ))}
                             </ul>
                             <span className="flex gap-1 ms-auto items-center text-xs">
-                                {rightClickText}
-                                <img src="./other/rightClick.png" alt={`right click to ${rightClickText}`} height={16} width={16}></img>
+                                Equip
+                                <img src="./other/rightClick.png" alt={`right click to equip`} height={16} width={16}></img>
                             </span>
                         </>
                     ) : null}

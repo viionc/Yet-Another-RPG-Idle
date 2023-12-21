@@ -1,12 +1,13 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Tabs} from "../App";
-import {resetAction} from "../gameState/store";
+import {RootState, resetAction} from "../gameState/store";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {changeWave} from "../gameState/storeSlices/battleState";
 import {increaseStats} from "../gameState/storeSlices/playerStats";
 
-function Header({setTabOpen, skillPoints}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>; skillPoints: number}) {
+function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>}) {
     const dispatch = useDispatch();
+    const {unspentSkillPoints} = useSelector((state: RootState) => state.playerStats);
 
     return (
         <header className="container h-8 py-8 text-white flex gap-2 text-2xl mb-6">
@@ -36,10 +37,13 @@ function Header({setTabOpen, skillPoints}: {setTabOpen: React.Dispatch<React.Set
                         Main
                     </li>
                     <li onClick={() => setTabOpen("Skill Tree")} className="cursor-pointer hover:text-yellow-500">
-                        Skill Tree {skillPoints > 0 ? <span className="text-yellow-500">({skillPoints})</span> : null}
+                        Skill Tree {unspentSkillPoints > 0 ? <span className="text-yellow-500">({unspentSkillPoints})</span> : null}
                     </li>
                     <li onClick={() => setTabOpen("Crafting")} className="cursor-pointer hover:text-yellow-500">
                         Crafting
+                    </li>
+                    <li onClick={() => setTabOpen("Town")} className="cursor-pointer hover:text-yellow-500">
+                        Town
                     </li>
                 </ul>
             </nav>
