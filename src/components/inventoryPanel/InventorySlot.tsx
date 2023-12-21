@@ -6,7 +6,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
 import {RootState} from "../../gameState/store";
 
-function InventorySlot({item, placeholderText}: {item: InventoryItem | null; placeholderText?: string}) {
+export type InventorySlotProps = {
+    setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
+    setTargetIndex: React.Dispatch<React.SetStateAction<number | null>>;
+    setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
+    isDragging: boolean;
+    placeholderText?: string;
+    inventoryIndex: number;
+    item: InventoryItem | null;
+};
+
+function InventorySlot({item, inventoryIndex, placeholderText, setSelectedIndex, setTargetIndex, setIsDragging, isDragging}: InventorySlotProps) {
     const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
     const {styles, attributes} = usePopper(referenceElement, popperElement);
@@ -14,9 +24,25 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
     const dispatch = useDispatch();
     const playerEquipment = useSelector((state: RootState) => state.playerEquipment);
 
+    const handleOnMouseEnter = () => {
+        if (isDragging) {
+            setTargetIndex(inventoryIndex);
+            setIsDragging(false);
+        }
+        setShow(true);
+    };
+
+    const onDragStart = () => {
+        setShow(false);
+        setIsDragging(true);
+        setSelectedIndex(inventoryIndex);
+    };
+
     if (!item)
         return (
-            <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col">
+            <div
+                className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
+                onMouseEnter={handleOnMouseEnter}>
                 {placeholderText ? <span className="text-zinc-400 text-md ">{placeholderText}</span> : null}
             </div>
         );
@@ -38,14 +64,13 @@ function InventorySlot({item, placeholderText}: {item: InventoryItem | null; pla
         <div
             className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
             ref={setReferenceElement}
-            onMouseEnter={() => setShow(true)}
+            draggable
+            onDrag={onDragStart}
+            onMouseEnter={handleOnMouseEnter}
             onMouseLeave={() => setShow(false)}
             onContextMenu={(e) => handleRightClick(e)}
             style={{
                 boxShadow: `${colorsByItemTier[tier]} 0px 3px 8px`,
-                //boxShadow: `${colorsByItemTier[tier]} 0px 5px 15px`,
-                //boxShadow: `${colorsByItemTier[tier]} 0px 2px 4px 0px, ${colorsByItemTier[tier]} 0px 2px 16px 0px`,
-                //boxShadow: `${colorsByItemTier[tier]} 0px 0px 0px 2px, ${colorsByItemTier[tier]} 0px 4px 6px -1px, ${colorsByItemTier[tier]} 0px 1px 0px inset`,
             }}>
             <img src={`./items/${url}`} className="h-7" alt={`${name} item`}></img>
             {!placeholderText ? <span>{item.amount}</span> : null}

@@ -17,6 +17,7 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   player stats
 -   skill points and skill trees
 -   spells
+-   crafting
 
 ## TODO:
 
@@ -34,6 +35,7 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   more skills and skill icons
 -   more spells
 -   more items to test the inventory system
+-   more crafting recipes
 
 <br>
 
@@ -43,6 +45,5 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   rare enemy that can spawn in every zone?
 -   animate enemies? canvas? gifs bad
 -   quests?
--   crafting?
 -   shop?
 -   town or something idk?

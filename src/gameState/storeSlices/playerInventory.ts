@@ -11,6 +11,14 @@ type InventoryAddItemsAction = {
     payload: InventoryItem[];
     type: string;
 };
+
+export type MoveItemsAction = {
+    type: string;
+    payload: {
+        selectedIndex: number;
+        targetIndex: number;
+    };
+};
 const resetAction = createAction("RESET_STATES");
 const initialState: Array<InventoryItem | null> = new Array(40).fill(null);
 
@@ -50,6 +58,12 @@ const playerInventorySlice = createSlice({
             state = [...items, ...new Array(40 - items.length).fill(null)];
             return state;
         },
+        moveItemsInInventory: (state, action: MoveItemsAction) => {
+            const {selectedIndex, targetIndex} = action.payload;
+            const temp = state[targetIndex];
+            state[targetIndex] = state[selectedIndex];
+            state[selectedIndex] = temp;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -63,5 +77,5 @@ const playerInventorySlice = createSlice({
     },
 });
 
-export const {addItemsToInventory, sortInventory, removeItemsFromInventory} = playerInventorySlice.actions;
+export const {addItemsToInventory, sortInventory, removeItemsFromInventory, moveItemsInInventory} = playerInventorySlice.actions;
 export default playerInventorySlice.reducer;

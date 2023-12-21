@@ -6,8 +6,12 @@ import {isMaxWave} from "../utils/wavesUtils";
 import {decreaseStats, increaseStats} from "../gameState/storeSlices/playerStats";
 import SPELLS_DATA from "../data/spellsData";
 
+// let timestmap = Date.now();
+
 export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     const {battleState, playerStats, playerSpells} = gameState.getState();
+    // console.log("last tick duration: ", Date.now() - timestmap);
+    // timestmap = Date.now();
     if (battleState.battleCurrentCooldown <= 1 && !battleState.isBattleStarted) {
         const currentZone = ZONES_DATA[battleState.zoneId];
         if (isMaxWave(battleState.currentWave, currentZone.maxWave)) {
