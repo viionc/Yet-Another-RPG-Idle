@@ -21,4 +21,5 @@ export type SpecialItemResponseProps = {
     type: "item";
     id: number;
     amount: number;
+    label: string;
 };

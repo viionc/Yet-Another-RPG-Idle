@@ -4,22 +4,45 @@ import {useDispatch, useSelector} from "react-redux";
 import CloseButton from "./CloseButton";
 import {closeDialogue, nextDialogueMessage} from "../gameState/storeSlices/dialogues";
 import {RootState} from "../gameState/store";
+import {OptionsProps} from "../data/dialogues/types";
+import {decreaseStats} from "../gameState/storeSlices/playerStats";
+import {removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
 
 function DialogueModal({id}: {id: number}) {
     const dispatch = useDispatch();
     const {npcDialoguesProgress} = useSelector((state: RootState) => state.dialogues);
+    const playerStats = useSelector((state: RootState) => state.playerStats);
+    const playerInventory = useSelector((state: RootState) => state.playerInventory);
     const npc = NPC_Data[id];
 
     if (!npc || npcDialoguesProgress[id] < 0) return;
     const message = npc.dialogues[npcDialoguesProgress[id]].message;
     const options = npc.dialogues[npcDialoguesProgress[id]].options;
-
     const close = () => {
         dispatch(closeDialogue());
     };
 
-    const next = (nextId: number) => {
-        dispatch(nextDialogueMessage(nextId));
+    const next = (option: OptionsProps) => {
+        if (option.special) {
+            const {type, amount} = option.special;
+            switch (type) {
+                case "stat":
+                    if (playerStats[option.special.key] < amount) return;
+                    dispatch(decreaseStats([{id: option.special.key, amount}]));
+                    break;
+                case "item":
+                    if (itemsInInventory(option.special.id) < amount) return;
+                    dispatch(removeItemsFromInventory([{id: option.special.id, amount}]));
+                    break;
+            }
+        }
+        dispatch(nextDialogueMessage(option.next));
+    };
+
+    const itemsInInventory = (id: number): number => {
+        const item = playerInventory.find((item) => item && item.id === id);
+        if (item) return item.amount;
+        return -1;
     };
 
     return createPortal(
@@ -31,12 +54,17 @@ function DialogueModal({id}: {id: number}) {
                 <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
                 <p className="mb-8 text-xl">{message}</p>
                 <ul className="flex flex-col gap-2">
-                    {options.map((options, index) => (
+                    {options.map((option, index) => (
                         <li
                             key={index}
-                            onClick={() => next(options.next)}
-                            className="border px-1 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
-                            {options.response}
+                            onClick={() => next(option)}
+                            className="group border px-1 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
+                            {option.response}
+                            {option.special ? (
+                                <span className="ml-4 text-yellow-500 group-hover:text-black">
+                                    Cost: {option.special.amount} {option.special.label}
+                                </span>
+                            ) : null}
                         </li>
                     ))}
                 </ul>
