@@ -57,7 +57,10 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Crab",
         id: 4,
         experience: 5,
-        drops: [{id: 1, minAmount: 1, maxAmount: 1, chance: 2}],
+        drops: [
+            {id: 1, minAmount: 1, maxAmount: 1, chance: 2},
+            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+        ],
         url: "./enemies/crab.png",
     },
     5: {
@@ -65,7 +68,10 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Seagull",
         id: 5,
         experience: 8,
-        drops: [{id: 2, minAmount: 1, maxAmount: 2, chance: 2}],
+        drops: [
+            {id: 2, minAmount: 1, maxAmount: 2, chance: 2},
+            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+        ],
         url: "./enemies/seagull.png",
     },
     6: {
@@ -73,7 +79,10 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Turtle",
         id: 6,
         experience: 10,
-        drops: [{id: 3, minAmount: 1, maxAmount: 1, chance: 3}],
+        drops: [
+            {id: 3, minAmount: 1, maxAmount: 1, chance: 3},
+            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+        ],
         url: "./enemies/turtle.png",
     },
     7: {

@@ -1,20 +1,34 @@
 import {EnemyProps} from "../data/enemiesData";
+import ITEM_DATA from "../data/itemsData";
 import SPELLS_DATA, {SpellNames} from "../data/spellsData";
 import {InventoryItem} from "../gameState/storeSlices/playerInventory";
 import {PlayerSkillsProps} from "../gameState/storeSlices/playerSkills";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
+import {Unlocks, UnlocksProps} from "../gameState/storeSlices/unlocks";
 import {DamageDoneProps} from "../tickHandler/battleInterval";
 
-export const calculateEnemyDrops = (enemy: EnemyProps) => {
+export const calculateEnemyDrops = (enemy: EnemyProps, unlocks: UnlocksProps) => {
     const itemsToUpdate: InventoryItem[] = [];
+    const unlocksArray: Unlocks[] = [];
     for (const drop of enemy.drops) {
         const roll = Math.ceil(Math.random() * drop.chance);
         if (roll === drop.chance) {
             const amount = Math.floor(Math.random() * (drop.maxAmount - drop.minAmount + 1) + drop.minAmount);
             itemsToUpdate.push({id: drop.id, amount});
+            const hadUnlock = checkForUnlocksByItem(drop.id, unlocks);
+            if (hadUnlock) unlocksArray.push(hadUnlock);
         }
     }
-    return itemsToUpdate;
+    return {itemsToUpdate, unlocksArray};
+};
+
+export const checkForUnlocksByItem = (id: number, unlocks: UnlocksProps): Unlocks | null => {
+    const {name} = ITEM_DATA[id];
+    switch (name) {
+        case "Turtle Shell":
+            if (!unlocks.crafting) return "crafting";
+    }
+    return null;
 };
 
 export const calculateDamageDone = (playerStats: PlayerStatsProps, double?: boolean): DamageDoneProps => {
@@ -29,10 +43,18 @@ export const calculateDamageDone = (playerStats: PlayerStatsProps, double?: bool
     return crit;
 };
 
-export const calculateGoldGain = (baseGoldEarned: number, playerStats: PlayerStatsProps) => {
-    let goldMulti = 0;
-    goldMulti += playerStats.goldCoinsMultiplier;
-    return baseGoldEarned * goldMulti;
+export const calculateXpGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number) => {
+    let xp = Math.floor((10 + zoneId + 1) * currentWave + Math.pow(zoneId, 3));
+    if (currentWave === 10) xp *= 6;
+    const xpMulti = playerStats.xpMultiplier;
+    return Math.ceil(xp * xpMulti);
+};
+
+export const calculateGoldGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number) => {
+    let gold = Math.floor(Math.pow(zoneId, 2) + currentWave);
+    if (currentWave === 10) gold *= 5;
+    const goldMulti = playerStats.goldCoinsMultiplier;
+    return Math.ceil(gold * goldMulti);
 };
 
 export const spellHit = (spellName: SpellNames, playerSkills: PlayerSkillsProps, playerStats: PlayerStatsProps): DamageDoneProps => {

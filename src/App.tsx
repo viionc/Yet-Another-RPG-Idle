@@ -13,6 +13,7 @@ import DialogueModal from "./components/DialogueModal";
 import {useSelector} from "react-redux";
 import {RootState} from "./gameState/store";
 import TownsPanel from "./components/townPanel/TownsPanel";
+import QuestsPanel from "./components/questsPanel/QuestsPanel";
 
 export type Tabs = "Main" | "Skill Tree" | "Crafting" | "Towns";
 
@@ -32,6 +33,7 @@ function App() {
                         <SpellsPanel></SpellsPanel>
                         <InventoryPanel></InventoryPanel>
                         <PlayerEquipmentPanel></PlayerEquipmentPanel>
+                        <QuestsPanel></QuestsPanel>
                     </>
                 ) : null}
                 {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}

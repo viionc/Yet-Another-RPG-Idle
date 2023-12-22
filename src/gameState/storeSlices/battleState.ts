@@ -16,6 +16,7 @@ export type BattleStateProps = {
     autoWaveProgression: boolean;
     overkillDamage: number;
     damageForHitSplat: string;
+    totalEnemyKillCount: Record<number, number>;
 };
 
 export interface BattleStateEnemyProps {
@@ -38,6 +39,7 @@ const initialState: BattleStateProps = {
     zoneId: 0,
     currentWave: 1,
     zoneWaveProgression: {0: {1: 0}}, // {zoneId: {wave: kill count}}
+    totalEnemyKillCount: {},
     requiredKillsToAdvance: 10,
     isBattleStarted: false,
     enemy: null,
@@ -75,6 +77,10 @@ const battleStateSlice = createSlice({
             state.damageForHitSplat = action.payload.damageForHitSplat;
         },
         endBattle: (state, action: EndBattleActionProps) => {
+            if (!action.payload.change) {
+                const currentKc = state.totalEnemyKillCount[(state.enemy as BattleStateEnemyProps).id] ?? 0;
+                state.totalEnemyKillCount[(state.enemy as BattleStateEnemyProps).id] = currentKc + 1;
+            }
             state.enemy = null;
             state.battleCurrentCooldown = state.battleGlobalCooldown;
             state.isBattleStarted = false;

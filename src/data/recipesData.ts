@@ -47,6 +47,13 @@ const RECIPES_DATA: Record<number, CraftingRecipeProps> = {
         itemsNeeded: [{id: 3, amount: 10}],
         createsAmount: 1,
     },
+    5: {
+        itemId: 12,
+        name: "Makeshift Club",
+        unlockRequirement: null,
+        itemsNeeded: [{id: 11, amount: 10}],
+        createsAmount: 1,
+    },
 };
 
 export default RECIPES_DATA;

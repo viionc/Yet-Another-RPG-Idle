@@ -61,7 +61,7 @@ function DialogueModal({id}: {id: number}) {
                         <li
                             key={index}
                             onClick={() => next(option)}
-                            className="group border px-1 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
+                            className="group border px-2 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
                             {option.response}
                             {option.special ? (
                                 <span className="ml-4 text-yellow-500 group-hover:text-black">

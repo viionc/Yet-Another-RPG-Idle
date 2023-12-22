@@ -9,6 +9,7 @@ import playerSettingsReducer from "./storeSlices/playerSettings";
 import playerEquipmentReducer from "./storeSlices/playerEquipment";
 import playerSpellsReducer from "./storeSlices/playerSpells";
 import dialoguesReducer from "./storeSlices/dialogues";
+import unlocksReducer from "./storeSlices/unlocks";
 
 export type SimpleActionProps = {
     payload: number;
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     playerEquipment: playerEquipmentReducer,
     playerSpells: playerSpellsReducer,
     dialogues: dialoguesReducer,
+    unlocks: unlocksReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

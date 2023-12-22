@@ -39,12 +39,13 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
         setSelectedIndex(inventoryIndex);
     };
 
-    if (!item)
+    if (!item) {
         return (
             <div
                 className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
                 onMouseEnter={handleOnMouseEnter}></div>
         );
+    }
 
     const {tier, url, name, equipment} = ITEM_DATA[item.id];
 
@@ -65,7 +66,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
 
     return (
         <div
-            className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
+            className="border flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col hover:bg-zinc-700 hover:bg-opacity-50 cursor-pointer"
             ref={setReferenceElement}
             draggable
             onDragStart={onDragStart}

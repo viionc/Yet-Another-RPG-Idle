@@ -24,6 +24,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const playerSkills = useSelector((state: RootState) => state.playerSkills);
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const battleState = useSelector((state: RootState) => state.battleState);
+    const unlocks = useSelector((state: RootState) => state.unlocks);
 
     const handleClick = (spellName: SpellNames, quickBarIndex: number) => {
         const spell = SPELLS_DATA[spellName];
@@ -40,7 +41,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
         const hpAfterDamage = Math.max(0, battleState.enemy.currentHp - hit.damage);
         dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${hit.damage}${hit.wasCrit ? "!" : ""}`}));
         if (hpAfterDamage <= 0) {
-            handleEndBattle(dispatch, battleState, playerStats);
+            handleEndBattle(dispatch, battleState, playerStats, unlocks);
         }
     };
 

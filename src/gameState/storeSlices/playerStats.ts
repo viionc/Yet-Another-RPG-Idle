@@ -23,6 +23,7 @@ export type PlayerStatsProps = {
     currentManaRegenTimer: number;
     magicDamage: number;
     cooldownReduction: number;
+    xpMultiplier: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -50,6 +51,7 @@ const initialState: PlayerStatsProps = {
     currentManaRegenTimer: 30,
     magicDamage: 0,
     cooldownReduction: 0,
+    xpMultiplier: 1,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {

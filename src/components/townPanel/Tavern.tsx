@@ -9,7 +9,7 @@ type BuildingProps = {
 
 function Tavern({tab, close}: BuildingProps) {
     return (
-        <div className="bg-no-repeat bg-center bg-cover w-full h-full rounded-md relative" style={{backgroundImage: `url(${tab.url})`}}>
+        <div className="bg-no-repeat bg-center bg-cover w-full h-full rounded-md relative " style={{backgroundImage: `url(${tab.url})`}}>
             <CloseButton position="top-right" callback={close} />
             <h2 className="">{tab.name}</h2>
             {tab.npcIds.map((npc) => (

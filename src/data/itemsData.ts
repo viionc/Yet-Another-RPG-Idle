@@ -130,6 +130,21 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 20,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "gloves"},
     },
+    11: {
+        id: 11,
+        tier: "Normal",
+        name: "Stick",
+        url: "stick.png",
+        value: 1,
+    },
+    12: {
+        id: 12,
+        tier: "Normal",
+        name: "Makeshift Club",
+        url: "makeshiftClub.png",
+        value: 10,
+        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "weapon"},
+    },
 } as const;
 
 export default ITEM_DATA;
