@@ -18,32 +18,33 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   skill points and skill trees
 -   spells
 -   crafting
+-   functional dialogue system
 
 ## TODO:
 
--   fix damage hit splat update
+-   fix damage hit splat update (rework it)
 -   fix overkill damage
 -   requirements system
 -   rework enemy xp, hp, and gold gain systems
+-   improve drag, and drop system in inventory, it's a bit buggy atm
 -   fix bugs that show up after fixing other bugs
 
 <br>
 
-## more of current features
+## More of current features:
 
 -   more zones, more enemies
 -   more skills and skill icons
 -   more spells
 -   more items to test the inventory system
 -   more crafting recipes
+-   more town features (trainer, shop, guild or something)
 
 <br>
 
-## ideas
+## Ideas:
 
--   react window for infinite inventory??
 -   rare enemy that can spawn in every zone?
 -   animate enemies? canvas? gifs bad
 -   quests?
--   shop?
--   town or something idk?
+-   random click events in zones? (ores/trees etc)
