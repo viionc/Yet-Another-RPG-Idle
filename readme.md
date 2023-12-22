@@ -7,6 +7,10 @@ built with React, Redux Toolkit, TypeScript, Tailwind, Vite<br>
 libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/ac33f7b5-ba03-45dc-9737-8c3033872ac6)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/e1a886c6-7f8e-42f4-adfc-836d3e911845)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/0958681b-ccbe-4f20-87bc-ad0dceabe746)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/c072aabb-43b9-4dad-a704-e45304ef6bfc)
+
 
 ## Current features:
 
