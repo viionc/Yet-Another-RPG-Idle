@@ -48,6 +48,11 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
                     label: "Gold Coins",
                 },
             },
+            {
+                response: "That's all for now. Have a good day.",
+                next: 2,
+                close: true,
+            },
         ],
     },
     {
@@ -72,7 +77,7 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
             {response: "More gold hungry than you? I don't think that's possible.", next: 6},
         ],
     },
-    {message: "Hmmph. Go away.", options: [{response: "...", next: 2}]},
+    {message: "Hmmph. Go away.", options: [{response: "...", next: 2, close: true}]},
 ];
 
 export default BARTENDER_DIALOGUES;

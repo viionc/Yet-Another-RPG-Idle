@@ -37,6 +37,7 @@ function DialogueModal({id}: {id: number}) {
             }
         }
         dispatch(nextDialogueMessage(option.next));
+        if (option.close) close();
     };
 
     const itemsInInventory = (id: number): number => {
@@ -49,7 +50,9 @@ function DialogueModal({id}: {id: number}) {
         <article
             className="absolute top-0 left-0 bg-opacity-25 bg-black border-slate-800 w-full h-full text-white flex justify-center items-center z-[100]"
             onClick={close}>
-            <div className="bg-zinc-800 h-1/3 w-1/2 p-6 rounded-md border-slate-700 border relative" onClick={(e) => e.stopPropagation()}>
+            <div
+                className="bg-zinc-800 min-h-[33%] w-1/2 mb-52 p-6 rounded-md border-slate-700 border relative z-[110]"
+                onClick={(e) => e.stopPropagation()}>
                 <CloseButton position="top-right" callback={close}></CloseButton>
                 <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
                 <p className="mb-8 text-xl">{message}</p>

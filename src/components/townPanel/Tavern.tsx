@@ -11,7 +11,12 @@ function Tavern({setTownTab}: {setTownTab: React.Dispatch<React.SetStateAction<T
             <div
                 onClick={() => dispatch(startDialogue(0))}
                 className="absolute top-1/2 -translate-y-1/2 right-5 bg-zinc-800 rounded-md border-slate-700 w-32 h-32 bg-opacity-80 flex justify-center items-center cursor-pointer">
-                <img src="./avatars/bartender.png" height="108" width="108"></img>
+                <img src="./avatars/laHarparBartender.png" height="108" width="108"></img>
+            </div>
+            <div
+                onClick={() => dispatch(startDialogue(1))}
+                className="absolute top-1/2 -translate-y-3/4 left-5 bg-zinc-800 rounded-md border-slate-700 w-32 h-32 bg-opacity-80 flex justify-center items-center cursor-pointer">
+                <img src="./avatars/laHarparJosh.png" height="108" width="108"></img>
             </div>
         </div>
     );

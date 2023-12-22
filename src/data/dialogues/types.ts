@@ -9,6 +9,7 @@ export type OptionsProps = {
     response: string;
     next: number;
     special?: SpecialStatResponseProps | SpecialItemResponseProps;
+    close?: true;
 };
 
 export type SpecialStatResponseProps = {

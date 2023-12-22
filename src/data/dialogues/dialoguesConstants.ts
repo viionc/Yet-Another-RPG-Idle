@@ -1,4 +1,4 @@
-import BARTENDER_DIALOGUES from "./tavern/bartender";
+import BARTENDER_DIALOGUES from "./tavern/laHarparBartender";
 import {DialogueProps} from "./types";
 
 export type DialogueConstants = Record<string, DialogueProps[]>;
