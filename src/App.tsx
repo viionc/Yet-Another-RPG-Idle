@@ -7,14 +7,14 @@ import SkillTreePanel from "./components/skillTreePanel/SkillTreePanel";
 import PlayerEquipmentPanel from "./components/equipmentPanel/PlayerEquipmentPanel";
 import SpellsPanel from "./components/spellsPanel/SpellsPanel";
 import CraftingPanel from "./components/craftingPanel/CraftingPanel";
-import TownPanel from "./components/townPanel/TownPanel";
 
 import GameLoopComponent from "./components/GameLoopComponent";
 import DialogueModal from "./components/DialogueModal";
 import {useSelector} from "react-redux";
 import {RootState} from "./gameState/store";
+import TownsPanel from "./components/townPanel/TownsPanel";
 
-export type Tabs = "Main" | "Skill Tree" | "Crafting" | "Town";
+export type Tabs = "Main" | "Skill Tree" | "Crafting" | "Towns";
 
 function App() {
     const [tabOpen, setTabOpen] = useState<Tabs>("Main");
@@ -37,15 +37,14 @@ function App() {
                 {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}
                 {tabOpen === "Crafting" ? (
                     <>
-                        {" "}
                         <CraftingPanel></CraftingPanel>
                         <InventoryPanel></InventoryPanel>
                         <PlayerEquipmentPanel></PlayerEquipmentPanel>
                     </>
                 ) : null}
-                {tabOpen === "Town" ? (
+                {tabOpen === "Towns" ? (
                     <>
-                        <TownPanel></TownPanel>
+                        <TownsPanel></TownsPanel>
                         <PlayerEquipmentPanel></PlayerEquipmentPanel>
                     </>
                 ) : null}

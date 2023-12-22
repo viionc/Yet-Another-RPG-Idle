@@ -42,8 +42,8 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
                     <li onClick={() => setTabOpen("Crafting")} className="cursor-pointer hover:text-yellow-500">
                         Crafting
                     </li>
-                    <li onClick={() => setTabOpen("Town")} className="cursor-pointer hover:text-yellow-500">
-                        Town
+                    <li onClick={() => setTabOpen("Towns")} className="cursor-pointer hover:text-yellow-500">
+                        Towns
                     </li>
                 </ul>
             </nav>

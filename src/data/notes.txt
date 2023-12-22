@@ -1,0 +1,14 @@
+Regions: 
+    Southback, 
+    Port Stocksmar,
+        North Lirold - capitol, 
+        La Harpar
+    Greefic Hill,
+        unpassable mountain
+    Saint Nestroud
+
+
+La Harpar - fisherman village, first town
+    npcs: bartender, fisherman josh. trainer marvin
+    quests: bring crab meat, kill enemies in beach
+
