@@ -13,6 +13,7 @@ function TownBuildingSelection({buildings, setSelectedTab, townName, close}: Tow
             <h1 className="mb-2 text-xl">{townName}</h1>
             {buildings.map((tab) => (
                 <button
+                    key={tab.name}
                     onClick={() => setSelectedTab(tab)}
                     className="px-2 w-1/2 py-1 text-lg border rounded-md hover:bg-yellow-500 hover:text-black bg-zinc-800">
                     {tab.name}

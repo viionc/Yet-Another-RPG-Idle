@@ -8,7 +8,7 @@ export type DialogueProps = {
 export type OptionsProps = {
     response: string;
     next: number;
-    special?: SpecialStatResponseProps | SpecialItemResponseProps;
+    special?: SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
     close?: true;
 };
 
@@ -23,4 +23,10 @@ export type SpecialItemResponseProps = {
     id: number;
     amount: number;
     label: string;
+};
+export type SpecialQuestResponseProps = {
+    type: "quest";
+    id: number;
+    start?: true;
+    end?: true;
 };

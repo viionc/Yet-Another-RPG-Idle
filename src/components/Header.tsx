@@ -30,6 +30,9 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
                     onClick={() => dispatch(increaseStats([{id: "unspentSkillPoints", amount: 10}]))}>
                     add 10 skill points
                 </button>
+                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(increaseStats([{id: "goldCoins", amount: 10000}]))}>
+                    add 10k coins
+                </button>
             </div>
 
             <nav>

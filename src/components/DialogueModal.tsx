@@ -2,15 +2,16 @@ import {createPortal} from "react-dom";
 import NPC_Data from "../data/npcData";
 import {useDispatch, useSelector} from "react-redux";
 import CloseButton from "./CloseButton";
-import {closeDialogue, nextDialogueMessage} from "../gameState/storeSlices/dialogues";
+import {closeDialogue, endQuest, nextDialogueMessage, progressQuest, startQuest} from "../gameState/storeSlices/dialogues";
 import {RootState} from "../gameState/store";
 import {OptionsProps} from "../data/dialogues/types";
 import {decreaseStats} from "../gameState/storeSlices/playerStats";
 import {removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
+import DialogueSpecialOption from "./DialogueSpecialOption";
 
 function DialogueModal({id}: {id: number}) {
     const dispatch = useDispatch();
-    const {npcDialoguesProgress} = useSelector((state: RootState) => state.dialogues);
+    const {npcDialoguesProgress, questProgress} = useSelector((state: RootState) => state.dialogues);
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const playerInventory = useSelector((state: RootState) => state.playerInventory);
     const npc = NPC_Data[id];
@@ -24,15 +25,20 @@ function DialogueModal({id}: {id: number}) {
 
     const next = (option: OptionsProps) => {
         if (option.special) {
-            const {type, amount} = option.special;
-            switch (type) {
+            const {special} = option;
+            switch (special.type) {
                 case "stat":
-                    if (playerStats[option.special.key] < amount) return;
-                    dispatch(decreaseStats([{id: option.special.key, amount}]));
+                    if (playerStats[special.key] < special.amount) return;
+                    dispatch(decreaseStats([{id: special.key, amount: special.amount}]));
                     break;
                 case "item":
-                    if (itemsInInventory(option.special.id) < amount) return;
-                    dispatch(removeItemsFromInventory([{id: option.special.id, amount}]));
+                    if (itemsInInventory(special.id) < special.amount) return;
+                    dispatch(removeItemsFromInventory([{id: special.id, amount: special.amount}]));
+                    break;
+                case "quest":
+                    if (questProgress[special.id] === undefined && special.start) dispatch(startQuest(special.id));
+                    else if (special.end) dispatch(endQuest(special.id));
+                    else dispatch(progressQuest(special.id));
                     break;
             }
         }
@@ -63,11 +69,7 @@ function DialogueModal({id}: {id: number}) {
                             onClick={() => next(option)}
                             className="group border px-2 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
                             {option.response}
-                            {option.special ? (
-                                <span className="ml-4 text-yellow-500 group-hover:text-black">
-                                    Cost: {option.special.amount} {option.special.label}
-                                </span>
-                            ) : null}
+                            {option.special ? <DialogueSpecialOption special={option.special} /> : null}
                         </li>
                     ))}
                 </ul>

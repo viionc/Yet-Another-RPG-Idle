@@ -13,7 +13,7 @@ function Tavern({tab, close}: BuildingProps) {
             <CloseButton position="top-right" callback={close} />
             <h2 className="p-4">{tab.name}</h2>
             {tab.npcIds.map((npc) => (
-                <NpcAvatar npc={npc} />
+                <NpcAvatar key={npc.id} npc={npc} />
             ))}
         </div>
     );
