@@ -53,7 +53,7 @@ function DialogueModal({id}: {id: number}) {
             <div
                 className="bg-zinc-800 min-h-[33%] w-1/2 mb-52 p-6 rounded-md border-slate-700 border relative z-[110]"
                 onClick={(e) => e.stopPropagation()}>
-                <CloseButton position="top-right" callback={close}></CloseButton>
+                <CloseButton position="top-right" callback={close} />
                 <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
                 <p className="mb-8 text-xl">{message}</p>
                 <ul className="flex flex-col gap-2">

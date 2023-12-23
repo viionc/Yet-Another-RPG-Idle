@@ -1,4 +1,4 @@
-export type TownTabs = "Main" | "Tavern" | "Shop" | "Exploration Guild";
+export type TownTabs = "Main" | "Tavern" | "Shop" | "Exploration Guild" | "Market";
 export type TownNames = "La Harpar" | "North Lirold";
 export type Regions = "Southback" | "Port Stocksmar" | "Greefic Hill" | "Saint Nestroud";
 
@@ -26,7 +26,7 @@ const TOWNS_DATA: TownProps[] = [
         id: 0,
         name: "La Harpar",
         region: "Port Stocksmar",
-        url: "",
+        url: "./backgrounds/laHarpar.png",
         buildings: [
             {
                 name: "Tavern",
@@ -34,12 +34,12 @@ const TOWNS_DATA: TownProps[] = [
                     {id: 0, position: "top-1/2 -translate-y-1/2 right-5 "},
                     {id: 1, position: "top-1/2 -translate-y-3/4 left-5"},
                 ],
-                url: "./backgrounds/tavern.png",
+                url: "./backgrounds/laHarparTavern.png",
             },
             {
-                name: "Shop",
+                name: "Market",
                 npcIds: [],
-                url: "",
+                url: "./backgrounds/laHarparMarket.png",
             },
             {name: "Exploration Guild", npcIds: [], url: ""},
         ],

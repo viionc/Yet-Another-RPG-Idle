@@ -2,7 +2,6 @@ import {useState} from "react";
 import Tavern from "./Tavern";
 import TOWNS_DATA, {TownBuildingProps} from "../../data/townsData";
 import TownBuildingSelection from "./TownBuildingSelection";
-import CloseButton from "../CloseButton";
 
 type TownProps = {
     selectedTownId: number;
@@ -14,18 +13,13 @@ function Town({selectedTownId, close}: TownProps) {
     const townData = TOWNS_DATA[selectedTownId];
 
     return (
-        <>
+        <div className="h-full w-full bg-center bg-cover bg-no-repeat rounded-md" style={{backgroundImage: `url(${townData.url})`}}>
             {selectedTab === null ? (
-                <>
-                    <CloseButton callback={close} position="top-right"></CloseButton>
-                    <TownBuildingSelection
-                        setSelectedTab={setSelectedTab}
-                        buildings={townData.buildings}
-                        townName={townData.name}></TownBuildingSelection>
-                </>
+                <TownBuildingSelection setSelectedTab={setSelectedTab} buildings={townData.buildings} townName={townData.name} close={close} />
             ) : null}
             {selectedTab && selectedTab.name === "Tavern" ? <Tavern close={() => setSelectedTab(null)} tab={selectedTab} /> : null}
-        </>
+            {selectedTab && selectedTab.name === "Market" ? <Tavern close={() => setSelectedTab(null)} tab={selectedTab} /> : null}
+        </div>
     );
 }
 

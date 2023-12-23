@@ -13,7 +13,7 @@ function TownsPanel() {
                     </button>
                 </>
             ) : (
-                <Town selectedTownId={selectedTownId} close={() => setSelectedTownId(null)}></Town>
+                <Town selectedTownId={selectedTownId} close={() => setSelectedTownId(null)} />
             )}
         </section>
     );

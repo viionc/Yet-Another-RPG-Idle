@@ -7,7 +7,7 @@ function SkillTreeComponent({skillTree}: {skillTree: SkillTreeProps}) {
             <h1 className="text-2xl mt-2">{skillTree.name}</h1>
             <div className="grid grid-rows-6 grid-cols-3 gap-2 h-[38rem] w-full px-8">
                 {skillTree.skills.map((skill) => (
-                    <SkillSlot key={skill.id} skill={skill}></SkillSlot>
+                    <SkillSlot key={skill.id} skill={skill} />
                 ))}
             </div>
         </article>

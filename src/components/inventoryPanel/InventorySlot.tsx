@@ -28,7 +28,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
             setShow(false);
             setIsDragging(false);
             setTargetIndex(inventoryIndex);
-        } else {
+        } else if (item) {
             setShow(true);
         }
     };

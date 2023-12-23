@@ -41,9 +41,9 @@ function BattlePanel() {
                 <span className="absolute top-1 left-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md">
                     Kill Count: {hasReachedRequiredKillCount ? currentKillCount : `${currentKillCount}/${maxKillCount}`}
                 </span>
-                <WaveCounterComponent></WaveCounterComponent>
+                <WaveCounterComponent />
                 {enemy ? (
-                    <EnemyComponent enemy={enemy}></EnemyComponent>
+                    <EnemyComponent enemy={enemy} />
                 ) : (
                     <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <Spinner variant="xl" />

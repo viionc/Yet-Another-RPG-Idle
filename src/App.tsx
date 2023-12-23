@@ -22,32 +22,33 @@ function App() {
     const dialogues = useSelector((state: RootState) => state.dialogues);
     return (
         <>
-            {dialogues.currentNpcId !== null ? <DialogueModal id={dialogues.currentNpcId}></DialogueModal> : null}
-            <GameLoopComponent></GameLoopComponent>
-            <Header setTabOpen={setTabOpen}></Header>
+            {dialogues.currentNpcId !== null ? <DialogueModal id={dialogues.currentNpcId} /> : null}
+            <GameLoopComponent />
+            <Header setTabOpen={setTabOpen} />
             <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
-                <StatsPanel></StatsPanel>
+                <StatsPanel />
                 {tabOpen === "Main" ? (
                     <>
-                        <BattlePanel></BattlePanel>
-                        <SpellsPanel></SpellsPanel>
-                        <InventoryPanel></InventoryPanel>
-                        <PlayerEquipmentPanel></PlayerEquipmentPanel>
-                        <QuestsPanel></QuestsPanel>
+                        <BattlePanel />
+                        <SpellsPanel />
+                        <InventoryPanel />
+                        <PlayerEquipmentPanel />
+                        <QuestsPanel />
                     </>
                 ) : null}
-                {tabOpen === "Skill Tree" ? <SkillTreePanel></SkillTreePanel> : null}
+                {tabOpen === "Skill Tree" ? <SkillTreePanel /> : null}
                 {tabOpen === "Crafting" ? (
                     <>
-                        <CraftingPanel></CraftingPanel>
-                        <InventoryPanel></InventoryPanel>
-                        <PlayerEquipmentPanel></PlayerEquipmentPanel>
+                        <CraftingPanel />
+                        <InventoryPanel />
+                        <PlayerEquipmentPanel />
                     </>
                 ) : null}
                 {tabOpen === "Towns" ? (
                     <>
-                        <TownsPanel></TownsPanel>
-                        <PlayerEquipmentPanel></PlayerEquipmentPanel>
+                        <TownsPanel />
+                        <PlayerEquipmentPanel />
+                        <InventoryPanel />
                     </>
                 ) : null}
             </main>
