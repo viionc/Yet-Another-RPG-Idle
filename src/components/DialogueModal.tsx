@@ -67,8 +67,13 @@ function DialogueModal({id}: {id: number}) {
                 className="bg-zinc-800 min-h-[33%] w-1/2 mb-52 p-6 rounded-md border-slate-700 border relative z-[110]"
                 onClick={(e) => e.stopPropagation()}>
                 <CloseButton position="top-right" callback={close} />
-                <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
-                <p className="mb-8 text-xl">{message}</p>
+                <div className="flex gap-2 w-full mb-4">
+                    <div className="w-full">
+                        <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
+                        <p className="mb-8 text-xl">{message}</p>
+                    </div>
+                    <img src={npc.url} alt={npc.name} height="156" width="156" />
+                </div>
                 <ul className="flex flex-col gap-2">
                     {options.map((option, index) => {
                         if (option.requiredQuestProgress && !checkIfCanShowQuestOption(option.requiredQuestProgress)) {

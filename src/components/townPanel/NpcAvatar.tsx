@@ -9,7 +9,7 @@ function NpcAvatar({npc}: {npc: TownTabNpcProps}) {
     return (
         <div
             onClick={() => dispatch(startDialogue(npc.id))}
-            className={`absolute ${npc.position} bg-zinc-800 rounded-md border-slate-700 w-32 h-32 bg-opacity-80 flex justify-center items-center cursor-pointer`}>
+            className={`absolute ${npc.position} bg-zinc-800 rounded-md border-slate-700 w-32 h-32 bg-opacity-80 flex justify-center items-center cursor-pointer brightness-[80%] hover:brightness-100`}>
             <img src={npcData.url} height="108" width="108"></img>
         </div>
     );
