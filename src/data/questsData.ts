@@ -10,6 +10,37 @@ export type QuestProps = {
 
 export type QuestStepProps = {
     description: string;
+    requirement: ItemRequirement | WaveKillCount | EnemyKillCount | QuestRequirement | StatRequirement;
+};
+
+type StatRequirement = {
+    type: "stat";
+    key: keyof PlayerStatsProps;
+    amount: number;
+    label: string;
+};
+type QuestRequirement = {
+    type: "quest";
+    id: number;
+};
+
+type ItemRequirement = {
+    type: "item";
+    id: number;
+    amount: number;
+};
+
+type WaveKillCount = {
+    type: "wave";
+    zoneId: number;
+    wave: number;
+    amount: number;
+};
+
+type EnemyKillCount = {
+    type: "enemy";
+    id: number;
+    amount: number;
 };
 
 type StatReward = {
@@ -31,11 +62,16 @@ type SkillReward = {
     name: SkillNames;
 };
 
+// {description: "", requirement: {type: "stat", key: "level", amount:1 }}, first step if no requirements needed to start the quest
+
 const QUEST_DATA: QuestProps[] = [
     {
         id: 0,
         name: "Meat shortage",
-        steps: [{description: "Bartender in La Harpar tavern asked me to bring her 50 crab meat."}],
+        steps: [
+            {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
+            {description: "Bartender in La Harpar tavern asked me to bring her 50 crab meat.", requirement: {type: "item", id: 1, amount: 50}},
+        ],
         rewards: [
             {type: "stat", key: "unspentSkillPoints", amount: 1, label: "Skill Point"},
             {type: "stat", key: "experience", amount: 200, label: "Experience"},
@@ -45,7 +81,13 @@ const QUEST_DATA: QuestProps[] = [
     {
         id: 1,
         name: "Clearing out the beach",
-        steps: [{description: "I'm supposed to kill 50 enemies on wave 7 on Horseshoe Beach."}],
+        steps: [
+            {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
+            {
+                description: "I'm supposed to kill 50 enemies on wave 7 on Horseshoe Beach.",
+                requirement: {type: "wave", zoneId: 0, wave: 7, amount: 50},
+            },
+        ],
         rewards: [
             {type: "stat", key: "experience", amount: 250, label: "Experience"},
             {type: "stat", key: "goldCoins", amount: 150, label: "Gold Coins"},

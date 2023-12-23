@@ -19,6 +19,19 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
         message: "Ask away, my answers have prices though.",
         options: [
             {
+                response: "I'm going to need a beer to forget what I did.",
+                next: 2,
+                requiredQuestProgress: {
+                    id: 0,
+                    step: 1,
+                },
+                special: {
+                    type: "quest",
+                    id: 0,
+                    end: true,
+                },
+            },
+            {
                 response: "What is this place?",
                 next: 3,
                 special: {

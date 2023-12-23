@@ -6,7 +6,7 @@ import QuestListElement from "./QuestListElement";
 function QuestsPanel() {
     const [filter, setFilter] = useState("Started");
 
-    const {questProgress} = useSelector((state: RootState) => state.dialogues);
+    const {quests: questProgress} = useSelector((state: RootState) => state.dialogues);
     const questEntries = Object.entries(questProgress);
     const startedQuests = questEntries.filter(([, progress]) => progress >= 0);
     const completedQuests = questEntries.filter(([, progress]) => progress === -1);

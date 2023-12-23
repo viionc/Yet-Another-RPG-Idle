@@ -8,8 +8,14 @@ export type DialogueProps = {
 export type OptionsProps = {
     response: string;
     next: number;
+    requiredQuestProgress?: RequiredQuestProgressProps;
     special?: SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
     close?: true;
+};
+
+export type RequiredQuestProgressProps = {
+    id: number;
+    step: number;
 };
 
 export type SpecialStatResponseProps = {
@@ -22,7 +28,6 @@ export type SpecialItemResponseProps = {
     type: "item";
     id: number;
     amount: number;
-    label: string;
 };
 export type SpecialQuestResponseProps = {
     type: "quest";

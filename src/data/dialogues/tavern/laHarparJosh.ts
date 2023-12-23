@@ -18,6 +18,19 @@ const LA_HARPAR_JOSH: DialogueProps[] = [
     {
         message: "Haha, that's what I'm talking about! Now we can talk.",
         options: [
+            {
+                response: "Beach is safe for now.",
+                next: 2,
+                requiredQuestProgress: {
+                    id: 1,
+                    step: 1,
+                },
+                special: {
+                    type: "quest",
+                    id: 1,
+                    end: true,
+                },
+            },
             {response: "Who are you?", next: 3},
             {response: "What can you tell me about this place?", next: 4},
             {response: "Do you have any work for me?", next: 5},

@@ -4,14 +4,15 @@ import {useDispatch, useSelector} from "react-redux";
 import CloseButton from "./CloseButton";
 import {closeDialogue, endQuest, nextDialogueMessage, progressQuest, startQuest} from "../gameState/storeSlices/dialogues";
 import {RootState} from "../gameState/store";
-import {OptionsProps} from "../data/dialogues/types";
+import {OptionsProps, RequiredQuestProgressProps} from "../data/dialogues/types";
 import {decreaseStats} from "../gameState/storeSlices/playerStats";
 import {removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
 import DialogueSpecialOption from "./DialogueSpecialOption";
+import React from "react";
 
 function DialogueModal({id}: {id: number}) {
     const dispatch = useDispatch();
-    const {npcDialoguesProgress, questProgress} = useSelector((state: RootState) => state.dialogues);
+    const {npcDialoguesProgress, quests} = useSelector((state: RootState) => state.dialogues);
     const playerStats = useSelector((state: RootState) => state.playerStats);
     const playerInventory = useSelector((state: RootState) => state.playerInventory);
     const npc = NPC_Data[id];
@@ -36,7 +37,7 @@ function DialogueModal({id}: {id: number}) {
                     dispatch(removeItemsFromInventory([{id: special.id, amount: special.amount}]));
                     break;
                 case "quest":
-                    if (questProgress[special.id] === undefined && special.start) dispatch(startQuest(special.id));
+                    if (quests[special.id] === undefined && special.start) dispatch(startQuest(special.id));
                     else if (special.end) dispatch(endQuest(special.id));
                     else dispatch(progressQuest(special.id));
                     break;
@@ -52,6 +53,12 @@ function DialogueModal({id}: {id: number}) {
         return -1;
     };
 
+    const checkIfCanShowQuestOption = (requiredQuestProgress: RequiredQuestProgressProps) => {
+        const {id, step} = requiredQuestProgress;
+        if (quests[id] === step) return true;
+        return false;
+    };
+
     return createPortal(
         <article
             className="absolute top-0 left-0 bg-opacity-25 bg-black border-slate-800 w-full h-full text-white flex justify-center items-center z-[100]"
@@ -63,15 +70,20 @@ function DialogueModal({id}: {id: number}) {
                 <h2 className="text-yellow-500 text-2xl mb-2">{npc.name}</h2>
                 <p className="mb-8 text-xl">{message}</p>
                 <ul className="flex flex-col gap-2">
-                    {options.map((option, index) => (
-                        <li
-                            key={index}
-                            onClick={() => next(option)}
-                            className="group border px-2 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
-                            {option.response}
-                            {option.special ? <DialogueSpecialOption special={option.special} /> : null}
-                        </li>
-                    ))}
+                    {options.map((option, index) => {
+                        if (option.requiredQuestProgress && !checkIfCanShowQuestOption(option.requiredQuestProgress)) {
+                            return <React.Fragment key={index}></React.Fragment>;
+                        }
+                        return (
+                            <li
+                                key={index}
+                                onClick={() => next(option)}
+                                className="group border px-2 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
+                                {option.response}
+                                {option.special ? <DialogueSpecialOption special={option.special} /> : null}
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </article>,

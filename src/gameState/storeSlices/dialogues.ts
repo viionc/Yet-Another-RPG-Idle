@@ -9,13 +9,13 @@ export type QuestProgress = {
 export type DialoguesState = {
     currentNpcId: number | null;
     npcDialoguesProgress: Record<number, number>;
-    questProgress: Record<number, number>;
+    quests: Record<number, number>;
 };
 const resetAction = createAction("RESET_STATES");
 const initialState: DialoguesState = {
     currentNpcId: null,
     npcDialoguesProgress: {},
-    questProgress: {},
+    quests: {},
 };
 
 const dialoguesSlice = createSlice({
@@ -34,14 +34,14 @@ const dialoguesSlice = createSlice({
             state.currentNpcId = null;
         },
         startQuest: (state, action: SimpleActionProps) => {
-            state.questProgress[action.payload] = 0;
+            state.quests[action.payload] = 1;
         },
         progressQuest: (state, action: SimpleActionProps) => {
-            const questProgress = state.questProgress[action.payload] ?? 0;
-            state.questProgress[action.payload] = questProgress + 1;
+            const questProgress = state.quests[action.payload] ?? 1;
+            state.quests[action.payload] = questProgress + 1;
         },
         endQuest: (state, action: SimpleActionProps) => {
-            state.questProgress[action.payload] = -1;
+            state.quests[action.payload] = -1;
         },
     },
     extraReducers: (builder) => {
