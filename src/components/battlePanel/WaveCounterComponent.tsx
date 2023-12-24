@@ -34,11 +34,11 @@ function WaveCounterComponent() {
     };
 
     return (
-        <div className="absolute top-1 right-1 p-1 text-2xl bg-black bg-opacity-50 px-1 rounded-md flex flex-col ">
+        <div className=" ms-auto text-2xl  px-1 rounded-md flex flex-col ">
             <div className="flex justify-center items-center">
                 {currentWave > 1 || zoneId > 0 ? (
                     <span
-                        className="border text-yellow-500 flex items-center justify-center  px-1 w-8 cursor-pointer hover:bg-white rounded-md"
+                        className="select-none border bg-zinc-800 bg-opacity-80 text-yellow-500 flex items-center justify-center  px-1 w-8 cursor-pointer hover:bg-yellow-500 hover:text-black rounded-md"
                         onClick={() => _changeWave(false)}>
                         {"<"}
                     </span>
@@ -48,7 +48,7 @@ function WaveCounterComponent() {
                 </span>
                 {(!_isMaxWave && currentKillCount >= enemiesPerWave) || (_isMaxWave && currentKillCount > 0) ? (
                     <span
-                        className="border text-yellow-500 flex items-center justify-center px-1 w-8 cursor-pointer hover:bg-white rounded-md"
+                        className="select-none border bg-zinc-800 bg-opacity-80 text-yellow-500 flex items-center justify-center px-1 w-8 cursor-pointer hover:bg-yellow-500 hover:text-black  rounded-md"
                         onClick={() => _changeWave(true)}>
                         {">"}
                     </span>
