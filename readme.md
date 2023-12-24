@@ -9,7 +9,8 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/a79745dc-044f-48d1-a9e3-e87d29a9fef4)
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/e1a886c6-7f8e-42f4-adfc-836d3e911845)
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/0958681b-ccbe-4f20-87bc-ad0dceabe746)
-![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/35a3e59a-0824-4ed7-aab4-c0243a8e69b6)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/2effa84f-463e-440d-ad96-843615b102d7)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/5a05019e-225b-40db-9901-8b97d779d2b8)
 
 
 
