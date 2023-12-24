@@ -6,10 +6,11 @@ built with React, Redux Toolkit, TypeScript, Tailwind, Vite<br>
 
 libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 
-![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/ac33f7b5-ba03-45dc-9737-8c3033872ac6)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/a79745dc-044f-48d1-a9e3-e87d29a9fef4)
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/e1a886c6-7f8e-42f4-adfc-836d3e911845)
 ![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/0958681b-ccbe-4f20-87bc-ad0dceabe746)
-![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/c072aabb-43b9-4dad-a704-e45304ef6bfc)
+![image](https://github.com/viionc/Yet-Another-RPG-Idle/assets/6730164/35a3e59a-0824-4ed7-aab4-c0243a8e69b6)
+
 
 
 ## Current features:
@@ -22,15 +23,17 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   skill points and skill trees
 -   spells
 -   crafting
--   functional dialogue system
+-   NPC dialogue system
+-   quest system
 
 ## TODO:
 
+-   refactor quest system, it's a bit of a spaghetti code
 -   fix damage hit splat update (rework it)
 -   fix overkill damage
 -   requirements system
--   rework enemy xp, hp, and gold gain systems
--   improve drag, and drop system in inventory, it's a bit buggy atm
+-   figure out better formulas for enemy xp, hp, and gold gain
+-   improve drag and drop system in inventory, it's a bit buggy atm
 -   fix bugs that show up after fixing other bugs
 
 <br>
@@ -43,6 +46,8 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   more items to test the inventory system
 -   more crafting recipes
 -   more town features (trainer, shop, guild or something)
+-   more npcs
+-   more quests
 
 <br>
 
