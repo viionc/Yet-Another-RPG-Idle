@@ -93,6 +93,22 @@ const QUEST_DATA: QuestProps[] = [
             {type: "item", id: 13, amount: 1},
         ],
     },
+    {
+        id: 2,
+        name: "Rats, we're rats",
+        steps: [
+            {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
+            {
+                description: "I'm supposed to kill 50 rats in Trader's basement.",
+                requirement: {type: "enemy", id: 8, amount: 50},
+            },
+        ],
+        rewards: [
+            {type: "stat", key: "unspentSkillPoints", amount: 1, label: "Skill Point"},
+            {type: "stat", key: "experience", amount: 1500, label: "Experience"},
+            {type: "stat", key: "goldCoins", amount: 300, label: "Gold Coins"},
+        ],
+    },
 ];
 
 export default QUEST_DATA;

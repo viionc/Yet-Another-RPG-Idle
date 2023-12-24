@@ -38,7 +38,12 @@ const TOWNS_DATA: TownProps[] = [
             },
             {
                 name: "Market",
-                npcIds: [],
+                npcIds: [
+                    {
+                        id: 2,
+                        position: "top-1/2 left-1/3 -translate-y-1/2",
+                    },
+                ],
                 url: "./backgrounds/laHarparMarket.png",
             },
             {name: "Exploration Guild", npcIds: [], url: ""},

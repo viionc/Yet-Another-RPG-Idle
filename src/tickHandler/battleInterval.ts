@@ -43,7 +43,10 @@ export const handleEndBattle = (
     // rework experience formula, for now boosted to *100 for testing
     // rework gold gain, currently boosted for testing
     statsToUpdate.push(
-        {id: "experience", amount: calculateXpGain(playerStats, battleState.zoneId, battleState.currentWave)},
+        {
+            id: "experience",
+            amount: calculateXpGain(playerStats, battleState.zoneId, battleState.currentWave, ENEMIES_DATA[battleState.enemy.id].experience),
+        },
         {id: "goldCoins", amount: calculateGoldGain(playerStats, battleState.zoneId, battleState.currentWave)}
     );
     const {itemsToUpdate, unlocksArray} = calculateEnemyDrops(enemy, unlocks);

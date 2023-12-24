@@ -51,7 +51,7 @@ function DialogueSpecialOption({special}: DialogueSpecialOptionProps) {
 
     return (
         <span className="ml-4 text-yellow-500 group-hover:text-black">
-            Cost: {special.amount} {special.label}
+            Costs {special.amount} {special.label}
         </span>
     );
 }

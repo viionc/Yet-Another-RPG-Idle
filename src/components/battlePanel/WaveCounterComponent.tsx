@@ -21,7 +21,11 @@ function WaveCounterComponent() {
             else if (_isMaxWave && zoneWaveProgression[zoneId][maxWave] > 0 && ZONES_DATA[zoneId + 1].name) dispatch(changeZone(zoneId + 1));
         } else {
             if (currentWave > 1) dispatch(changeWave(currentWave - 1));
-            else if (zoneId > 0) dispatch(changeZone(zoneId - 1));
+            else if (zoneId > 0) {
+                dispatch(changeZone(zoneId - 1));
+                const maxWave = ZONES_DATA[zoneId - 1].maxWave;
+                dispatch(changeWave(maxWave));
+            }
         }
     };
 

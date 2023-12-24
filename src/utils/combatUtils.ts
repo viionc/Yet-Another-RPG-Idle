@@ -43,16 +43,14 @@ export const calculateDamageDone = (playerStats: PlayerStatsProps, double?: bool
     return crit;
 };
 
-export const calculateXpGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number) => {
-    let xp = Math.floor((10 + zoneId + 1) * currentWave + Math.pow(zoneId, 3));
-    if (currentWave === 10) xp *= 6;
+export const calculateXpGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number, enemyExperience: number) => {
+    const xp = Math.floor((enemyExperience + zoneId + 1) * currentWave + Math.pow(zoneId, 3));
     const xpMulti = playerStats.xpMultiplier;
     return Math.ceil(xp * xpMulti);
 };
 
 export const calculateGoldGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number) => {
-    let gold = Math.floor(Math.pow(zoneId, 2) + currentWave);
-    if (currentWave === 10) gold *= 5;
+    const gold = Math.floor(Math.pow(zoneId, 2) + currentWave);
     const goldMulti = playerStats.goldCoinsMultiplier;
     return Math.ceil(gold * goldMulti);
 };

@@ -1,4 +1,14 @@
-export type EnemyNames = "Green Slime" | "Red Slime" | "Blue Slime" | "King Slime" | "Crab" | "Seagull" | "Turtle" | "Gangster Crab";
+export type EnemyNames =
+    | "Green Slime"
+    | "Red Slime"
+    | "Blue Slime"
+    | "King Slime"
+    | "Crab"
+    | "Seagull"
+    | "Turtle"
+    | "Gangster Crab"
+    | "Rat"
+    | "Giant Rat";
 export type EnemyDrop = {
     id: number;
     minAmount: number;
@@ -95,6 +105,23 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
             {id: 1, minAmount: 1, maxAmount: 3, chance: 1},
         ],
         url: "./enemies/gangsterCrab.png",
+        isBossEnemy: true,
+    },
+    8: {
+        maxHp: 8,
+        name: "Rat",
+        id: 8,
+        experience: 11,
+        drops: [],
+        url: "./enemies/rat.png",
+    },
+    9: {
+        maxHp: 75,
+        name: "Giant Rat",
+        id: 9,
+        experience: 100,
+        drops: [],
+        url: "./enemies/giantRat.png",
         isBossEnemy: true,
     },
 };

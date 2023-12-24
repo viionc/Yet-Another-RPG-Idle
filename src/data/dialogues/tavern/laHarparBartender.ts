@@ -1,7 +1,7 @@
 import {DialogueProps} from "../types";
 
-const BARTENDER_DIALOGUES: DialogueProps[] = [
-    {
+const LA_HARPAR_BARTENDER_DIALOGUES: Record<number, DialogueProps> = {
+    0: {
         message: "Oi, you! Quick, what do you want?! Can't you see how busy this place?",
         options: [
             {
@@ -11,11 +11,11 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
             {response: "I'm sorry, I have few questions, if you may.", next: 2},
         ],
     },
-    {
+    1: {
         message: "I'll remember your face, smartass. Next order is gonna cost you more.",
         options: [{response: "I'm sorry, I have few questions, if you may.", next: 2}],
     },
-    {
+    2: {
         message: "Ask away, my answers have prices though.",
         options: [
             {
@@ -68,19 +68,19 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
             },
         ],
     },
-    {
+    3: {
         message: "A tavern. Are you blind? That will be 20 coins well spent.",
         options: [{response: "Well, can't argue with that.", next: 2}],
     },
-    {
+    4: {
         message:
-            "Yes! All those lazy rats hanging out here made me run out of crab meat. Bring me 50 pieces and I'll give your money back and toss something extra.",
+            "Yes! All those lazy rats hanging out here made me run out of crab meat. Bring me 50 pieces and I'll give you your money back and toss something extra.",
         options: [
             {response: "I'm on it, boss.", next: 2, nextIfQuestStarted: 7, special: {type: "quest", id: 0, start: true}},
             {response: "I think I'll pass. (You will have to pay again if you change your mind)", next: 2},
         ],
     },
-    {
+    5: {
         message: "I think Marvin specializes in combat training, you could ask him, but he is more gold hungry than me, so prepare your gold pouch.",
         options: [
             {
@@ -90,8 +90,8 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
             {response: "More gold hungry than you? I don't think that's possible.", next: 6},
         ],
     },
-    {message: "Hmmph. Go away.", options: [{response: "...", next: 2, close: true}]},
-    {
+    6: {message: "Hmmph. Go away.", options: [{response: "...", next: 2, close: true}]},
+    7: {
         message: "Nothing new currently. Check again later.",
         options: [
             {
@@ -101,6 +101,6 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
             },
         ],
     },
-];
+};
 
-export default BARTENDER_DIALOGUES;
+export default LA_HARPAR_BARTENDER_DIALOGUES;
