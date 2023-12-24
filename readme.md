@@ -29,6 +29,7 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 
 ## TODO:
 
+-   make the website responsive, it will require a lot of work and thought on how to place/show certain menus
 -   refactor quest system, it's a bit of a spaghetti code
 -   fix damage hit splat update (rework it)
 -   fix overkill damage
