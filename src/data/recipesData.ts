@@ -13,12 +13,13 @@ export type RecipeCost = {
 
 const RECIPES_DATA: Record<number, CraftingRecipeProps> = {
     0: {
-        itemId: 6,
-        name: "Turtle Shell Helmet",
+        itemId: 12,
+        name: "Makeshift Club",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 10}],
+        itemsNeeded: [{id: 11, amount: 10}],
         createsAmount: 1,
     },
+
     1: {
         itemId: 7,
         name: "Turtle Shell Chest",
@@ -48,10 +49,10 @@ const RECIPES_DATA: Record<number, CraftingRecipeProps> = {
         createsAmount: 1,
     },
     5: {
-        itemId: 12,
-        name: "Makeshift Club",
+        itemId: 6,
+        name: "Turtle Shell Helmet",
         unlockRequirement: null,
-        itemsNeeded: [{id: 11, amount: 10}],
+        itemsNeeded: [{id: 3, amount: 10}],
         createsAmount: 1,
     },
 };

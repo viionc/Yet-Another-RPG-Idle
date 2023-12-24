@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import ITEM_DATA from "../../data/itemsData";
+import ITEM_DATA, {colorsByItemTier} from "../../data/itemsData";
 import {CraftingRecipeProps} from "../../data/recipesData";
 import {RootState} from "../../gameState/store";
 import {addItemsToInventory, removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
@@ -20,9 +20,13 @@ function RecipeSummary({recipe}: {recipe: CraftingRecipeProps}) {
         dispatch(addItemsToInventory([{id: recipe.itemId, amount: recipe.createsAmount}]));
     };
 
+    const color = colorsByItemTier[ITEM_DATA[recipe.itemId].tier];
+
     return (
-        <>
-            <h2 className="text-2xl mb-4">{recipe.name}</h2>
+        <article className="w-2/5 h-full bg-zinc-800 bg-opacity-80 py-2 px-4">
+            <h2 className="text-2xl mb-4 " style={{color}}>
+                {recipe.name}
+            </h2>
             <span>Items needed:</span>
             <ul>
                 {recipe.itemsNeeded.map((itemNeeded) => {
@@ -36,12 +40,14 @@ function RecipeSummary({recipe}: {recipe: CraftingRecipeProps}) {
                     );
                 })}
             </ul>
-            <div className="w-full flex justify-center mt-auto">
-                <button className="text-2xl border rounded-md p-2 hover:bg-yellow-500 hover:text-black cursor-pointer" onClick={handleLeftClick}>
+            <div className="w-full h-52 flex justify-center items-end">
+                <button
+                    className="text-2xl border rounded-md p-2 bg-zinc-800 hover:bg-yellow-500 hover:text-black cursor-pointer"
+                    onClick={handleLeftClick}>
                     Craft
                 </button>
             </div>
-        </>
+        </article>
     );
 }
 

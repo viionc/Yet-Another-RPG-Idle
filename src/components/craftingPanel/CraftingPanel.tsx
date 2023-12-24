@@ -9,8 +9,10 @@ function CraftingPanel() {
     const recipeArray = Object.entries(RECIPES_DATA);
 
     return (
-        <section className="border rounded-md col-span-2 col-start-2 row-start-1 row-span-2 p-2 border-slate-800 bg-neutral-800 flex gap-2">
-            <article className="w-3/4 flex flex-col h-full">
+        <section
+            className="border rounded-md col-span-2 col-start-2 row-start-1 row-span-2  border-slate-800 bg-neutral-800 flex gap-2 bg-no-repeat"
+            style={{backgroundImage: "url(./backgrounds/craftingPanel.png)"}}>
+            <article className="w-3/5 flex flex-col h-full p-2">
                 <h2 className="mb-2">Recipes:</h2>
                 <div className="flex gap-2 flex-wrap">
                     {recipeArray.map(([key, recipe]) => {
@@ -19,7 +21,7 @@ function CraftingPanel() {
                     })}
                 </div>
             </article>
-            <article className="w-1/2 h-full">{selectedRecipe ? <RecipeSummary recipe={selectedRecipe}></RecipeSummary> : null}</article>
+            {selectedRecipe ? <RecipeSummary recipe={selectedRecipe}></RecipeSummary> : null}
         </section>
     );
 }
