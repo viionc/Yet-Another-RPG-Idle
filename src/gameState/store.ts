@@ -10,6 +10,7 @@ import playerEquipmentReducer from "./storeSlices/playerEquipment";
 import playerSpellsReducer from "./storeSlices/playerSpells";
 import dialoguesReducer from "./storeSlices/dialogues";
 import unlocksReducer from "./storeSlices/unlocks";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 export type SimpleActionProps = {
     payload: number;
@@ -19,7 +20,9 @@ export type SimpleActionProps = {
 const persistConfig = {
     key: "gameState",
     storage,
+    stateReconciler: autoMergeLevel2,
 };
+
 export const resetAction = createAction("RESET_STATES");
 const rootReducer = combineReducers({
     playerStats: playerStatsReducer,
@@ -33,7 +36,7 @@ const rootReducer = combineReducers({
     unlocks: unlocksReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer);
 
 export const gameState = configureStore({
     reducer: persistedReducer,

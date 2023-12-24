@@ -1,10 +1,10 @@
 import {useSelector} from "react-redux";
-import {SpecialItemResponseProps, SpecialQuestResponseProps, SpecialStatResponseProps} from "../data/dialogues/types";
-import ITEM_DATA from "../data/itemsData";
-import QUEST_DATA from "../data/questsData";
-import {RootState} from "../gameState/store";
-import ENEMIES_DATA from "../data/enemiesData";
-import ZONES_DATA from "../data/zonesData";
+import {SpecialItemResponseProps, SpecialQuestResponseProps, SpecialStatResponseProps} from "../../data/dialogues/types";
+import ITEM_DATA from "../../data/itemsData";
+import QUEST_DATA from "../../data/questsData";
+import {RootState} from "../../gameState/store";
+import ENEMIES_DATA from "../../data/enemiesData";
+import ZONES_DATA from "../../data/zonesData";
 
 type DialogueSpecialOptionProps = {
     special: SpecialItemResponseProps | SpecialQuestResponseProps | SpecialStatResponseProps;

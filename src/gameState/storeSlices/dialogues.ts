@@ -10,12 +10,14 @@ export type DialoguesState = {
     currentNpcId: number | null;
     npcDialoguesProgress: Record<number, number>;
     quests: Record<number, number>;
+    questCompletedIdForModal: number | null;
 };
 const resetAction = createAction("RESET_STATES");
 const initialState: DialoguesState = {
     currentNpcId: null,
     npcDialoguesProgress: {},
     quests: {},
+    questCompletedIdForModal: null,
 };
 
 const dialoguesSlice = createSlice({
@@ -42,6 +44,10 @@ const dialoguesSlice = createSlice({
         },
         endQuest: (state, action: SimpleActionProps) => {
             state.quests[action.payload] = -1;
+            state.questCompletedIdForModal = action.payload;
+        },
+        hideQuestCompletedPopUp: (state) => {
+            state.questCompletedIdForModal = null;
         },
     },
     extraReducers: (builder) => {
@@ -50,4 +56,5 @@ const dialoguesSlice = createSlice({
 });
 
 export default dialoguesSlice.reducer;
-export const {startDialogue, nextDialogueMessage, closeDialogue, startQuest, progressQuest, endQuest} = dialoguesSlice.actions;
+export const {startDialogue, nextDialogueMessage, closeDialogue, startQuest, progressQuest, endQuest, hideQuestCompletedPopUp} =
+    dialoguesSlice.actions;

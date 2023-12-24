@@ -1,14 +1,15 @@
 import {createPortal} from "react-dom";
-import NPC_Data from "../data/npcData";
+import NPC_Data from "../../data/npcData";
 import {useDispatch, useSelector} from "react-redux";
-import CloseButton from "./CloseButton";
-import {closeDialogue, endQuest, nextDialogueMessage, progressQuest, startQuest} from "../gameState/storeSlices/dialogues";
-import {RootState} from "../gameState/store";
-import {OptionsProps, RequiredQuestProgressProps} from "../data/dialogues/types";
-import {decreaseStats} from "../gameState/storeSlices/playerStats";
-import {removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
+import CloseButton from "../CloseButton";
+import {closeDialogue, endQuest, nextDialogueMessage, progressQuest, startQuest} from "../../gameState/storeSlices/dialogues";
+import {RootState} from "../../gameState/store";
+import {OptionsProps, RequiredQuestProgressProps} from "../../data/dialogues/types";
+import {decreaseStats} from "../../gameState/storeSlices/playerStats";
+import {removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
 import DialogueSpecialOption from "./DialogueSpecialOption";
 import React from "react";
+import {checkIfCanProceedQuest, handleProceedQuest, handleCompleteQuest, checkIfCanShowQuestOption} from "../../utils/questUtils";
 
 function DialogueModal({id}: {id: number}) {
     const dispatch = useDispatch();
@@ -37,26 +38,44 @@ function DialogueModal({id}: {id: number}) {
                     dispatch(removeItemsFromInventory([{id: special.id, amount: special.amount}]));
                     break;
                 case "quest":
+                    if (option.requiredQuestProgress && !checkIfCanProceedQuest(option.requiredQuestProgress)) return;
                     if (quests[special.id] === undefined && special.start) dispatch(startQuest(special.id));
-                    else if (special.end) dispatch(endQuest(special.id));
-                    else dispatch(progressQuest(special.id));
+                    else {
+                        handleProceedQuest(dispatch, option.requiredQuestProgress as RequiredQuestProgressProps);
+                        if (special.end) {
+                            dispatch(endQuest(special.id));
+                            handleCompleteQuest(dispatch, special.id);
+                        } else {
+                            dispatch(progressQuest(special.id));
+                        }
+                    }
                     break;
             }
         }
-        dispatch(nextDialogueMessage(option.next));
+
+        const nextDialogue = checkIfNextDialogueStartsQuest(option);
+        dispatch(nextDialogueMessage(nextDialogue));
+
         if (option.close) close();
+    };
+
+    const checkIfNextDialogueStartsQuest = (option: OptionsProps): number => {
+        const doesNextDialogueStartAQuest = npc.dialogues[option.next].options.find((option) => option.nextIfQuestStarted);
+        if (doesNextDialogueStartAQuest) {
+            const {special} = doesNextDialogueStartAQuest;
+            if (special && special.type === "quest" && quests[special.id] !== undefined) {
+                return doesNextDialogueStartAQuest.nextIfQuestStarted as number;
+            }
+            return option.next;
+        } else {
+            return option.next;
+        }
     };
 
     const itemsInInventory = (id: number): number => {
         const item = playerInventory.find((item) => item && item.id === id);
         if (item) return item.amount;
         return -1;
-    };
-
-    const checkIfCanShowQuestOption = (requiredQuestProgress: RequiredQuestProgressProps) => {
-        const {id, step} = requiredQuestProgress;
-        if (quests[id] === step) return true;
-        return false;
     };
 
     return createPortal(

@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
-import {RootState} from "../gameState/store";
-import {calculateXp} from "../utils/levelUtils";
-import {short} from "../utils/misc";
+import {RootState} from "../../gameState/store";
+import {calculateXp} from "../../utils/levelUtils";
+import {short} from "../../utils/misc";
 
 function StatsPanel() {
     const playerStats = useSelector((state: RootState) => state.playerStats);

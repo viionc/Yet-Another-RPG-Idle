@@ -8,6 +8,7 @@ export type DialogueProps = {
 export type OptionsProps = {
     response: string;
     next: number;
+    nextIfQuestStarted?: number;
     requiredQuestProgress?: RequiredQuestProgressProps;
     special?: SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
     close?: true;

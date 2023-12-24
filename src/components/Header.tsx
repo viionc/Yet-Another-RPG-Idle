@@ -33,6 +33,9 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(increaseStats([{id: "goldCoins", amount: 10000}]))}>
                     add 10k coins
                 </button>
+                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{id: 1, amount: 100}]))}>
+                    add 100 crab meat
+                </button>
             </div>
 
             <nav>

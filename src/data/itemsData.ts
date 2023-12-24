@@ -145,6 +145,21 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 10,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "weapon"},
     },
+    13: {
+        id: 13,
+        tier: "Uncommon",
+        name: "Josh's Heirloom",
+        url: "joshsHeirloom.png",
+        value: 150,
+        equipment: {
+            stats: [
+                {type: "attackPower", value: 1, description: "+1 attack power"},
+                {type: "attackSpeed", value: 0.1, description: "+0.1 attack speed"},
+                {type: "xpMultiplier", value: 0.1, description: "+10% Experience Multiplier"},
+            ],
+            type: "ring",
+        },
+    },
 } as const;
 
 export default ITEM_DATA;

@@ -54,7 +54,6 @@ type ItemReward = {
     type: "item";
     id: number;
     amount: number;
-    label: string;
 };
 
 type SkillReward = {
@@ -74,8 +73,8 @@ const QUEST_DATA: QuestProps[] = [
         ],
         rewards: [
             {type: "stat", key: "unspentSkillPoints", amount: 1, label: "Skill Point"},
-            {type: "stat", key: "experience", amount: 200, label: "Experience"},
-            {type: "stat", key: "goldCoins", amount: 120, label: "Gold Coins"},
+            {type: "stat", key: "experience", amount: 1000, label: "Experience"},
+            {type: "stat", key: "goldCoins", amount: 200, label: "Gold Coins"},
         ],
     },
     {
@@ -89,9 +88,9 @@ const QUEST_DATA: QuestProps[] = [
             },
         ],
         rewards: [
-            {type: "stat", key: "experience", amount: 250, label: "Experience"},
-            {type: "stat", key: "goldCoins", amount: 150, label: "Gold Coins"},
-            {type: "item", id: 8, amount: 1, label: "Turtle Shell Legs"},
+            {type: "stat", key: "experience", amount: 1500, label: "Experience"},
+            {type: "stat", key: "goldCoins", amount: 250, label: "Gold Coins"},
+            {type: "item", id: 13, amount: 1},
         ],
     },
 ];

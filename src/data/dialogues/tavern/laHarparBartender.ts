@@ -76,7 +76,7 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
         message:
             "Yes! All those lazy rats hanging out here made me run out of crab meat. Bring me 50 pieces and I'll give your money back and toss something extra.",
         options: [
-            {response: "I'm on it, boss.", next: 2, special: {type: "quest", id: 0, start: true}},
+            {response: "I'm on it, boss.", next: 2, nextIfQuestStarted: 7, special: {type: "quest", id: 0, start: true}},
             {response: "I think I'll pass. (You will have to pay again if you change your mind)", next: 2},
         ],
     },
@@ -91,6 +91,16 @@ const BARTENDER_DIALOGUES: DialogueProps[] = [
         ],
     },
     {message: "Hmmph. Go away.", options: [{response: "...", next: 2, close: true}]},
+    {
+        message: "Nothing new currently. Check again later.",
+        options: [
+            {
+                response: "Cheers.",
+                next: 2,
+                close: true,
+            },
+        ],
+    },
 ];
 
 export default BARTENDER_DIALOGUES;

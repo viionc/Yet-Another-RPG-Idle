@@ -55,7 +55,7 @@ const LA_HARPAR_JOSH: DialogueProps[] = [
     {
         message:
             "Work? Here? There is always work to do. We had some animal overpopulation issue on our beach lately. Come back when you kill 50 enemies on Wave 7 in Beach.",
-        options: [{response: "On my way.", next: 2, special: {type: "quest", id: 1, start: true}}],
+        options: [{response: "On my way.", next: 2, nextIfQuestStarted: 13, special: {type: "quest", id: 1, start: true}}],
     },
     {
         message: "Oi, mate. You don't want to make enemies here, you're a new face and new faces can disappear over night here.",
@@ -117,6 +117,7 @@ const LA_HARPAR_JOSH: DialogueProps[] = [
             },
         ],
     },
+    {message: "No. For now the coast is clear.", options: [{response: "Good.", next: 2}]},
 ];
 
 export default LA_HARPAR_JOSH;
