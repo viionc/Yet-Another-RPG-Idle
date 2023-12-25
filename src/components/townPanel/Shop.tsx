@@ -16,6 +16,7 @@ export type ShopBuildingProps = {
 function Shop({tab, closeShop, id}: ShopBuildingProps) {
     const [amountMultiplier, setAmountMultiplier] = useState<number | "max">(1);
     const shops = useSelector((state: RootState) => state.shops);
+    const {currentShopRefreshCooldown} = useSelector((state: RootState) => state.playerStats);
     // const stock = useMemo(, [id, shops]);
 
     const getStock = () => {
@@ -38,7 +39,8 @@ function Shop({tab, closeShop, id}: ShopBuildingProps) {
             <div className="w-full h-full bg-black bg-opacity-60 rounded-md p-4">
                 <CloseButton position="top-right" callback={closeShop} />
                 <AmountMultiplierList amountMultiplier={amountMultiplier} setAmountMultiplier={setAmountMultiplier} />
-                <div className="grid grid-cols-3 grid-rows-4 w-3/4 h-full ">
+                <h2 className="text-yellow-500 mb-4">Next refresh in: {currentShopRefreshCooldown}s</h2>
+                <div className="grid grid-cols-4 grid-rows-4 w-full">
                     {stock.map((item) => (
                         <ShopItemBox key={item.itemId} item={item} amountMultiplier={amountMultiplier} shopId={id} />
                     ))}

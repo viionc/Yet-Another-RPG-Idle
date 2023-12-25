@@ -100,16 +100,16 @@ const playerStatsSlice = createSlice({
                 updateStats(state, skill.statEffect.id, skill.statEffect.value);
             })
             .addCase(equipItem, (state, action) => {
-                const equipment = ITEM_DATA[action.payload].equipment;
-                if (!equipment) return;
-                equipment.stats.forEach((stat) => {
+                const extra = ITEM_DATA[action.payload].extra;
+                if (extra?.type !== "equipment") return;
+                extra.stats.forEach((stat) => {
                     updateStats(state, stat.type, stat.value);
                 });
             })
             .addCase(unequipItem, (state, action) => {
-                const equipment = ITEM_DATA[action.payload].equipment;
-                if (!equipment) return;
-                equipment.stats.forEach((stat) => {
+                const extra = ITEM_DATA[action.payload].extra;
+                if (extra?.type !== "equipment") return;
+                extra.stats.forEach((stat) => {
                     updateStats(state, stat.type, stat.value * -1);
                 });
             })

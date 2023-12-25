@@ -24,8 +24,8 @@ function EquipmentSlot({item, placeholderText}: {item: InventoryItem | null; pla
 
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
-        if (!itemData.equipment) return;
-        const equippedItem = playerEquipment[itemData.equipment.type];
+        if (itemData.extra?.type !== "equipment") return;
+        const equippedItem = playerEquipment[itemData.extra.slot];
         if (!equippedItem) return;
         dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
         dispatch(unequipItem(item.id));

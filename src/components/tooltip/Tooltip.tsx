@@ -27,7 +27,7 @@ function Tooltip({data, floatingStyles, setFloating, getFloatingProps}: TooltipP
             ref={setFloating}
             style={floatingStyles}
             {...getFloatingProps()}
-            className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default select-none">
+            className="py-1 px-2 bg-zinc-700 rounded-md border border-slate-800 flex gap-1 flex-col cursor-default select-none">
             {data.type === "item" ? <ItemToolTipInfo item={data.item} /> : null}
             {data.type === "spell" ? <SpellTooltipInfo spell={data.spell} /> : null}
         </div>

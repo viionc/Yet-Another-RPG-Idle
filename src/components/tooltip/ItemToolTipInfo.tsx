@@ -4,28 +4,28 @@ type ItemToolTipInfoProps = {
 };
 
 function ItemToolTipInfo({item}: ItemToolTipInfoProps) {
-    const {name, tier, equipment, description, usable} = item;
+    const {name, tier, extra, description} = item;
     const getText = () => {
-        if (equipment) return "Equip";
-        if (usable) return "Use";
+        if (extra?.type === "equipment") return "Equip";
+        if (extra?.type === "stat") return "Use";
     };
     return (
         <>
             <span className="text-lg">{name}</span>
             <span className="text-md" style={{color: colorsByItemTier[tier]}}>
-                {tier} {equipment ? equipment.type : null}
+                {tier} {extra?.type === "equipment" ? extra.slot : null}
             </span>
             {description ? <span>{description}</span> : null}
-            {equipment ? (
+            {extra?.type === "equipment" ? (
                 <>
                     <ul className="flex flex-col text-sm">
-                        {equipment.stats.map((stat) => (
+                        {extra.stats.map((stat) => (
                             <li key={stat.type}>{stat.description}</li>
                         ))}
                     </ul>
                 </>
             ) : null}
-            {equipment || usable ? (
+            {extra ? (
                 <span className="flex gap-1 ms-auto items-center text-xs">
                     {getText()}
                     <img src="./other/rightClick.png" alt={`right click to equip`} height={16} width={16}></img>

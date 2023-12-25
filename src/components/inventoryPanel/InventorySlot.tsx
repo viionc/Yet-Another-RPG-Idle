@@ -48,8 +48,8 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
 
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
-        if (itemData.equipment) handleEquipItem(itemData.equipment);
-        if (itemData.usable) handleUsableItem(itemData.usable);
+        if (itemData.extra?.type === "equipment") handleEquipItem(itemData.extra);
+        if (itemData.extra?.type === "stat") handleUsableItem(itemData.extra);
     };
 
     const handleUsableItem = (usable: UseItemStatProps) => {
@@ -61,7 +61,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
     };
 
     const handleEquipItem = (equipment: EquipmentProps) => {
-        const equippedItem = playerEquipment[equipment.type];
+        const equippedItem = playerEquipment[equipment.slot];
         if (equippedItem) {
             dispatch(unequipItem(equippedItem));
             dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));

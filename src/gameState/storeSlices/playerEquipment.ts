@@ -34,17 +34,17 @@ const playerEquipmentSlice = createSlice({
     name: "playerEquipment",
     reducers: {
         equipItem: (state, action: SimpleActionProps) => {
-            const item = ITEM_DATA[action.payload];
-            if (!item.equipment) return;
-            const type = item.equipment.type;
+            const extra = ITEM_DATA[action.payload].extra;
+            if (extra?.type !== "equipment") return;
+            const slot = extra.slot;
 
-            state[type] = action.payload;
+            state[slot] = action.payload;
         },
         unequipItem: (state, action: SimpleActionProps) => {
-            const item = ITEM_DATA[action.payload];
-            if (!item.equipment) return;
-            const type = item.equipment.type;
-            state[type] = null;
+            const extra = ITEM_DATA[action.payload].extra;
+            if (extra?.type !== "equipment") return;
+            const slot = extra.slot;
+            state[slot] = null;
         },
     },
     extraReducers: (builder) => {

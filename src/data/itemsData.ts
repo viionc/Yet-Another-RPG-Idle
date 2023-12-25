@@ -7,9 +7,8 @@ export type ItemProps = {
     value: number;
     name: string;
     url: string;
-    equipment?: EquipmentProps;
+    extra?: EquipmentProps | UseItemProps;
     description?: string;
-    usable?: UseItemProps;
 };
 
 export type UseItemProps = UseItemStatProps;
@@ -24,10 +23,11 @@ export type EquipmentStat = {
     value: number;
     description: string;
 };
-export type EquipmentTypes = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring" | "gloves";
+export type EquipmentSlotsNames = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring" | "gloves";
 export type EquipmentProps = {
+    type: "equipment";
     stats: EquipmentStat[];
-    type: EquipmentTypes;
+    slot: EquipmentSlotsNames;
 };
 
 export const colorsByItemTier: Record<Tiers, string> = {
@@ -83,12 +83,13 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Slime Golden Crown",
         url: "./items/slimeGoldenCrown.png",
         value: 150,
-        equipment: {
+        extra: {
+            type: "equipment",
             stats: [
                 {type: "goldCoinsMultiplier", value: 0.5, description: "50% more gold from enemies"},
                 {type: "attackPower", value: 1, description: "+1 attack power"},
             ],
-            type: "helmet",
+            slot: "helmet",
         },
     },
     5: {
@@ -97,7 +98,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Knife",
         url: "./items/knife.png",
         value: 150,
-        equipment: {stats: [{type: "attackPower", value: 3, description: "+3 attack power"}], type: "weapon"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 3, description: "+3 attack power"}],
+            slot: "weapon",
+        },
     },
     6: {
         id: 6,
@@ -105,7 +110,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Turtle Shell Helmet",
         url: "./items/turtleShell.png",
         value: 20,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "helmet"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "helmet",
+        },
     },
     7: {
         id: 7,
@@ -113,7 +122,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Turtle Shell Chest",
         url: "./items/turtleShell.png",
         value: 50,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "chest"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "chest",
+        },
     },
     8: {
         id: 8,
@@ -121,7 +134,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Turtle Shell Legs",
         url: "./items/turtleShell.png",
         value: 40,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "legs"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "legs",
+        },
     },
     9: {
         id: 9,
@@ -129,7 +146,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Turtle Shell Boots",
         url: "./items/turtleShell.png",
         value: 20,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "boots"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "boots",
+        },
     },
     10: {
         id: 10,
@@ -137,7 +158,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Turtle Shell Gloves",
         url: "./items/turtleShell.png",
         value: 20,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "gloves"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "gloves",
+        },
     },
     11: {
         id: 11,
@@ -152,7 +177,11 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Makeshift Club",
         url: "./items/makeshiftClub.png",
         value: 10,
-        equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "weapon"},
+        extra: {
+            type: "equipment",
+            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            slot: "weapon",
+        },
     },
     13: {
         id: 13,
@@ -160,13 +189,14 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Josh's Heirloom",
         url: "./items/joshsHeirloom.png",
         value: -1,
-        equipment: {
+        extra: {
+            type: "equipment",
             stats: [
                 {type: "attackPower", value: 1, description: "+1 attack power"},
                 {type: "attackSpeed", value: 0.1, description: "+0.1 attack speed"},
                 {type: "xpMultiplier", value: 0.1, description: "+10% Experience Multiplier"},
             ],
-            type: "ring",
+            slot: "ring",
         },
     },
     14: {
@@ -183,7 +213,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         url: "./items/skillPointBook.png",
         value: -1,
         description: "Gives 1 Skill Point upon reading.",
-        usable: {
+        extra: {
             type: "stat",
             amount: 1,
             key: "unspentSkillPoints",
