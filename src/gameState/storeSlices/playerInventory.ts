@@ -1,6 +1,7 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {equipItem} from "./playerEquipment";
 import {sortByTier} from "../../utils/misc";
+import {buyItems} from "./shops";
 
 export type InventoryItem = {
     id: number;
@@ -72,6 +73,13 @@ const playerInventorySlice = createSlice({
                 playerInventorySlice.caseReducers.removeItemsFromInventory(state, {
                     payload: [{amount: 1, id: action.payload}],
                     type: "playerInventory/removeItemsFromInventory",
+                });
+            })
+            .addCase(buyItems, (state, action) => {
+                const {itemId, amount} = action.payload;
+                playerInventorySlice.caseReducers.addItemsToInventory(state, {
+                    payload: [{amount: amount, id: itemId}],
+                    type: "playerInventory/addItemsToInventory",
                 });
             });
     },

@@ -6,6 +6,8 @@ import ITEM_DATA from "../../data/itemsData";
 import {castSpell, reduceCooldowns} from "./battleState";
 import SPELLS_DATA from "../../data/spellsData";
 import {ALL_SKILLS} from "../../data/skillTreesData";
+import {buyItems} from "./shops";
+import SHOPS_DATA from "../../data/shopsData";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -24,6 +26,8 @@ export type PlayerStatsProps = {
     magicDamage: number;
     cooldownReduction: number;
     xpMultiplier: number;
+    shopRefreshCooldown: number;
+    currentShopRefreshCooldown: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -52,6 +56,8 @@ const initialState: PlayerStatsProps = {
     magicDamage: 0,
     cooldownReduction: 0,
     xpMultiplier: 1,
+    shopRefreshCooldown: 300,
+    currentShopRefreshCooldown: 300,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -64,23 +70,6 @@ const checkIfLeveledUp = (state: PlayerStatsProps) => {
         checkIfLeveledUp(state);
     }
 };
-
-// const updateStats = (state, stat: keyof PlayerStatsProps)=> {
-//     switch (stat) {
-//         case "Attack Power":
-//             state.attackPower++;
-//             break;
-//         case "Attack Speed":
-//             state.attackSpeed -= 0.2;
-//             break;
-//         case "Crit Chance":
-//             state.critChance += 2;
-//             break;
-//         case "Crit Multi":
-//             state.critMulti += 0.1;
-//             break;
-//     }
-// }
 
 const playerStatsSlice = createSlice({
     initialState,
@@ -109,27 +98,6 @@ const playerStatsSlice = createSlice({
                 const skill = ALL_SKILLS.find((skill) => skill.name === action.payload);
                 if (!skill || !skill.statEffect) return;
                 updateStats(state, skill.statEffect.id, skill.statEffect.value);
-                // switch (action.payload) {
-                //     case "Attack Power":
-                //         state.attackPower++;
-                //         break;
-                //     case "Attack Speed":
-                //         state.attackSpeed -= 0.1;
-                //         break;
-                //     case "Crit Chance":
-                //         state.critChance += 2;
-                //         break;
-                //     case "Crit Multi":
-                //         state.critMulti += 0.1;
-                //         break;
-                //     case "Max Mana":
-                //         state.maxMana += 1;
-                //         break;
-                //     case "Mana Regen":
-                //         state.manaRegenRate -= 2;
-                //         if (state.currentManaRegenTimer > 2) state.currentManaRegenTimer -= 2;
-                //         break;
-                // }
             })
             .addCase(equipItem, (state, action) => {
                 const equipment = ITEM_DATA[action.payload].equipment;
@@ -154,6 +122,13 @@ const playerStatsSlice = createSlice({
             })
             .addCase(reduceCooldowns, (state) => {
                 state.currentManaRegenTimer--;
+                state.currentShopRefreshCooldown--;
+            })
+            .addCase(buyItems, (state, action) => {
+                const {shopId, itemId, amount} = action.payload;
+                const item = SHOPS_DATA[shopId].items.find((item) => item.itemId === itemId);
+                if (!item) return;
+                state.goldCoins -= amount * item.price;
             });
     },
 });

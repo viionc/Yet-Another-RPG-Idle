@@ -42,6 +42,7 @@ export type SkillTreeProps = {
     name: SkillTreeNames;
     skills: SkillProps[];
     unlockedRequirement: null;
+    bgColor: string;
 };
 
 const EXPLORATION_SKILLS_DATA: SkillProps[] = [
@@ -262,9 +263,9 @@ const MAGIC_SKILLS_DATA: SkillProps[] = [
 ];
 
 const SKILL_TREES_DATA: SkillTreeProps[] = [
-    {id: 0, name: "Damage", skills: DAMAGE_SKILLS_DATA, unlockedRequirement: null},
-    {id: 1, name: "Exploration", skills: EXPLORATION_SKILLS_DATA, unlockedRequirement: null},
-    {id: 2, name: "Magic", skills: MAGIC_SKILLS_DATA, unlockedRequirement: null},
+    {id: 0, name: "Damage", skills: DAMAGE_SKILLS_DATA, unlockedRequirement: null, bgColor: "bg-red-900"},
+    {id: 1, name: "Exploration", skills: EXPLORATION_SKILLS_DATA, unlockedRequirement: null, bgColor: "bg-green-900"},
+    {id: 2, name: "Magic", skills: MAGIC_SKILLS_DATA, unlockedRequirement: null, bgColor: "bg-blue-900"},
 ];
 
 export default SKILL_TREES_DATA;

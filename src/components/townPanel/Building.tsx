@@ -1,16 +1,11 @@
 import CloseButton from "../CloseButton";
-import {TownBuildingProps} from "../../data/townsData";
 import NpcAvatar from "./NpcAvatar";
+import {BuildingProps} from "./Town";
 
-type BuildingProps = {
-    close: () => void;
-    tab: TownBuildingProps;
-};
-
-function Tavern({tab, close}: BuildingProps) {
+function Building({tab, setSelectedTab}: BuildingProps) {
     return (
         <div className="bg-no-repeat bg-center bg-cover w-full h-full rounded-md relative " style={{backgroundImage: `url(${tab.url})`}}>
-            <CloseButton position="top-right" callback={close} />
+            <CloseButton position="top-right" callback={() => setSelectedTab(null)} />
             <h2 className="p-4">{tab.name}</h2>
             {tab.npcIds.map((npc) => (
                 <NpcAvatar key={npc.id} npc={npc} />
@@ -19,4 +14,4 @@ function Tavern({tab, close}: BuildingProps) {
     );
 }
 
-export default Tavern;
+export default Building;

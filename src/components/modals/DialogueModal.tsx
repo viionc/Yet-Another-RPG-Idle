@@ -2,7 +2,7 @@ import {createPortal} from "react-dom";
 import NPC_Data from "../../data/npcData";
 import {useDispatch, useSelector} from "react-redux";
 import CloseButton from "../CloseButton";
-import {closeDialogue, endQuest, nextDialogueMessage, progressQuest, startQuest} from "../../gameState/storeSlices/dialogues";
+import {closeDialogue, endQuest, nextDialogueMessage, openShopTab, progressQuest, startQuest} from "../../gameState/storeSlices/dialogues";
 import {RootState} from "../../gameState/store";
 import {OptionsProps, RequiredQuestProgressProps} from "../../data/dialogues/types";
 import {decreaseStats} from "../../gameState/storeSlices/playerStats";
@@ -52,10 +52,13 @@ function DialogueModal({id}: {id: number}) {
                     break;
             }
         }
+        if (option.opensShop) {
+            dispatch(openShopTab());
+            close();
+        }
 
         const nextDialogue = checkIfNextDialogueStartsQuest(option);
         dispatch(nextDialogueMessage(nextDialogue));
-
         if (option.close) close();
     };
 

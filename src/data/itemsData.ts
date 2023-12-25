@@ -8,6 +8,7 @@ export type ItemProps = {
     name: string;
     url: string;
     equipment?: EquipmentProps;
+    description?: string;
 };
 
 export type EquipmentStat = {
@@ -44,35 +45,35 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 0,
         tier: "Normal",
         name: "Slime Residue",
-        url: "slimeResidue.png",
+        url: "./items/slimeResidue.png",
         value: 1,
     },
     1: {
         id: 1,
         tier: "Normal",
         name: "Crab Meat",
-        url: "crabMeat.png",
+        url: "./items/crabMeat.png",
         value: 1,
     },
     2: {
         id: 2,
         tier: "Normal",
         name: "Feather",
-        url: "feather.png",
+        url: "./items/feather.png",
         value: 1,
     },
     3: {
         id: 3,
         tier: "Normal",
         name: "Turtle Shell",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 1,
     },
     4: {
         id: 4,
         tier: "Uncommon",
         name: "Slime Golden Crown",
-        url: "slimeGoldenCrown.png",
+        url: "./items/slimeGoldenCrown.png",
         value: 150,
         equipment: {
             stats: [
@@ -86,7 +87,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 5,
         tier: "Uncommon",
         name: "Knife",
-        url: "knife.png",
+        url: "./items/knife.png",
         value: 150,
         equipment: {stats: [{type: "attackPower", value: 3, description: "+3 attack power"}], type: "weapon"},
     },
@@ -94,7 +95,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 6,
         tier: "Uncommon",
         name: "Turtle Shell Helmet",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 20,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "helmet"},
     },
@@ -102,7 +103,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 7,
         tier: "Uncommon",
         name: "Turtle Shell Chest",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 50,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "chest"},
     },
@@ -110,7 +111,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 8,
         tier: "Uncommon",
         name: "Turtle Shell Legs",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 40,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "legs"},
     },
@@ -118,7 +119,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 9,
         tier: "Uncommon",
         name: "Turtle Shell Boots",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 20,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "boots"},
     },
@@ -126,7 +127,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 10,
         tier: "Uncommon",
         name: "Turtle Shell Gloves",
-        url: "turtleShell.png",
+        url: "./items/turtleShell.png",
         value: 20,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "gloves"},
     },
@@ -134,14 +135,14 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 11,
         tier: "Normal",
         name: "Stick",
-        url: "stick.png",
+        url: "./items/stick.png",
         value: 1,
     },
     12: {
         id: 12,
         tier: "Normal",
         name: "Makeshift Club",
-        url: "makeshiftClub.png",
+        url: "./items/makeshiftClub.png",
         value: 10,
         equipment: {stats: [{type: "attackPower", value: 1, description: "+1 attack power"}], type: "weapon"},
     },
@@ -149,8 +150,8 @@ const ITEM_DATA: Record<number, ItemProps> = {
         id: 13,
         tier: "Uncommon",
         name: "Josh's Heirloom",
-        url: "joshsHeirloom.png",
-        value: 150,
+        url: "./items/joshsHeirloom.png",
+        value: -1,
         equipment: {
             stats: [
                 {type: "attackPower", value: 1, description: "+1 attack power"},
@@ -159,6 +160,28 @@ const ITEM_DATA: Record<number, ItemProps> = {
             ],
             type: "ring",
         },
+    },
+    14: {
+        id: 14,
+        tier: "Normal",
+        name: "Rat Tail",
+        url: "./items/ratTail.png",
+        value: 5,
+    },
+    15: {
+        id: 15,
+        tier: "Legendary",
+        name: "Skill Point Book",
+        url: "./items/skillPointBook.png",
+        value: -1,
+        description: "Gives 1 Skill Point upon reading.",
+    },
+    16: {
+        id: 16,
+        tier: "Normal",
+        name: "Apple",
+        url: "./items/apple.png",
+        value: 1,
     },
 } as const;
 

@@ -10,34 +10,36 @@ export type QuestProps = {
 
 export type QuestStepProps = {
     description: string;
-    requirement: ItemRequirement | WaveKillCount | EnemyKillCount | QuestRequirement | StatRequirement;
+    requirement: RequirementProps;
 };
 
-type StatRequirement = {
+export type RequirementProps = ItemRequirement | WaveKillCountRequirement | EnemyKillCountRequirement | QuestRequirement | StatRequirement;
+
+export type StatRequirement = {
     type: "stat";
     key: keyof PlayerStatsProps;
     amount: number;
     label: string;
 };
-type QuestRequirement = {
+export type QuestRequirement = {
     type: "quest";
     id: number;
 };
 
-type ItemRequirement = {
+export type ItemRequirement = {
     type: "item";
     id: number;
     amount: number;
 };
 
-type WaveKillCount = {
+export type WaveKillCountRequirement = {
     type: "wave";
     zoneId: number;
     wave: number;
     amount: number;
 };
 
-type EnemyKillCount = {
+export type EnemyKillCountRequirement = {
     type: "enemy";
     id: number;
     amount: number;

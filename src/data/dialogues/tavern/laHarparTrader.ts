@@ -44,7 +44,7 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
                     end: true,
                 },
             },
-            {response: "Let me see your wares.", next: 3},
+            {response: "Let me see your wares.", next: 3, opensShop: true, close: true},
             {response: "Tell me something about you.", next: 4},
             {response: "What can you tell me about La Harpar?.", next: 10},
             {response: "Any people I should meet?.", next: 15},

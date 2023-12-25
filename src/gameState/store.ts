@@ -10,6 +10,7 @@ import playerEquipmentReducer from "./storeSlices/playerEquipment";
 import playerSpellsReducer from "./storeSlices/playerSpells";
 import dialoguesReducer from "./storeSlices/dialogues";
 import unlocksReducer from "./storeSlices/unlocks";
+import shopsReducer from "./storeSlices/shops";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
 export type SimpleActionProps = {
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     playerSpells: playerSpellsReducer,
     dialogues: dialoguesReducer,
     unlocks: unlocksReducer,
+    shops: shopsReducer,
 });
 
 const persistedReducer = persistReducer<ReturnType<typeof rootReducer>>(persistConfig, rootReducer);

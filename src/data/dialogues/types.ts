@@ -12,6 +12,7 @@ export type OptionsProps = {
     requiredQuestProgress?: RequiredQuestProgressProps;
     special?: SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
     close?: true;
+    opensShop?: true;
 };
 
 export type RequiredQuestProgressProps = {

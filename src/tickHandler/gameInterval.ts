@@ -5,6 +5,7 @@ import ZONES_DATA from "../data/zonesData";
 import {isMaxWave} from "../utils/wavesUtils";
 import {decreaseStats, increaseStats} from "../gameState/storeSlices/playerStats";
 import SPELLS_DATA from "../data/spellsData";
+import {refreshStock} from "../gameState/storeSlices/shops";
 
 // let timestmap = Date.now();
 
@@ -38,5 +39,9 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     if (playerStats.currentManaRegenTimer <= 1) {
         if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
         dispatch(increaseStats([{id: "currentManaRegenTimer", amount: playerStats.manaRegenRate - 1}]));
+    }
+    if (playerStats.currentShopRefreshCooldown <= 1) {
+        dispatch(refreshStock());
+        dispatch(increaseStats([{id: "currentShopRefreshCooldown", amount: playerStats.shopRefreshCooldown}]));
     }
 };

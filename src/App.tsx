@@ -16,7 +16,7 @@ import TownsPanel from "./components/townPanel/TownsPanel";
 import QuestsPanel from "./components/questsPanel/QuestsPanel";
 import QuestRewardModal from "./components/modals/QuestRewardModal";
 
-export type Tabs = "Main" | "Skill Tree" | "Crafting" | "Towns";
+export type Tabs = "Main" | "Skill Trees" | "Crafting" | "Towns";
 
 function App() {
     const [tabOpen, setTabOpen] = useState<Tabs>("Main");
@@ -38,7 +38,7 @@ function App() {
                         <QuestsPanel />
                     </>
                 ) : null}
-                {tabOpen === "Skill Tree" ? <SkillTreePanel /> : null}
+                {tabOpen === "Skill Trees" ? <SkillTreePanel /> : null}
                 {tabOpen === "Crafting" ? (
                     <>
                         <CraftingPanel />
@@ -51,6 +51,7 @@ function App() {
                         <TownsPanel />
                         <PlayerEquipmentPanel />
                         <InventoryPanel />
+                        <QuestsPanel />
                     </>
                 ) : null}
             </main>

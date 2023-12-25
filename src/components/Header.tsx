@@ -7,7 +7,7 @@ import {increaseStats} from "../gameState/storeSlices/playerStats";
 
 function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>}) {
     const dispatch = useDispatch();
-    const {unspentSkillPoints} = useSelector((state: RootState) => state.playerStats);
+    const {unspentSkillPoints, level} = useSelector((state: RootState) => state.playerStats);
     const unlocks = useSelector((state: RootState) => state.unlocks);
 
     return (
@@ -43,9 +43,11 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
                     <li onClick={() => setTabOpen("Main")} className="cursor-pointer hover:text-yellow-500">
                         Main
                     </li>
-                    <li onClick={() => setTabOpen("Skill Tree")} className="cursor-pointer hover:text-yellow-500">
-                        Skill Tree {unspentSkillPoints > 0 ? <span className="text-yellow-500">({unspentSkillPoints})</span> : null}
-                    </li>
+                    {level > 1 ? (
+                        <li onClick={() => setTabOpen("Skill Trees")} className="cursor-pointer hover:text-yellow-500">
+                            Skill Trees {unspentSkillPoints > 0 ? <span className="text-yellow-500">({unspentSkillPoints})</span> : null}
+                        </li>
+                    ) : null}
                     {unlocks.crafting ? (
                         <li onClick={() => setTabOpen("Crafting")} className="cursor-pointer hover:text-yellow-500">
                             Crafting

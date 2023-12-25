@@ -112,7 +112,14 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Rat",
         id: 8,
         experience: 11,
-        drops: [],
+        drops: [
+            {
+                id: 14,
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 1,
+            },
+        ],
         url: "./enemies/rat.png",
     },
     9: {
@@ -120,7 +127,14 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Giant Rat",
         id: 9,
         experience: 100,
-        drops: [],
+        drops: [
+            {
+                id: 14,
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 1,
+            },
+        ],
         url: "./enemies/giantRat.png",
         isBossEnemy: true,
     },
