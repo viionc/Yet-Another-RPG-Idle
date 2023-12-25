@@ -15,7 +15,7 @@ export const handleProceedQuest = (dispatch: Dispatch<UnknownAction>, requiredQu
             break;
         }
         case "stat": {
-            dispatch(decreaseStats([{id: requirement.key, amount: requirement.amount}]));
+            dispatch(decreaseStats([{key: requirement.key, amount: requirement.amount}]));
             break;
         }
     }
@@ -30,7 +30,7 @@ export const handleCompleteQuest = (dispatch: Dispatch<UnknownAction>, questId: 
                 itemRewards.push({id: reward.id, amount: reward.amount});
                 break;
             case "stat":
-                statRewards.push({id: reward.key, amount: reward.amount});
+                statRewards.push({key: reward.key, amount: reward.amount});
                 break;
         }
     });

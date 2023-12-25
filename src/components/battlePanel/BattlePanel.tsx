@@ -40,7 +40,7 @@ function BattlePanel() {
                     {playerSpells.spellsQuickBar.map((spell) => {
                         if (!spell || !spell.currentDuration) return;
                         const spellData = SPELLS_DATA[spell.name];
-                        if (spellData.effect.spellType !== "Support") return;
+                        if (spellData.effect.type !== "Support Stat Buff") return;
                         return (
                             <li className="w-12 h-12 relative" key={spell.name}>
                                 <img src={spellData.url} className="h-12 w-12" alt={`${spellData.name} spell buff`}></img>

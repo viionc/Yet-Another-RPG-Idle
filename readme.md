@@ -20,9 +20,11 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 -   crafting
 -   NPC dialogue system
 -   quest system
+-   shop system
 
 ## TODO:
 
+-   popups when unlocking new content
 -   rework zone progression system to make it non-linear
 -   make the website responsive, it will require a lot of work and thought on how to place/show certain menus
 -   refactor quest system, it's a bit of a spaghetti code
@@ -52,5 +54,4 @@ libraries used so far: worker-timers, popperjs, framer-motion, redux-persist<br>
 
 -   rare enemy that can spawn in every zone?
 -   animate enemies? canvas? gifs bad
--   quests?
 -   random click events in zones? (ores/trees etc)

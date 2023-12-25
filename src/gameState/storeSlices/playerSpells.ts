@@ -35,10 +35,10 @@ const playerSpellsSlice = createSlice({
         },
         addToQuickBar: (state, action: SpellAction) => {
             const freeSlotIndex = state.spellsQuickBar.findIndex((slot) => slot === null);
-            const spell = SPELLS_DATA[action.payload];
-            state.spellsQuickBar[freeSlotIndex] = {name: action.payload, cooldown: spell.cooldown, currentCooldown: 0};
-            if (spell.effect.duration) {
-                (state.spellsQuickBar[freeSlotIndex] as QuickBarSpell).duration = spell.effect.duration;
+            const {effect, cooldown} = SPELLS_DATA[action.payload];
+            state.spellsQuickBar[freeSlotIndex] = {name: action.payload, cooldown, currentCooldown: 0};
+            if (effect.type === "Support Stat Buff") {
+                (state.spellsQuickBar[freeSlotIndex] as QuickBarSpell).duration = effect.duration;
                 (state.spellsQuickBar[freeSlotIndex] as QuickBarSpell).currentDuration = 0;
             }
         },

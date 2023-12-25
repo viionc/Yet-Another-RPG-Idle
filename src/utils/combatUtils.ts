@@ -1,8 +1,8 @@
 import {EnemyProps} from "../data/enemiesData";
 import ITEM_DATA from "../data/itemsData";
-import SPELLS_DATA, {SpellNames} from "../data/spellsData";
+import SPELLS_DATA, {SpellMagicEffectProps, SpellNames} from "../data/spellsData";
+import {gameState} from "../gameState/store";
 import {InventoryItem} from "../gameState/storeSlices/playerInventory";
-import {PlayerSkillsProps} from "../gameState/storeSlices/playerSkills";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {Unlocks, UnlocksProps} from "../gameState/storeSlices/unlocks";
 import {DamageDoneProps} from "../tickHandler/battleInterval";
@@ -31,14 +31,15 @@ export const checkForUnlocksByItem = (id: number, unlocks: UnlocksProps): Unlock
     return null;
 };
 
-export const calculateDamageDone = (playerStats: PlayerStatsProps, double?: boolean): DamageDoneProps => {
-    const {critChance, critMulti, attackPower} = playerStats;
+export const calculateDamageDone = (double?: boolean): DamageDoneProps => {
+    const {playerStats} = gameState.getState();
+    const {attackPower} = playerStats;
 
     let damage = attackPower;
     // for double attack spell
     double ? (damage *= 2) : null;
 
-    const crit = calculateCritDamage(critChance, critMulti, damage);
+    const crit = calculateCritDamage(damage);
 
     return crit;
 };
@@ -55,21 +56,23 @@ export const calculateGoldGain = (playerStats: PlayerStatsProps, zoneId: number,
     return Math.ceil(gold * goldMulti);
 };
 
-export const spellHit = (spellName: SpellNames, playerSkills: PlayerSkillsProps, playerStats: PlayerStatsProps): DamageDoneProps => {
+export const spellHit = (spellName: SpellNames): DamageDoneProps => {
     // makeshift solution for now, rework later
     let damageDone = {damage: 0, wasCrit: false};
     switch (spellName) {
         case "Double Attack":
-            damageDone = calculateDamageDone(playerStats, true);
+            damageDone = calculateDamageDone(true);
             break;
         case "Fire Strike":
-            damageDone = calculateSpellDamageDone(spellName, playerSkills, playerStats);
+            damageDone = calculateSpellDamageDone(spellName);
             break;
     }
     return damageDone;
 };
 
-export const calculateCritDamage = (critChance: number, critMulti: number, baseDamage: number): DamageDoneProps => {
+export const calculateCritDamage = (baseDamage: number): DamageDoneProps => {
+    const {playerStats} = gameState.getState();
+    const {critChance, critMulti} = playerStats;
     let wasCrit = false;
     let damage = baseDamage;
     if (critChance) {
@@ -83,13 +86,13 @@ export const calculateCritDamage = (critChance: number, critMulti: number, baseD
     return {damage, wasCrit};
 };
 
-export const calculateSpellDamageDone = (spellName: SpellNames, playerSkills: PlayerSkillsProps, playerStats: PlayerStatsProps): DamageDoneProps => {
-    const {critChance, critMulti} = playerStats;
+export const calculateSpellDamageDone = (spellName: SpellNames): DamageDoneProps => {
+    const {playerStats, playerSkills} = gameState.getState();
     const spellData = SPELLS_DATA[spellName];
-    const baseDamage = (spellData.effect.damage as number) + playerStats.magicDamage;
+    const baseDamage = (spellData.effect as SpellMagicEffectProps).baseDamage + playerStats.magicDamage;
     let hit: DamageDoneProps = {damage: baseDamage, wasCrit: false};
     if (playerSkills["Spell Crit"]) {
-        hit = calculateCritDamage(critChance, critMulti, baseDamage);
+        hit = calculateCritDamage(baseDamage);
     }
     return hit;
 };

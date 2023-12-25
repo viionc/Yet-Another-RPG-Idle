@@ -1,11 +1,12 @@
 import {useState} from "react";
-import ITEM_DATA, {EquipmentProps, colorsByItemTier} from "../../data/itemsData";
-import {InventoryItem, addItemsToInventory} from "../../gameState/storeSlices/playerInventory";
+import ITEM_DATA, {EquipmentProps, UseItemStatProps, colorsByItemTier} from "../../data/itemsData";
+import {InventoryItem, addItemsToInventory, removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
 import {useDispatch, useSelector} from "react-redux";
 import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
 import {RootState} from "../../gameState/store";
 import useTooltip from "../../hooks/useTooltip";
-import Tooltip from "../Tooltip";
+import Tooltip from "../tooltip/Tooltip";
+import {increaseStats} from "../../gameState/storeSlices/playerStats";
 
 export type InventorySlotProps = {
     setSelectedIndex: React.Dispatch<React.SetStateAction<number | null>>;
@@ -48,6 +49,15 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         if (itemData.equipment) handleEquipItem(itemData.equipment);
+        if (itemData.usable) handleUsableItem(itemData.usable);
+    };
+
+    const handleUsableItem = (usable: UseItemStatProps) => {
+        switch (usable.type) {
+            case "stat":
+                dispatch(increaseStats([{key: usable.key, amount: usable.amount}]));
+                dispatch(removeItemsFromInventory([{id: item.id, amount: 1}]));
+        }
     };
 
     const handleEquipItem = (equipment: EquipmentProps) => {
@@ -76,7 +86,12 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
             <span>{item.amount}</span>
 
             {show ? (
-                <Tooltip itemData={itemData} setFloating={refs.setFloating} floatingStyles={floatingStyles} getFloatingProps={getFloatingProps} />
+                <Tooltip
+                    data={{type: "item", item: itemData}}
+                    setFloating={refs.setFloating}
+                    floatingStyles={floatingStyles}
+                    getFloatingProps={getFloatingProps}
+                />
             ) : null}
         </div>
     );

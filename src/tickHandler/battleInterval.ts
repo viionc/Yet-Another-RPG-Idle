@@ -17,7 +17,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => 
     timestmap = Date.now();
     if (!battleState.isBattleStarted || !battleState.enemy) return playerStats.attackSpeed * 1000;
 
-    const damageDone = calculateDamageDone(playerStats);
+    const damageDone = calculateDamageDone();
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
     dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${damageDone.damage}${damageDone.wasCrit ? "!" : ""}`}));
     if (hpAfterDamage <= 0) {
@@ -44,10 +44,10 @@ export const handleEndBattle = (
     // rework gold gain, currently boosted for testing
     statsToUpdate.push(
         {
-            id: "experience",
+            key: "experience",
             amount: calculateXpGain(playerStats, battleState.zoneId, battleState.currentWave, ENEMIES_DATA[battleState.enemy.id].experience),
         },
-        {id: "goldCoins", amount: calculateGoldGain(playerStats, battleState.zoneId, battleState.currentWave)}
+        {key: "goldCoins", amount: calculateGoldGain(playerStats, battleState.zoneId, battleState.currentWave)}
     );
     const {itemsToUpdate, unlocksArray} = calculateEnemyDrops(enemy, unlocks);
     unlocksArray.push(...checkForUnlocksByZone(battleState.zoneId, battleState.currentWave));

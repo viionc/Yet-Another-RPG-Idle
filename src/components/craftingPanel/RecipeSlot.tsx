@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {ItemProps} from "../../data/itemsData";
 import useTooltip from "../../hooks/useTooltip";
-import Tooltip from "../Tooltip";
+import Tooltip from "../tooltip/Tooltip";
 
 function RecipeSlot({item, setRecipe}: {item: ItemProps; setRecipe: () => void}) {
     const [show, setShow] = useState(false);
@@ -19,7 +19,12 @@ function RecipeSlot({item, setRecipe}: {item: ItemProps; setRecipe: () => void})
             onClick={handleLeftClick}>
             <img src={item.url} className="h-7" alt={`${item.name} item`}></img>
             {show ? (
-                <Tooltip itemData={item} setFloating={refs.setFloating} floatingStyles={floatingStyles} getFloatingProps={getFloatingProps} />
+                <Tooltip
+                    data={{type: "item", item}}
+                    setFloating={refs.setFloating}
+                    floatingStyles={floatingStyles}
+                    getFloatingProps={getFloatingProps}
+                />
             ) : null}
         </div>
     );

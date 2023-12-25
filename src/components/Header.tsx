@@ -27,10 +27,10 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
                 </button>
                 <button
                     className="text-red-500 border hover:text-white"
-                    onClick={() => dispatch(increaseStats([{id: "unspentSkillPoints", amount: 10}]))}>
+                    onClick={() => dispatch(increaseStats([{key: "unspentSkillPoints", amount: 10}]))}>
                     add 10 skill points
                 </button>
-                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(increaseStats([{id: "goldCoins", amount: 10000}]))}>
+                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(increaseStats([{key: "goldCoins", amount: 10000}]))}>
                     add 10k coins
                 </button>
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{id: 1, amount: 100}]))}>

@@ -35,7 +35,7 @@ export type IncreaseStatsAction = {
 };
 
 export type IncreaseStatsPayload = {
-    id: keyof PlayerStatsProps;
+    key: keyof PlayerStatsProps;
     amount: number;
 };
 const resetAction = createAction("RESET_STATES");
@@ -78,8 +78,8 @@ const playerStatsSlice = createSlice({
         increaseStats: (state, action: IncreaseStatsAction) => {
             const {payload} = action;
             for (const stat of payload) {
-                state[stat.id] += stat.amount;
-                if (stat.id === "experience") {
+                state[stat.key] += stat.amount;
+                if (stat.key === "experience") {
                     checkIfLeveledUp(state);
                 }
             }
@@ -87,7 +87,7 @@ const playerStatsSlice = createSlice({
         decreaseStats: (state, action: IncreaseStatsAction) => {
             const {payload} = action;
             for (const stat of payload) {
-                state[stat.id] -= stat.amount;
+                state[stat.key] -= stat.amount;
             }
         },
     },
@@ -114,10 +114,10 @@ const playerStatsSlice = createSlice({
                 });
             })
             .addCase(castSpell, (state, action) => {
-                const spell = SPELLS_DATA[action.payload];
-                state.mana -= spell.manaCost;
-                if (spell.effect.playerStat && spell.effect.value) {
-                    updateStats(state, spell.effect.playerStat, spell.effect.value);
+                const {manaCost, effect} = SPELLS_DATA[action.payload];
+                state.mana -= manaCost;
+                if (effect.type === "Support Stat Buff") {
+                    updateStats(state, effect.key, effect.value);
                 }
             })
             .addCase(reduceCooldowns, (state) => {

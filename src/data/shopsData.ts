@@ -28,6 +28,13 @@ const SHOPS_DATA: Record<number, ShopProps> = {
                 refreshable: true,
                 price: 10,
             },
+            {
+                itemId: 17,
+                maxStock: 99,
+                currentStock: 99,
+                refreshable: true,
+                price: 25,
+            },
         ],
     },
 };

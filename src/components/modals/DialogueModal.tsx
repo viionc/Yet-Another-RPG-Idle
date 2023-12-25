@@ -31,7 +31,7 @@ function DialogueModal({id}: {id: number}) {
             switch (special.type) {
                 case "stat":
                     if (playerStats[special.key] < special.amount) return;
-                    dispatch(decreaseStats([{id: special.key, amount: special.amount}]));
+                    dispatch(decreaseStats([{key: special.key, amount: special.amount}]));
                     break;
                 case "item":
                     if (itemsInInventory(special.id) < special.amount) return;

@@ -29,19 +29,19 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
         if (!spell) return;
         if (spell.currentDuration === 1) {
             const effect = SPELLS_DATA[spell.name].effect;
-            if (effect.playerStat) {
-                const value = effect.playerStat === "attackSpeed" ? (effect.value as number) * -1 : (effect.value as number);
-                dispatch(decreaseStats([{id: effect.playerStat, amount: value}]));
+            if (effect.type === "Support Stat Buff") {
+                const value = effect.key === "attackSpeed" ? (effect.value as number) * -1 : (effect.value as number);
+                dispatch(decreaseStats([{key: effect.key, amount: value}]));
             }
         }
     });
 
     if (playerStats.currentManaRegenTimer <= 1) {
-        if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{id: "mana", amount: 1}]));
-        dispatch(increaseStats([{id: "currentManaRegenTimer", amount: playerStats.manaRegenRate - 1}]));
+        if (playerStats.mana < playerStats.maxMana) dispatch(increaseStats([{key: "mana", amount: 1}]));
+        dispatch(increaseStats([{key: "currentManaRegenTimer", amount: playerStats.manaRegenRate - 1}]));
     }
     if (playerStats.currentShopRefreshCooldown <= 1) {
         dispatch(refreshStock());
-        dispatch(increaseStats([{id: "currentShopRefreshCooldown", amount: playerStats.shopRefreshCooldown}]));
+        dispatch(increaseStats([{key: "currentShopRefreshCooldown", amount: playerStats.shopRefreshCooldown}]));
     }
 };

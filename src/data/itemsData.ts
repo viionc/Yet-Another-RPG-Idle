@@ -9,6 +9,14 @@ export type ItemProps = {
     url: string;
     equipment?: EquipmentProps;
     description?: string;
+    usable?: UseItemProps;
+};
+
+export type UseItemProps = UseItemStatProps;
+export type UseItemStatProps = {
+    type: "stat";
+    key: keyof PlayerStatsProps;
+    amount: 1;
 };
 
 export type EquipmentStat = {
@@ -175,12 +183,24 @@ const ITEM_DATA: Record<number, ItemProps> = {
         url: "./items/skillPointBook.png",
         value: -1,
         description: "Gives 1 Skill Point upon reading.",
+        usable: {
+            type: "stat",
+            amount: 1,
+            key: "unspentSkillPoints",
+        },
     },
     16: {
         id: 16,
         tier: "Normal",
         name: "Apple",
         url: "./items/apple.png",
+        value: 1,
+    },
+    17: {
+        id: 17,
+        tier: "Normal",
+        name: "Fish Meat",
+        url: "./items/fishMeat.png",
         value: 1,
     },
 } as const;

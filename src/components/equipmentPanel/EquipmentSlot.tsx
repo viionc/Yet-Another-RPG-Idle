@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {unequipItem} from "../../gameState/storeSlices/playerEquipment";
 import {RootState} from "../../gameState/store";
 import useTooltip from "../../hooks/useTooltip";
-import Tooltip from "../Tooltip";
+import Tooltip from "../tooltip/Tooltip";
 
 function EquipmentSlot({item, placeholderText}: {item: InventoryItem | null; placeholderText: string}) {
     const [show, setShow] = useState(false);
@@ -44,7 +44,12 @@ function EquipmentSlot({item, placeholderText}: {item: InventoryItem | null; pla
             <img src={itemData.url} className="h-7" alt={`${name} item`}></img>
             {!placeholderText ? <span>{item.amount}</span> : null}
             {show ? (
-                <Tooltip itemData={itemData} setFloating={refs.setFloating} floatingStyles={floatingStyles} getFloatingProps={getFloatingProps} />
+                <Tooltip
+                    data={{type: "item", item: itemData}}
+                    setFloating={refs.setFloating}
+                    floatingStyles={floatingStyles}
+                    getFloatingProps={getFloatingProps}
+                />
             ) : null}
         </div>
     );

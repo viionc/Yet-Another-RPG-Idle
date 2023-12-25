@@ -2,7 +2,7 @@ import {useState} from "react";
 import ITEM_DATA from "../../data/itemsData";
 import {ShopItemProps} from "../../data/shopsData";
 import {short} from "../../utils/misc";
-import Tooltip from "../Tooltip";
+import Tooltip from "../tooltip/Tooltip";
 import useTooltip from "../../hooks/useTooltip";
 import {useDispatch, useSelector} from "react-redux";
 import {buyItems} from "../../gameState/storeSlices/shops";
@@ -24,7 +24,7 @@ function ShopItemBox({amountMultiplier, item, shopId}: ShopItemBoxProps) {
     const buyItem = () => {
         // change that later
         const amount = calculateAmount();
-        console.log(amount);
+        if (!amount) return;
         dispatch(buyItems({amount, itemId: item.itemId, shopId}));
     };
 
@@ -41,16 +41,21 @@ function ShopItemBox({amountMultiplier, item, shopId}: ShopItemBoxProps) {
             ref={refs.setReference}
             {...getReferenceProps()}
             onClick={buyItem}
-            className={`w-48 h-12 bg-zinc-800 bg-opacity-80 hover:bg-opacity-100 cursor-pointer border  rounded-md flex items-center gap-2 px-2 justify-between relative
+            className={`w-40 h-12 bg-zinc-800 bg-opacity-80 hover:bg-zinc-700 hover:bg-opacity-100 cursor-pointer border  rounded-md flex items-center gap-2 px-2 justify-between relative
             ${item.refreshable ? "border-cyan-600" : "border-purple-600"}
             `}>
             <img src={itemData.url} className="h-8" />
-            <span className="text-sm text-yellow-500">{short(item.price)}</span>
+            <span className="text-md text-yellow-500">{short(item.price)}</span>
             <span>
                 {item.currentStock}/{item.maxStock}
             </span>
             {show ? (
-                <Tooltip itemData={itemData} setFloating={refs.setFloating} floatingStyles={floatingStyles} getFloatingProps={getFloatingProps} />
+                <Tooltip
+                    data={{type: "item", item: itemData}}
+                    setFloating={refs.setFloating}
+                    floatingStyles={floatingStyles}
+                    getFloatingProps={getFloatingProps}
+                />
             ) : null}
         </div>
     );
