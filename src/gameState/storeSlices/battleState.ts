@@ -122,8 +122,10 @@ const battleStateSlice = createSlice({
         },
         changeZone: (state, action: ChangeZoneActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
-            state.currentWave = action.payload.wave;
-            state.zoneId = action.payload.zoneId;
+            const {zoneId, wave} = action.payload;
+            if (!state.zoneWaveProgression[zoneId]) state.zoneWaveProgression[zoneId] = {1: 0};
+            state.currentWave = wave;
+            state.zoneId = zoneId;
         },
         changeWave: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
