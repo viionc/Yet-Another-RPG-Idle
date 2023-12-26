@@ -4,7 +4,7 @@ import {SpellProps} from "../../data/spellsData";
 import SpellTooltipInfo from "./SpellTooltipInfo";
 import {SkillProps} from "../../data/skillTreesData";
 import SkillTooltipInfo from "./SkillTooltipInfo";
-import ItemTooltipInfo from "./ItemToolTipInfo";
+import ItemTooltipInfo from "./ItemTooltipInfo";
 
 type TooltipProps = {
     data: TooltipDataProps;

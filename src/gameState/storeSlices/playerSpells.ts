@@ -56,7 +56,7 @@ const playerSpellsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(addSkillPoint, (state, action) => {
-                const skill = ALL_SKILLS.find((skill) => skill.name === action.payload);
+                const skill = ALL_SKILLS.find((skill) => skill.name === action.payload.name);
                 if (!skill?.spellName || state.spellsUnlocked[skill.spellName]) return;
                 state.spellsUnlocked[skill.spellName] = true;
                 const spellData = SPELLS_DATA[skill.spellName];
