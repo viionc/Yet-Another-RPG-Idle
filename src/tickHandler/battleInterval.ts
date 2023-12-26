@@ -54,6 +54,7 @@ export const handleEndBattle = (dispatch: Dispatch<UnknownAction>) => {
 
 const checkForUnlocksByZone = (zoneId: number, currentWave: number) => {
     const unlocksArray: Unlocks[] = [];
-    if (zoneId === 0 && currentWave === 5) unlocksArray.push("towns");
+    if (zoneId === 1 && currentWave === 5) unlocksArray.push("towns");
+    if ((zoneId === 1 && currentWave === 10) || (zoneId === 2 && currentWave === 6)) unlocksArray.push("zonesMap");
     return unlocksArray;
 };

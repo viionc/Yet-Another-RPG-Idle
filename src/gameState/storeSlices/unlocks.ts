@@ -1,7 +1,7 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 
 const resetAction = createAction("RESET_STATES");
-export type Unlocks = "crafting" | "towns";
+export type Unlocks = "crafting" | "towns" | "zonesMap";
 
 export type UnlocksProps = Partial<Record<Unlocks, boolean>>;
 export type UnlockAction = {

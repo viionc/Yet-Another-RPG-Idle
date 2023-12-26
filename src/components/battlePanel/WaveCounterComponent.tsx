@@ -40,21 +40,21 @@ function WaveCounterComponent() {
         <div className=" ms-auto text-2xl  px-1 rounded-md flex flex-col ">
             <div className="flex justify-center items-center">
                 {canShowPreviousButton ? (
-                    <span
+                    <button
                         className="select-none border bg-zinc-800 bg-opacity-80 text-yellow-500 flex items-center justify-center  px-1 w-8 cursor-pointer hover:bg-yellow-500 hover:text-black rounded-md"
                         onClick={() => previousWave()}>
                         {"<"}
-                    </span>
+                    </button>
                 ) : null}
                 <span className={`w-52 text-center ${_isMaxWave ? "text-yellow-500" : "text-white"} px-2`}>
                     Wave: {currentWave}/{maxWave}
                 </span>
                 {canShowNextButton ? (
-                    <span
+                    <button
                         className="select-none border bg-zinc-800 bg-opacity-80 text-yellow-500 flex items-center justify-center px-1 w-8 cursor-pointer hover:bg-yellow-500 hover:text-black  rounded-md"
                         onClick={() => nextWave()}>
                         {">"}
-                    </span>
+                    </button>
                 ) : null}
             </div>
             {playerSkills["Auto Wave Progress"] ? (
