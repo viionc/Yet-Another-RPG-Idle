@@ -87,7 +87,7 @@ const QUEST_DATA: QuestProps[] = [
             {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
             {
                 description: "I'm supposed to kill 50 enemies on wave 7 on Horseshoe Beach.",
-                requirement: {type: "wave", zoneId: 0, wave: 7, amount: 50},
+                requirement: {type: "wave", zoneId: 1, wave: 7, amount: 50},
             },
         ],
         rewards: [
