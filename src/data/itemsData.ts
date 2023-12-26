@@ -82,7 +82,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         tier: "Uncommon",
         name: "Slime Golden Crown",
         url: "./items/slimeGoldenCrown.png",
-        value: 150,
+        value: 250,
         extra: {
             type: "equipment",
             stats: [

@@ -1,6 +1,7 @@
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 
 export type SpellNames = "Fire Strike" | "Haste" | "Double Attack";
+export type SpellTypesNames = "Melee Damage" | "Magic Damage" | "Support Stat Buff";
 export type SpellProps = {
     id: number;
     name: SpellNames;

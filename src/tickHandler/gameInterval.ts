@@ -26,14 +26,11 @@ export const gameTickHandler = (dispatch: Dispatch<UnknownAction>) => {
     }
 
     playerSpells.spellsQuickBar.forEach((spell) => {
-        if (!spell) return;
-        if (spell.currentDuration === 1) {
-            const effect = SPELLS_DATA[spell.name].effect;
-            if (effect.type === "Support Stat Buff") {
-                const value = effect.key === "attackSpeed" ? (effect.value as number) * -1 : (effect.value as number);
-                dispatch(decreaseStats([{key: effect.key, amount: value}]));
-            }
-        }
+        if (!spell || spell.currentDuration !== 1) return;
+        const effect = SPELLS_DATA[spell.name].effect;
+        if (effect.type !== "Support Stat Buff") return;
+        const value = effect.key === "attackSpeed" ? effect.value * -1 : effect.value;
+        dispatch(decreaseStats([{key: effect.key, amount: value}]));
     });
 
     if (playerStats.currentManaRegenTimer <= 1) {

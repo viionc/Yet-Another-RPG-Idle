@@ -96,3 +96,5 @@ export const calculateSpellDamageDone = (spellName: SpellNames): DamageDoneProps
     }
     return hit;
 };
+
+export const getSpellCooldown = (spellCooldown: number, cooldownReduction: number) => spellCooldown - (spellCooldown > 10 ? cooldownReduction : 0);

@@ -10,9 +10,9 @@ function GameLoopComponent() {
     const {isBattleStarted} = useSelector((state: RootState) => state.battleState);
     const [delay, setDelay] = useState(playerStats.attackSpeed * 1000);
     const dispatch = useDispatch();
-
     useEffect(() => {
         if (!isBattleStarted) return;
+
         const battleInterval = setInterval(() => {
             setDelay(battleTickHandler(dispatch));
         }, delay);

@@ -1,6 +1,6 @@
-import LA_HARPAR_BARTENDER_DIALOGUES from "./dialogues/tavern/laHarparBartender";
-import LA_HARPAR_JOSH from "./dialogues/tavern/laHarparJosh";
-import LA_HARPAR_TRADER_DIALOGUES from "./dialogues/tavern/laHarparTrader";
+import LA_HARPAR_BARTENDER_DIALOGUES from "./dialogues/laHarparTown/laHarparBartender";
+import LA_HARPAR_JOSH from "./dialogues/laHarparTown/laHarparJosh";
+import LA_HARPAR_TRADER_DIALOGUES from "./dialogues/laHarparTown/laHarparTrader";
 import {DialogueProps} from "./dialogues/types";
 
 export type NPCProps = {

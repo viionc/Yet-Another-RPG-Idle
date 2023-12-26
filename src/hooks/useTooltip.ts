@@ -27,7 +27,7 @@ const useTooltip = ({show, setShow}: UseTooltipProps) => {
         },
     });
     const {getReferenceProps, getFloatingProps} = useInteractions([hover]);
-    return {refs, floatingStyles, hover, getReferenceProps, getFloatingProps};
+    return {refs, floatingStyles, getReferenceProps, getFloatingProps};
 };
 
 export default useTooltip;

@@ -1,17 +1,17 @@
 import {useState} from "react";
-import {QuickBarSpell} from "../../gameState/storeSlices/playerSpells";
+import {QuickBarSpellProps} from "../../gameState/storeSlices/playerSpells";
 import {useDispatch, useSelector} from "react-redux";
 import SPELLS_DATA, {SpellNames} from "../../data/spellsData";
 import {castSpell, updateEnemyHp} from "../../gameState/storeSlices/battleState";
 import {RootState} from "../../gameState/store";
 import {handleEndBattle} from "../../tickHandler/battleInterval";
-import {spellHit} from "../../utils/combatUtils";
+import {getSpellCooldown, spellHit} from "../../utils/combatUtils";
 import styles from "./SpellSlot.module.css";
 import Tooltip from "../tooltip/Tooltip";
 import useTooltip from "../../hooks/useTooltip";
 
 export type SpellSlotProps = {
-    spell: QuickBarSpell | null;
+    spell: QuickBarSpellProps | null;
     index: number;
 };
 
@@ -25,11 +25,11 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const unlocks = useSelector((state: RootState) => state.unlocks);
 
     const handleClick = (spellName: SpellNames, quickBarIndex: number) => {
-        const {effect, manaCost, name} = SPELLS_DATA[spellName];
-        const quickBarSpell = playerSpells.spellsQuickBar[quickBarIndex] as QuickBarSpell;
+        const {effect, manaCost, name, cooldown} = SPELLS_DATA[spellName];
+        const quickBarSpell = playerSpells.spellsQuickBar[quickBarIndex] as QuickBarSpellProps;
         if (manaCost > playerStats.mana || quickBarSpell.currentCooldown > 0) return;
         if (effect.type.includes("Damage") && !battleState.isBattleStarted) return;
-        dispatch(castSpell(spellName));
+        dispatch(castSpell({name: spellName, cooldown: getSpellCooldown(cooldown, playerStats.cooldownReduction), duration: spell?.duration}));
         if (effect.type.includes("Damage")) doSpellDamage(name);
     };
 
@@ -46,9 +46,8 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;
     const spellData = SPELLS_DATA[spell.name];
     const {cooldown, url} = spellData;
-    const getSpellCooldown = () => cooldown - (cooldown > 10 ? playerStats.cooldownReduction : 0);
 
-    const passedTime = (spell.currentCooldown / getSpellCooldown()) * 100;
+    const passedTime = (spell.currentCooldown / getSpellCooldown(cooldown, playerStats.cooldownReduction)) * 100;
     if (refs.reference.current) (refs.reference.current as HTMLElement).style.setProperty("--time-left", `${passedTime}%`);
     return (
         <div

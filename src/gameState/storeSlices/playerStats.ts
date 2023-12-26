@@ -114,7 +114,7 @@ const playerStatsSlice = createSlice({
                 });
             })
             .addCase(castSpell, (state, action) => {
-                const {manaCost, effect} = SPELLS_DATA[action.payload];
+                const {manaCost, effect} = SPELLS_DATA[action.payload.name];
                 state.mana -= manaCost;
                 if (effect.type === "Support Stat Buff") {
                     updateStats(state, effect.key, effect.value);
