@@ -1,4 +1,3 @@
-import {useState} from "react";
 import BattlePanel from "./components/battlePanel/BattlePanel";
 import Header from "./components/Header";
 import StatsPanel from "./components/statsPanel/StatsPanel";
@@ -19,17 +18,18 @@ import QuestRewardModal from "./components/modals/QuestRewardModal";
 export type Tabs = "Main" | "Skill Trees" | "Crafting" | "Towns";
 
 function App() {
-    const [tabOpen, setTabOpen] = useState<Tabs>("Main");
     const dialogues = useSelector((state: RootState) => state.dialogues);
+    const {navTab} = useSelector((state: RootState) => state.playerSettings);
+
     return (
         <>
             {dialogues.currentNpcId !== null ? <DialogueModal id={dialogues.currentNpcId} /> : null}
             {dialogues.questCompletedIdForModal !== null ? <QuestRewardModal id={dialogues.questCompletedIdForModal} /> : null}
             <GameLoopComponent />
-            <Header setTabOpen={setTabOpen} />
+            <Header />
             <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
                 <StatsPanel />
-                {tabOpen === "Main" ? (
+                {navTab === "Main" ? (
                     <>
                         <BattlePanel />
                         <SpellsPanel />
@@ -38,15 +38,15 @@ function App() {
                         <QuestsPanel />
                     </>
                 ) : null}
-                {tabOpen === "Skill Trees" ? <SkillTreePanel /> : null}
-                {tabOpen === "Crafting" ? (
+                {navTab === "Skill Trees" ? <SkillTreePanel /> : null}
+                {navTab === "Crafting" ? (
                     <>
                         <CraftingPanel />
                         <InventoryPanel />
                         <PlayerEquipmentPanel />
                     </>
                 ) : null}
-                {tabOpen === "Towns" ? (
+                {navTab === "Towns" ? (
                     <>
                         <TownsPanel />
                         <PlayerEquipmentPanel />

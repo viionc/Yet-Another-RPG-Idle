@@ -1,16 +1,24 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
+import {Tabs} from "../../App";
 
 export type PlayerSettingsProps = {
-    autoWaveProgression: boolean;
+    navTab: Tabs;
 };
 export type PlayerSettingsActionProps = {
-    payload: keyof PlayerSettingsProps;
+    payload: PlayerSettingsPayloadProps;
     type: string;
 };
+
+export type PlayerSettingsPayloadProps = {
+    key: keyof PlayerSettingsProps;
+    value: boolean | Tabs;
+};
 const resetAction = createAction("RESET_STATES");
-export const enableSetting = createAction<keyof PlayerSettingsProps>("ENABLE_SETTING");
-export const disableSetting = createAction<keyof PlayerSettingsProps>("DISABLE_SETTING");
-const initialState: Record<keyof PlayerSettingsProps, boolean> = {autoWaveProgression: false};
+export const changeSetting = createAction<PlayerSettingsPayloadProps>("CHANGE_SETTING");
+
+const initialState: PlayerSettingsProps = {
+    navTab: "Main",
+};
 
 const playerSettingsSlice = createSlice({
     initialState,
@@ -26,11 +34,11 @@ const playerSettingsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(resetAction, () => initialState)
-            .addCase(enableSetting, (state, action: PlayerSettingsActionProps) => {
-                state[action.payload] = true;
-            })
-            .addCase(disableSetting, (state, action: PlayerSettingsActionProps) => {
-                state[action.payload] = false;
+            .addCase(changeSetting, (state, action: PlayerSettingsActionProps) => {
+                switch (action.payload.key) {
+                    case "navTab":
+                        state[action.payload.key] = action.payload.value as Tabs;
+                }
             });
     },
 });

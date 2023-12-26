@@ -1,11 +1,13 @@
+import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import {EnemyProps} from "../data/enemiesData";
 import ITEM_DATA from "../data/itemsData";
 import SPELLS_DATA, {SpellMagicEffectProps, SpellNames} from "../data/spellsData";
 import {gameState} from "../gameState/store";
+import {BattleStateEnemyProps, updateEnemyHp} from "../gameState/storeSlices/battleState";
 import {InventoryItem} from "../gameState/storeSlices/playerInventory";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {Unlocks, UnlocksProps} from "../gameState/storeSlices/unlocks";
-import {DamageDoneProps} from "../tickHandler/battleInterval";
+import {DamageDoneProps, handleEndBattle} from "../tickHandler/battleInterval";
 
 export const calculateEnemyDrops = (enemy: EnemyProps, unlocks: UnlocksProps) => {
     const itemsToUpdate: InventoryItem[] = [];
@@ -95,6 +97,16 @@ export const calculateSpellDamageDone = (spellName: SpellNames): DamageDoneProps
         hit = calculateCritDamage(baseDamage);
     }
     return hit;
+};
+
+export const doSpellDamage = (dispatch: Dispatch<UnknownAction>, spellName: SpellNames, enemy: BattleStateEnemyProps | null) => {
+    const hit = spellHit(spellName);
+    if (!enemy) return;
+    const hpAfterDamage = Math.max(0, enemy.currentHp - hit.damage);
+    dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${hit.damage}${hit.wasCrit ? "!" : ""}`}));
+    if (hpAfterDamage <= 0) {
+        handleEndBattle(dispatch);
+    }
 };
 
 export const getSpellCooldown = (spellCooldown: number, cooldownReduction: number) => spellCooldown - (spellCooldown > 10 ? cooldownReduction : 0);

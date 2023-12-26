@@ -24,6 +24,7 @@ export type StatRequirement = {
 export type QuestRequirement = {
     type: "quest";
     id: number;
+    step?: number;
 };
 
 export type ItemRequirement = {

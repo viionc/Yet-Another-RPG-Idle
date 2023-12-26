@@ -1,18 +1,18 @@
 import {gameState} from "../gameState/store";
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
-import {BattleStateProps, endBattle, updateEnemyHp} from "../gameState/storeSlices/battleState";
-import {IncreaseStatsPayload, PlayerStatsProps, increaseStats} from "../gameState/storeSlices/playerStats";
+import {endBattle, updateEnemyHp} from "../gameState/storeSlices/battleState";
+import {IncreaseStatsPayload, increaseStats} from "../gameState/storeSlices/playerStats";
 import ENEMIES_DATA from "../data/enemiesData";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {calculateDamageDone, calculateGoldGain, calculateEnemyDrops, calculateXpGain} from "../utils/combatUtils";
-import {Unlocks, UnlocksProps, unlock} from "../gameState/storeSlices/unlocks";
+import {Unlocks, unlock} from "../gameState/storeSlices/unlocks";
 
 export type DamageDoneProps = {damage: number; wasCrit: boolean};
 
 let timestmap = Date.now();
 
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => {
-    const {playerStats, battleState, unlocks} = gameState.getState();
+    const {playerStats, battleState} = gameState.getState();
     console.log("last tick duration: ", Date.now() - timestmap);
     timestmap = Date.now();
     if (!battleState.isBattleStarted || !battleState.enemy) return playerStats.attackSpeed * 1000;
@@ -21,23 +21,19 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => 
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
     dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${damageDone.damage}${damageDone.wasCrit ? "!" : ""}`}));
     if (hpAfterDamage <= 0) {
-        handleEndBattle(dispatch, battleState, playerStats, unlocks);
+        handleEndBattle(dispatch);
     }
     return playerStats.attackSpeed * 1000;
 };
 
-export const handleEndBattle = (
-    dispatch: Dispatch<UnknownAction>,
-    battleState: BattleStateProps,
-    playerStats: PlayerStatsProps,
-    unlocks: UnlocksProps
-) => {
+export const handleEndBattle = (dispatch: Dispatch<UnknownAction>) => {
+    const {battleState, playerStats, unlocks} = gameState.getState();
     if (!battleState.enemy) return;
     const statsToUpdate: IncreaseStatsPayload[] = [];
     // let itemsToUpdate: InventoryItem[] = [];
     // fix overkill damage
-    //const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
-    dispatch(endBattle({overkillDamage: 0}));
+    // const overkillDamage = playerSkills["Overkill"] ? Math.ceil(Math.abs(hpAfterDamage) / (playerSkills["Overkill"] / 4)) : 0;
+    dispatch(endBattle({}));
     const enemy = ENEMIES_DATA[battleState.enemy.id];
 
     // rework experience formula, for now boosted to *100 for testing

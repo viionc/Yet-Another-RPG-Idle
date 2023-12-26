@@ -1,3 +1,5 @@
+import {RequirementProps} from "./questsData";
+
 export type TownTabs = "Main" | "Tavern" | "Shop" | "Exploration Guild" | "Market";
 export type TownNames = "La Harpar" | "North Lirold";
 export type Regions = "Southback" | "Port Stocksmar" | "Greefic Hill" | "Saint Nestroud";
@@ -18,7 +20,18 @@ export type TownTabNpcProps = {
 export type TownBuildingProps = {
     name: TownTabs;
     npcIds: TownTabNpcProps[];
+    objectsIds?: TownBuildingObjectProps[];
     url: string;
+};
+
+export type TownBuildingObjectProps = EntraceObject;
+type EntraceObject = {
+    type: "zone";
+    zoneId: number;
+    requirement: RequirementProps;
+    position: string;
+    url: string;
+    name: string;
 };
 
 const TOWNS_DATA: TownProps[] = [
@@ -38,6 +51,20 @@ const TOWNS_DATA: TownProps[] = [
             },
             {
                 name: "Market",
+                objectsIds: [
+                    {
+                        name: "Trader's Basement",
+                        type: "zone",
+                        zoneId: 2,
+                        requirement: {
+                            type: "quest",
+                            id: 2,
+                            step: 0,
+                        },
+                        position: "top-1/2 left-[19%] -translate-y-1/2",
+                        url: "./objects/basementDoor.png",
+                    },
+                ],
                 npcIds: [
                     {
                         id: 2,

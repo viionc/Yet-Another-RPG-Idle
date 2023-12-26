@@ -1,14 +1,19 @@
 import {useDispatch, useSelector} from "react-redux";
-import {Tabs} from "../App";
 import {RootState, resetAction} from "../gameState/store";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {changeWave} from "../gameState/storeSlices/battleState";
 import {increaseStats} from "../gameState/storeSlices/playerStats";
+import {Tabs} from "../App";
+import {changeSetting} from "../gameState/storeSlices/playerSettings";
 
-function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<Tabs>>}) {
+function Header() {
     const dispatch = useDispatch();
     const {unspentSkillPoints, level} = useSelector((state: RootState) => state.playerStats);
     const unlocks = useSelector((state: RootState) => state.unlocks);
+
+    const changeTab = (tab: Tabs) => {
+        dispatch(changeSetting({key: "navTab", value: tab}));
+    };
 
     return (
         <header className="container h-8 py-8 text-white flex gap-2 text-2xl mb-6">
@@ -40,21 +45,21 @@ function Header({setTabOpen}: {setTabOpen: React.Dispatch<React.SetStateAction<T
 
             <nav>
                 <ul className="flex gap-4">
-                    <li onClick={() => setTabOpen("Main")} className="cursor-pointer hover:text-yellow-500">
+                    <li onClick={() => changeTab("Main")} className="cursor-pointer hover:text-yellow-500">
                         Main
                     </li>
                     {level > 1 ? (
-                        <li onClick={() => setTabOpen("Skill Trees")} className="cursor-pointer hover:text-yellow-500">
+                        <li onClick={() => changeTab("Skill Trees")} className="cursor-pointer hover:text-yellow-500">
                             Skill Trees {unspentSkillPoints > 0 ? <span className="text-yellow-500">({unspentSkillPoints})</span> : null}
                         </li>
                     ) : null}
                     {unlocks.crafting ? (
-                        <li onClick={() => setTabOpen("Crafting")} className="cursor-pointer hover:text-yellow-500">
+                        <li onClick={() => changeTab("Crafting")} className="cursor-pointer hover:text-yellow-500">
                             Crafting
                         </li>
                     ) : null}
                     {unlocks.towns ? (
-                        <li onClick={() => setTabOpen("Towns")} className="cursor-pointer hover:text-yellow-500">
+                        <li onClick={() => changeTab("Towns")} className="cursor-pointer hover:text-yellow-500">
                             Towns
                         </li>
                     ) : null}

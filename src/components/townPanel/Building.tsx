@@ -1,4 +1,6 @@
+import {checkIfMeetsRequirements} from "../../utils/misc";
 import CloseButton from "../CloseButton";
+import BuildingObject from "./BuildingObject";
 import NpcAvatar from "./NpcAvatar";
 import {BuildingProps} from "./Town";
 
@@ -10,6 +12,12 @@ function Building({tab, setSelectedTab}: BuildingProps) {
             {tab.npcIds.map((npc) => (
                 <NpcAvatar key={npc.id} npc={npc} />
             ))}
+            {tab.objectsIds
+                ? tab.objectsIds.map((object) => {
+                      if (!checkIfMeetsRequirements(object.requirement)) return;
+                      return <BuildingObject key={object.name} object={object} />;
+                  })
+                : null}
         </div>
     );
 }

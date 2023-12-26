@@ -88,19 +88,20 @@ const battleStateSlice = createSlice({
                 state.overkillDamage = action.payload.overkillDamage;
             }
             if (action.payload.change) return;
+
             const currentKillCount = (state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0) + 1;
             state.zoneWaveProgression[state.zoneId][state.currentWave] = currentKillCount;
-            if (state.autoWaveProgression) {
-                const maxWave = ZONES_DATA[state.zoneId].maxWave;
-                if (currentKillCount >= state.requiredKillsToAdvance && state.currentWave < maxWave) {
-                    state.currentWave++;
-                    state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
-                } else if (state.currentWave === maxWave && currentKillCount >= 1 && ZONES_DATA[state.zoneId + 1]) {
-                    state.zoneId++;
-                    state.currentWave = 1;
-                    if (!state.zoneWaveProgression[state.zoneId]) state.zoneWaveProgression[state.zoneId] = {1: 0};
-                    state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
-                }
+
+            if (!state.autoWaveProgression) return;
+            const {maxWave, nextZoneId} = ZONES_DATA[state.zoneId];
+            if (currentKillCount >= state.requiredKillsToAdvance && state.currentWave < maxWave) {
+                state.currentWave++;
+                state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
+            } else if (state.currentWave === maxWave && currentKillCount >= 1 && nextZoneId) {
+                state.zoneId = nextZoneId;
+                state.currentWave = 1;
+                if (!state.zoneWaveProgression[state.zoneId]) state.zoneWaveProgression[state.zoneId] = {1: 0};
+                state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
             }
         },
         updateDamageHitSplat: (state, action) => {
@@ -113,6 +114,7 @@ const battleStateSlice = createSlice({
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
             state.currentWave = action.payload < state.zoneId ? 10 : 1;
             state.zoneId = action.payload;
+            console.log(state.zoneId);
         },
         changeWave: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});

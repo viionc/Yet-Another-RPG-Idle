@@ -19,7 +19,7 @@ export const sortByTier = (array: InventoryItem[]): InventoryItem[] => {
 };
 
 export const checkIfMeetsRequirements = (requirement: RequirementProps): boolean => {
-    const {playerInventory, playerStats} = gameState.getState();
+    const {playerInventory, playerStats, dialogues} = gameState.getState();
     switch (requirement.type) {
         case "item": {
             const item = playerInventory.find((item) => item && item?.id === requirement.id);
@@ -29,6 +29,11 @@ export const checkIfMeetsRequirements = (requirement: RequirementProps): boolean
         case "stat": {
             const stat = playerStats[requirement.key];
             if (!stat || stat < requirement.amount) return false;
+            break;
+        }
+        case "quest": {
+            const quest = dialogues.quests[requirement.id];
+            if (!quest || (requirement.step && quest < requirement.step)) return false;
         }
     }
     return true;
