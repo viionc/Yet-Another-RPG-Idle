@@ -3,8 +3,13 @@ import {SkillNames} from "../../data/skillTreesData";
 
 export type PlayerSkillsProps = Partial<Record<SkillNames, number>>;
 export type AddSkillPointsAction = {
-    payload: SkillNames;
+    payload: AddSkillPointsPayloadProps;
     type: string;
+};
+
+export type AddSkillPointsPayloadProps = {
+    name: SkillNames;
+    amount: number;
 };
 const resetAction = createAction("RESET_STATES");
 const initialState: PlayerSkillsProps = {};
@@ -14,11 +19,9 @@ const playerSkillsSlice = createSlice({
     name: "playerSkills",
     reducers: {
         addSkillPoint: (state, action: AddSkillPointsAction) => {
-            if (state[action.payload]) {
-                (state[action.payload] as number) += 1;
-            } else {
-                state[action.payload] = 1;
-            }
+            const {name, amount} = action.payload;
+            state[name] = (state[name] ?? 0) + amount;
+            console.log(state[name]);
         },
     },
     extraReducers: (builder) => {

@@ -20,17 +20,17 @@ function QuestRewardModal({id}: {id: number}) {
                 <h1 className="text-2xl text-yellow-500 mb-6">{name} Completed!</h1>
                 <h2 className="mb-2">Rewards:</h2>
                 <ul className="flex flex-col gap-2">
-                    {rewards.map((reward) => {
+                    {rewards.map((reward, index) => {
                         if (reward.type === "item") {
                             const {name: itemName} = ITEM_DATA[reward.id];
                             return (
-                                <li>
+                                <li key={index}>
                                     {reward.amount} {itemName}
                                 </li>
                             );
                         } else if (reward.type === "stat") {
                             return (
-                                <li>
+                                <li key={index}>
                                     {reward.amount} {reward.label}
                                 </li>
                             );

@@ -9,7 +9,7 @@ function ZonesMap() {
     const zones = Object.values(ZONES_DATA);
     const dispatch = useDispatch();
     const _changeZone = (id: number) => {
-        dispatch(changeZone(id));
+        dispatch(changeZone({zoneId: id, wave: 1}));
         setIsOpen(false);
     };
 

@@ -1,27 +1,29 @@
 import {useState} from "react";
 import {SkillProps} from "../../data/skillTreesData";
-import {usePopper} from "react-popper";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../gameState/store";
 import {addSkillPoint} from "../../gameState/storeSlices/playerSkills";
 import {decreaseStats} from "../../gameState/storeSlices/playerStats";
+import useTooltip from "../../hooks/useTooltip";
+import Tooltip from "../tooltip/Tooltip";
 
 function SkillSlot({skill}: {skill: SkillProps}) {
-    const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
-    const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
-    const {styles, attributes} = usePopper(referenceElement, popperElement);
     const [show, setShow] = useState(false);
+    const {refs, floatingStyles, getFloatingProps, getReferenceProps} = useTooltip({show, setShow});
 
     const playerSkills = useSelector((state: RootState) => state.playerSkills);
-    const playerStats = useSelector((state: RootState) => state.playerStats);
+    const {unspentSkillPoints} = useSelector((state: RootState) => state.playerStats);
     const dispatch = useDispatch();
     const currentSkillPointLevel = playerSkills[skill.name] ?? 0;
     const isMaxLevel = currentSkillPointLevel === skill.maxLevel;
 
-    const useSkillPoint = () => {
-        if (isMaxLevel || !playerStats.unspentSkillPoints || playerStats.unspentSkillPoints < skill.skillPointCost) return;
-        dispatch(addSkillPoint(skill.name));
-        dispatch(decreaseStats([{key: "unspentSkillPoints", amount: skill.skillPointCost}]));
+    const spendSkillPoint = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (isMaxLevel || !unspentSkillPoints || unspentSkillPoints < skill.skillPointCost) return;
+        const skillLevel = playerSkills[skill.name] ?? 0;
+        const amount = event.ctrlKey ? Math.min(unspentSkillPoints, skill.maxLevel - skillLevel) : 1;
+        console.log(amount);
+        dispatch(addSkillPoint({name: skill.name, amount}));
+        dispatch(decreaseStats([{key: "unspentSkillPoints", amount}]));
     };
 
     return (
@@ -30,10 +32,9 @@ function SkillSlot({skill}: {skill: SkillProps}) {
                 className={`border flex justify-center items-center border-zinc-600 bg-zinc-800 flex-col bg-no-repeat bg-cover bg-center bg-origin-content cursor-pointer ${
                     skill.special ? "rounded-full" : "rounded-md"
                 } ${isMaxLevel ? "bg-green-700" : "bg-zinc-700"}`}
-                ref={setReferenceElement}
-                onMouseEnter={() => setShow(true)}
-                onMouseLeave={() => setShow(false)}
-                onClick={useSkillPoint}
+                ref={refs.setReference}
+                {...getReferenceProps()}
+                onClick={(e) => spendSkillPoint(e)}
                 style={{gridRowStart: skill.row, gridColumnStart: skill.col, backgroundImage: `url('${skill.url}')`}}>
                 <div className="bg-black bg-opacity-[60%] p-1 rounded-md flex flex-col items-center select-none">
                     <div className={`${isMaxLevel ? "text-green-500" : "text-white"}`}>
@@ -43,14 +44,12 @@ function SkillSlot({skill}: {skill: SkillProps}) {
                 </div>
             </div>
             {show ? (
-                <div
-                    ref={setPopperElement}
-                    style={styles.popper}
-                    {...attributes.popper}
-                    className="p-1 bg-zinc-700 rounded-md border border-slate-800 flex flex-col gap-1 max-w-[350px]">
-                    <div className="text-yellow-500">{skill.name}</div>
-                    <div>{skill.description}</div>
-                </div>
+                <Tooltip
+                    data={{type: "skill", skill}}
+                    setFloating={refs.setFloating}
+                    floatingStyles={floatingStyles}
+                    getFloatingProps={getFloatingProps}
+                />
             ) : null}
         </>
     );

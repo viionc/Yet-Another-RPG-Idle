@@ -18,19 +18,18 @@ function WaveCounterComponent() {
     const previousWave = () => {
         if (currentWave > 1) dispatch(changeWave(currentWave - 1));
         else if (previousZoneId) {
-            dispatch(changeZone(previousZoneId));
             const maxWave = ZONES_DATA[previousZoneId].maxWave;
-            dispatch(changeWave(maxWave));
+            dispatch(changeZone({zoneId: previousZoneId, wave: maxWave}));
         }
     };
 
     const nextWave = () => {
         if (currentWave < maxWave) dispatch(changeWave(currentWave + 1));
-        else if (_isMaxWave && zoneWaveProgression[zoneId][maxWave] > 0 && nextZoneId) dispatch(changeZone(nextZoneId));
+        else if (_isMaxWave && zoneWaveProgression[zoneId][maxWave] > 0 && nextZoneId) dispatch(changeZone({zoneId: nextZoneId, wave: 1}));
     };
 
     const canShowPreviousButton = currentWave > 1 || previousZoneId;
-    const canShowNextButton = nextZoneId && (currentKillCount >= enemiesPerWave || (_isMaxWave && currentKillCount > 0)); //(!_isMaxWave && currentKillCount >= enemiesPerWave) || (_isMaxWave && currentKillCount > 0)
+    const canShowNextButton = (currentKillCount >= enemiesPerWave && !_isMaxWave) || (_isMaxWave && currentKillCount > 0 && nextZoneId);
 
     const _handleAutoProgression = () => {
         dispatch(handleAutoProgression());

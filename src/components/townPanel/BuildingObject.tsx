@@ -12,7 +12,7 @@ function BuildingObject({object}: BuildingObjectProps) {
 
     const handleClick = () => {
         if (object.type === "zone") {
-            dispatch(changeZone(object.zoneId));
+            dispatch(changeZone({zoneId: object.zoneId, wave: 1}));
             dispatch(changeSetting({key: "navTab", value: "Main"}));
         }
     };

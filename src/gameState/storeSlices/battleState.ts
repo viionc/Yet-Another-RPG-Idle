@@ -36,9 +36,9 @@ const resetAction = createAction("RESET_STATES");
 const initialState: BattleStateProps = {
     battleGlobalCooldown: 3,
     battleCurrentCooldown: 0,
-    zoneId: 0,
+    zoneId: 1,
     currentWave: 1,
-    zoneWaveProgression: {0: {1: 0}}, // {zoneId: {wave: kill count}}
+    zoneWaveProgression: {1: {1: 0}}, // {zoneId: {wave: kill count}}
     totalEnemyKillCount: {},
     requiredKillsToAdvance: 10,
     isBattleStarted: false,
@@ -55,6 +55,16 @@ export type UpdateEnemyHpProps = {
 export type UpdateEnemyHpAction = {
     payload: UpdateEnemyHpProps;
     type: string;
+};
+
+export type ChangeZoneActionProps = {
+    payload: ChangeZonePayloadProps;
+    type: string;
+};
+
+export type ChangeZonePayloadProps = {
+    zoneId: number;
+    wave: number;
 };
 
 const battleStateSlice = createSlice({
@@ -110,11 +120,10 @@ const battleStateSlice = createSlice({
         castSpell: (state, action: SpellActionProps) => {
             console.log(state, action.payload);
         },
-        changeZone: (state, action: SimpleActionProps) => {
+        changeZone: (state, action: ChangeZoneActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});
-            state.currentWave = action.payload < state.zoneId ? 10 : 1;
-            state.zoneId = action.payload;
-            console.log(state.zoneId);
+            state.currentWave = action.payload.wave;
+            state.zoneId = action.payload.zoneId;
         },
         changeWave: (state, action: SimpleActionProps) => {
             battleStateSlice.caseReducers.endBattle(state, {type: "battleState/endBattle", payload: {change: true}});

@@ -1,9 +1,9 @@
 import {ItemProps, colorsByItemTier} from "../../data/itemsData";
-type ItemToolTipInfoProps = {
+type ItemTooltipInfoProps = {
     item: ItemProps;
 };
 
-function ItemToolTipInfo({item}: ItemToolTipInfoProps) {
+function ItemTooltipInfo({item}: ItemTooltipInfoProps) {
     const {name, tier, extra, description} = item;
     const getText = () => {
         if (extra?.type === "equipment") return "Equip";
@@ -35,4 +35,4 @@ function ItemToolTipInfo({item}: ItemToolTipInfoProps) {
     );
 }
 
-export default ItemToolTipInfo;
+export default ItemTooltipInfo;
