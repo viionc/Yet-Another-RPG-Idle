@@ -1,19 +1,19 @@
 import {DialogueProps} from "../types";
 
-const LA_HARPAR_BARTENDER_DIALOGUES: Record<number, DialogueProps> = {
+const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
     0: {
-        message: "Oi, you! Quick, what do you want?! Can't you see how busy this place?",
+        message: "Oi, you! Quick, what do you want?! Can't you see how busy this place is?",
         options: [
             {
                 response: "Looks quite empty to me.",
                 next: 1,
             },
-            {response: "I'm sorry, I have few questions, if you may.", next: 2},
+            {response: "I'm sorry, I have a few questions, if you may.", next: 2},
         ],
     },
     1: {
         message: "I'll remember your face, smartass. Next order is gonna cost you more.",
-        options: [{response: "I'm sorry, I have few questions, if you may.", next: 2}],
+        options: [{response: "I'm sorry, I have few questions if you may.", next: 2}],
     },
     2: {
         message: "Ask away, my answers have prices though.",
@@ -81,7 +81,7 @@ const LA_HARPAR_BARTENDER_DIALOGUES: Record<number, DialogueProps> = {
         ],
     },
     5: {
-        message: "I think Marvin specializes in combat training, you could ask him, but he is more gold hungry than me, so prepare your gold pouch.",
+        message: "I think Marvin specializes in combat training, you could ask him, but he is more gold-hungry than me, so prepare your gold pouch.",
         options: [
             {
                 response: "Thanks. I'll look for him.",
@@ -103,4 +103,4 @@ const LA_HARPAR_BARTENDER_DIALOGUES: Record<number, DialogueProps> = {
     },
 };
 
-export default LA_HARPAR_BARTENDER_DIALOGUES;
+export default LA_HARPAR_BARTENDER;

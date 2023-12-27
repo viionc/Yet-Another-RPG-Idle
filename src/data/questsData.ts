@@ -72,7 +72,7 @@ const QUEST_DATA: QuestProps[] = [
         name: "Meat shortage",
         steps: [
             {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
-            {description: "Bartender in La Harpar tavern asked me to bring her 50 crab meat.", requirement: {type: "item", id: 1, amount: 50}},
+            {description: "Bartender in La Harpar tavern asked me to bring her 30 crab meat.", requirement: {type: "item", id: 1, amount: 30}},
         ],
         rewards: [
             {type: "stat", key: "unspentSkillPoints", amount: 1, label: "Skill Point"},
@@ -102,7 +102,7 @@ const QUEST_DATA: QuestProps[] = [
         steps: [
             {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
             {
-                description: "I'm supposed to kill 50 rats in Trader's basement.",
+                description: "La Harpar's trader asked me to get rid of pests in his basement. 50 should be enough.",
                 requirement: {type: "enemy", id: 8, amount: 50},
             },
         ],
@@ -111,6 +111,18 @@ const QUEST_DATA: QuestProps[] = [
             {type: "stat", key: "experience", amount: 1500, label: "Experience"},
             {type: "stat", key: "goldCoins", amount: 300, label: "Gold Coins"},
         ],
+    },
+    {
+        id: 3,
+        name: "A tale of a captain",
+        steps: [
+            {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
+            {
+                description: "Elara is looking for her father, Captain Theron Tidecaller. I need to find some clues",
+                requirement: {type: "item", id: 18, amount: 1},
+            },
+        ],
+        rewards: [],
     },
 ];
 

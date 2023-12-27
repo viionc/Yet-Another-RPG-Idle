@@ -70,6 +70,10 @@ const TOWNS_DATA: TownProps[] = [
                         id: 2,
                         position: "top-1/2 left-1/3 -translate-y-1/2",
                     },
+                    {
+                        id: 3,
+                        position: "top-2/3 left-2/3 -translate-y-1/2",
+                    },
                 ],
                 url: "./backgrounds/laHarparMarket.png",
             },

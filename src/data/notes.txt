@@ -9,6 +9,11 @@ Regions:
 
 
 La Harpar - fisherman village, first town
-    npcs: bartender, fisherman josh. trainer marvin
-    quests: bring crab meat, kill enemies in beach
+    npcs: bartender, fisherman josh. trainer marvin, elara, captain theron tidecaller (elaras father)
+    quests: bring crab meat, kill enemies in beach, rats, were rats, a tale of a captain
+
+
+
+Messatan (ancient civilization)
+    Queen Primula, ruler
 

@@ -28,7 +28,7 @@ const dialoguesSlice = createSlice({
     reducers: {
         startDialogue: (state, action: SimpleActionProps) => {
             state.currentNpcId = action.payload;
-            if (!state.npcDialoguesProgress[action.payload]) state.npcDialoguesProgress[action.payload] = 1;
+            if (!state.npcDialoguesProgress[action.payload]) state.npcDialoguesProgress[action.payload] = 0;
         },
         nextDialogueMessage: (state, action: SimpleActionProps) => {
             if (state.currentNpcId === null) return;

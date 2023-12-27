@@ -1,4 +1,5 @@
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
+import {RequirementProps} from "./questsData";
 
 export type Tiers = "Trash" | "Normal" | "Uncommon" | "Rare" | "Epic" | "Legendary";
 export type ItemProps = {
@@ -9,6 +10,7 @@ export type ItemProps = {
     url: string;
     extra?: EquipmentProps | UseItemProps;
     description?: string;
+    requirement?: RequirementProps;
 };
 
 export type UseItemProps = UseItemStatProps;
@@ -232,6 +234,13 @@ const ITEM_DATA: Record<number, ItemProps> = {
         name: "Fish Meat",
         url: "./items/fishMeat.png",
         value: 1,
+    },
+    18: {
+        id: 18,
+        tier: "Normal",
+        name: "Captain's letter",
+        url: "./items/letter.png",
+        value: -1,
     },
 } as const;
 

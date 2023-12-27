@@ -1,6 +1,6 @@
 import {DialogueProps} from "../types";
 
-const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
+const LA_HARPAR_TRADER: Record<number, DialogueProps> = {
     0: {
         message: "Welcome to the best shop in La Harpar!",
         options: [
@@ -32,7 +32,7 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
         message: "Are you buying something?",
         options: [
             {
-                response: "Your basement is rat free. I need to take a bath though.",
+                response: "Your basement is rat-free. I need to take a bath though.",
                 next: 3,
                 requiredQuestProgress: {
                     id: 2,
@@ -59,7 +59,8 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
         ],
     },
     5: {
-        message: "Not much. It's pretty calm around here. Other than crab infestation on beach. I heard Josh is looking someone to help with that.",
+        message:
+            "Not much. It's pretty calm around here. Other than crab infestation on the beach. I heard Josh is looking for someone to help with that.",
         options: [
             {
                 response: "I'll look for him.",
@@ -79,10 +80,10 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
     },
     11: {
         message:
-            "Our sea has the best quality fish and our fishermen are experts, with decades of expertise. This village has been vital part of North Lirold for a long time.",
+            "Our sea has the best quality fish and our fishermen are experts, with decades of expertise. This village has been a vital part of North Lirold for a long time.",
         options: [
             {
-                response: "So it's the fish that all the work, I see.",
+                response: "So it's the fish that does all the work, I see.",
                 next: 12,
             },
         ],
@@ -129,7 +130,7 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
         ],
     },
     20: {
-        message: "Aye, I need help with rats in basement. Please get rid of them. I'll make it worth the time.",
+        message: "Aye, I need help with rats in the basement. Please get rid of them. I'll make it worth the time.",
         options: [
             {
                 response: "Rats? Should be easy.",
@@ -142,7 +143,7 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
         ],
     },
     21: {
-        message: "Not anymore. I'm busy moving my merchandise back to basement.",
+        message: "Not anymore. I'm busy moving my merchandise back to the basement.",
         options: [
             {
                 response: "Okay, see you soon.",
@@ -151,4 +152,4 @@ const LA_HARPAR_TRADER_DIALOGUES: Record<number, DialogueProps> = {
         ],
     },
 };
-export default LA_HARPAR_TRADER_DIALOGUES;
+export default LA_HARPAR_TRADER;

@@ -19,7 +19,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
         message: "Haha, that's what I'm talking about! Now we can talk.",
         options: [
             {
-                response: "Beach is safe for now.",
+                response: "The beach is safe for now.",
                 next: 2,
                 requiredQuestProgress: {
                     id: 1,
@@ -54,11 +54,11 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
     },
     5: {
         message:
-            "Work? Here? There is always work to do. We had some animal overpopulation issue on our beach lately. Come back when you kill 50 enemies on Wave 7 in Beach.",
+            "Work? Here? There is always work to do. We had some animal overpopulation issues on our beach lately. Come back when you kill 50 enemies on Wave 7 in Beach.",
         options: [{response: "On my way.", next: 2, nextIfQuestStarted: 13, special: {type: "quest", id: 1, start: true}}],
     },
     6: {
-        message: "Oi, mate. You don't want to make enemies here, you're a new face and new faces can disappear over night here.",
+        message: "Oi, mate. You don't want to make enemies here, you're a new face and new faces can disappear overnight here.",
         options: [
             {
                 response: "I'm sorry, I got carried away.",
@@ -69,7 +69,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
     },
     7: {
         message:
-            "The name comes from the shape of the beach, you donkey. Horseshoe Beach and La Harpar are important trade partner to North Lirold, capitol of this region.",
+            "The name comes from the shape of the beach, you donkey. Horseshoe Beach and La Harpar are important trade partners to North Lirold, capital of this region.",
         options: [
             {response: "What exactly is La Harpar providing?", next: 8},
             {response: "This region? How many regions there are?", next: 9},
@@ -109,7 +109,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
     },
     12: {
         message:
-            "Beats me! People who got close said they could hear chants and howls from forest that's surrounding the mountain. My feet won't set there anytime soon.",
+            "Beats me! People who got close said they could hear chants and howls from the forest that's surrounding the mountain. My feet won't set there anytime soon.",
         options: [
             {
                 response: "Understandable...",
