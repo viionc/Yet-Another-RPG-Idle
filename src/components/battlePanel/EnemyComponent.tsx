@@ -18,7 +18,7 @@ function EnemyComponent({enemy}: {enemy: BattleStateEnemyProps}) {
 
             <img
                 src={enemyUrl}
-                className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[7rem]"
+                className="absolute z-10 top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[8rem]"
                 alt={`${enemyName} enemy `}></img>
         </div>
     );

@@ -1,14 +1,3 @@
-export type EnemyNames =
-    | "Green Slime"
-    | "Red Slime"
-    | "Blue Slime"
-    | "King Slime"
-    | "Crab"
-    | "Seagull"
-    | "Turtle"
-    | "Gangster Crab"
-    | "Rat"
-    | "Giant Rat";
 export type EnemyDrop = {
     id: number;
     minAmount: number;
@@ -17,7 +6,7 @@ export type EnemyDrop = {
 };
 export interface EnemyProps {
     maxHp: number;
-    name: EnemyNames;
+    name: string;
     id: number;
     experience: number;
     drops: EnemyDrop[];
@@ -136,6 +125,47 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
             },
         ],
         url: "./enemies/giantRat.png",
+        isBossEnemy: true,
+    },
+    10: {
+        maxHp: 50,
+        name: "Wolf",
+        id: 10,
+        experience: 30,
+        drops: [],
+        url: "./enemies/wolf.png",
+    },
+    11: {
+        maxHp: 25,
+        name: "Deer",
+        id: 11,
+        experience: 20,
+        drops: [],
+        url: "./enemies/deer.png",
+    },
+    12: {
+        maxHp: 75,
+        name: "Bandit",
+        id: 12,
+        experience: 50,
+        drops: [],
+        url: "./enemies/bandit.png",
+    },
+    13: {
+        maxHp: 30,
+        name: "Goblin Scout",
+        id: 13,
+        experience: 25,
+        drops: [],
+        url: "./enemies/goblinScout.png",
+    },
+    14: {
+        maxHp: 200,
+        name: "Troll",
+        id: 14,
+        experience: 500,
+        drops: [],
+        url: "./enemies/troll.png",
         isBossEnemy: true,
     },
 };

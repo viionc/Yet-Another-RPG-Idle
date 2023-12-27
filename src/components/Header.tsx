@@ -5,11 +5,13 @@ import {changeWave} from "../gameState/storeSlices/battleState";
 import {increaseStats} from "../gameState/storeSlices/playerStats";
 import {Tabs} from "../App";
 import {changeSetting} from "../gameState/storeSlices/playerSettings";
+import ZONES_DATA from "../data/zonesData";
 
 function Header() {
     const dispatch = useDispatch();
     const {unspentSkillPoints, level} = useSelector((state: RootState) => state.playerStats);
     const unlocks = useSelector((state: RootState) => state.unlocks);
+    const {zoneId} = useSelector((state: RootState) => state.battleState);
 
     const changeTab = (tab: Tabs) => {
         dispatch(changeSetting({key: "navTab", value: tab}));
@@ -27,7 +29,7 @@ function Header() {
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{id: 4, amount: 1}]))}>
                     add crown
                 </button>
-                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(changeWave(10))}>
+                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(changeWave(ZONES_DATA[zoneId].maxWave))}>
                     skip to boss
                 </button>
                 <button

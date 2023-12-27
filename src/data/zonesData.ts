@@ -1,4 +1,4 @@
-export type ZoneNames = "Plains" | "Horseshoe Beach" | "Trader's Basement";
+export type ZoneNames = "Plains" | "Horseshoe Beach" | "Trader's Basement" | "The Long Path";
 export type ZoneProps = {
     zoneId: number;
     url: string;
@@ -40,6 +40,16 @@ const ZONES_DATA: Record<number, ZoneProps> = {
         maxWave: 10,
         enemiesPerWave: 10,
         bossEnemyId: 3,
+    },
+    4: {
+        zoneId: 4,
+        previousZoneId: 3,
+        name: "The Long Path",
+        url: "./backgrounds/theLongPath.png",
+        enemies: [10, 11, 12, 13],
+        maxWave: 20,
+        enemiesPerWave: 8,
+        bossEnemyId: 14,
     },
 };
 
