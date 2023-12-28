@@ -95,9 +95,10 @@ const playerStatsSlice = createSlice({
         builder
             .addCase(resetAction, () => initialState)
             .addCase(addSkillPoint, (state, action) => {
-                const skill = ALL_SKILLS.find((skill) => skill.name === action.payload.name);
+                const {name, amount} = action.payload;
+                const skill = ALL_SKILLS.find((skill) => skill.name === name);
                 if (!skill || !skill.statEffect) return;
-                updateStats(state, skill.statEffect.id, skill.statEffect.value);
+                updateStats(state, skill.statEffect.id, skill.statEffect.value * amount);
             })
             .addCase(equipItem, (state, action) => {
                 const extra = ITEM_DATA[action.payload].extra;

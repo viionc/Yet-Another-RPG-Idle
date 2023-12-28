@@ -11,7 +11,6 @@ export type BattleStateProps = {
     zoneId: number;
     zoneWaveProgression: Record<number, Record<number, number>>;
     currentWave: number;
-    requiredKillsToAdvance: number;
     enemy: BattleStateEnemyProps | null;
     autoWaveProgression: boolean;
     overkillDamage: number;
@@ -40,7 +39,6 @@ const initialState: BattleStateProps = {
     currentWave: 1,
     zoneWaveProgression: {1: {1: 0}}, // {zoneId: {wave: kill count}}
     totalEnemyKillCount: {},
-    requiredKillsToAdvance: 10,
     isBattleStarted: false,
     enemy: null,
     autoWaveProgression: false,
@@ -103,8 +101,8 @@ const battleStateSlice = createSlice({
             state.zoneWaveProgression[state.zoneId][state.currentWave] = currentKillCount;
 
             if (!state.autoWaveProgression) return;
-            const {maxWave, nextZoneId} = ZONES_DATA[state.zoneId];
-            if (currentKillCount >= state.requiredKillsToAdvance && state.currentWave < maxWave) {
+            const {maxWave, nextZoneId, enemiesPerWave} = ZONES_DATA[state.zoneId];
+            if (currentKillCount >= enemiesPerWave && state.currentWave < maxWave) {
                 state.currentWave++;
                 state.zoneWaveProgression[state.zoneId][state.currentWave] = state.zoneWaveProgression[state.zoneId][state.currentWave] ?? 0;
             } else if (state.currentWave === maxWave && currentKillCount >= 1 && nextZoneId) {

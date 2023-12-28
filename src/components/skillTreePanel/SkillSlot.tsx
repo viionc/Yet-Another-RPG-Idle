@@ -21,7 +21,6 @@ function SkillSlot({skill}: {skill: SkillProps}) {
         if (isMaxLevel || !unspentSkillPoints || unspentSkillPoints < skill.skillPointCost) return;
         const skillLevel = playerSkills[skill.name] ?? 0;
         const amount = event.ctrlKey ? Math.min(unspentSkillPoints, skill.maxLevel - skillLevel) : 1;
-        console.log(amount);
         dispatch(addSkillPoint({name: skill.name, amount}));
         dispatch(decreaseStats([{key: "unspentSkillPoints", amount}]));
     };
