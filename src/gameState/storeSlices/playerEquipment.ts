@@ -14,6 +14,8 @@ export type PlayerEquipment = {
     belt: ItemNames | null;
 };
 
+export type EquipmentSlotNames = keyof PlayerEquipment;
+
 const resetAction = createAction("RESET_STATES");
 const initialState: PlayerEquipment = {
     weapon: null,

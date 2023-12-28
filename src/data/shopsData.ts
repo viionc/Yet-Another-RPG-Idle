@@ -37,6 +37,13 @@ const SHOPS_DATA: Record<number, ShopProps> = {
                 refreshable: true,
                 price: 25,
             },
+            {
+                name: "Stone Arrow",
+                maxStock: 99,
+                currentStock: 99,
+                refreshable: true,
+                price: 10,
+            },
         ],
     },
 };

@@ -110,6 +110,12 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
                 maxAmount: 1,
                 chance: 1,
             },
+            {
+                name: "Cheese",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 8,
+            },
         ],
         url: "./enemies/rat.png",
     },
@@ -125,6 +131,18 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
                 maxAmount: 1,
                 chance: 1,
             },
+            {
+                name: "Cheese",
+                minAmount: 1,
+                maxAmount: 3,
+                chance: 2,
+            },
+            {
+                name: "Rat Catcher",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 40,
+            },
         ],
         url: "./enemies/giantRat.png",
         isBossEnemy: true,
@@ -134,7 +152,14 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Wolf",
         id: 10,
         experience: 30,
-        drops: [],
+        drops: [
+            {
+                name: "Wolf Fangs",
+                minAmount: 1,
+                maxAmount: 3,
+                chance: 2,
+            },
+        ],
         url: "./enemies/wolf.png",
     },
     11: {
@@ -142,7 +167,14 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Deer",
         id: 11,
         experience: 20,
-        drops: [],
+        drops: [
+            {
+                name: "Deer Pelt",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 4,
+            },
+        ],
         url: "./enemies/deer.png",
     },
     12: {
@@ -150,7 +182,26 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Bandit",
         id: 12,
         experience: 50,
-        drops: [],
+        drops: [
+            {
+                name: "Vial of Water",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 6,
+            },
+            {
+                name: "Trophy Necklace",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 100,
+            },
+            {
+                name: "Machete",
+                minAmount: 1,
+                maxAmount: 1,
+                chance: 80,
+            },
+        ],
         url: "./enemies/bandit.png",
     },
     13: {

@@ -1,3 +1,4 @@
+import {EquipmentSlotNames} from "../gameState/storeSlices/playerEquipment";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {RequirementProps} from "./questsData";
 
@@ -10,6 +11,7 @@ export type ItemProps = {
     extra?: EquipmentProps | UseItemProps;
     description?: string;
     requirement?: RequirementProps;
+    unique?: true;
 };
 
 export type UseItemProps = UseItemStatProps;
@@ -24,11 +26,10 @@ export type EquipmentStat = {
     value: number;
     description: string;
 };
-export type EquipmentSlotsNames = "helmet" | "chest" | "legs" | "boots" | "weapon" | "offhand" | "amulet" | "ring" | "gloves";
 export type EquipmentProps = {
     type: "equipment";
     stats: EquipmentStat[];
-    slot: EquipmentSlotsNames;
+    slot: EquipmentSlotNames;
 };
 
 export const colorsByItemTier: Record<Tiers, string> = {
@@ -54,11 +55,11 @@ export type ItemDataProps = {
     [name: string]: ItemProps;
 };
 
-function createItemData<T extends ItemDataProps>(input: T) {
+export function createTypedArrayForKeys<T extends ItemDataProps>(input: T) {
     return input;
 }
 
-const ITEM_DATA = createItemData({
+const ITEM_DATA = createTypedArrayForKeys({
     "Slime Resiude": {
         tier: "Normal",
         name: "Slime Residue",
@@ -230,6 +231,105 @@ const ITEM_DATA = createItemData({
         name: "Captain's letter",
         url: "./items/letter.png",
         value: -1,
+    },
+    "Cheese": {
+        tier: "Normal",
+        name: "Cheese",
+        url: "./items/cheese.png",
+        value: 1,
+    },
+    "Deer Pelt": {
+        tier: "Normal",
+        name: "Deer Pelt",
+        url: "./items/deerPelt.png",
+        value: 1,
+    },
+    "Wolf Fangs": {
+        tier: "Normal",
+        name: "Wolf Fangs",
+        url: "./items/wolfFangs.png",
+        value: 1,
+    },
+    "Vial of Water": {
+        tier: "Normal",
+        name: "Vial of Water",
+        url: "./items/deerPelt.png",
+        value: 1,
+    },
+    "Rat Catcher": {
+        tier: "Uncommon",
+        name: "Rat Catcher",
+        url: "./items/ratCatcher.png",
+        value: 1000,
+        extra: {
+            type: "equipment",
+            stats: [
+                {key: "attackPower", value: 2, description: "+2 attack power"},
+                {key: "critChance", value: 2, description: "+2% crit chance"},
+                {key: "goldCoinsMultiplier", value: 0.25, description: "+25% Gold Multiplier"},
+            ],
+            slot: "belt",
+        },
+    },
+    "Wooden Bow": {
+        tier: "Uncommon",
+        name: "Wooden Bow",
+        url: "./items/woodenBow.png",
+        value: 500,
+        extra: {
+            type: "equipment",
+            stats: [
+                {key: "attackPower", value: 4, description: "+4 attack power"},
+                {key: "critChance", value: 2, description: "+2% crit chance"},
+            ],
+            slot: "weapon",
+        },
+    },
+    "Stone Arrow": {
+        tier: "Normal",
+        name: "Stone Arrow",
+        url: "./items/stoneArrow.png",
+        value: 4,
+        extra: {
+            type: "equipment",
+            stats: [{key: "attackPower", value: 1, description: "+2 attack power"}],
+            slot: "offhand",
+        },
+    },
+    "Trophy Necklace": {
+        tier: "Uncommon",
+        name: "Trophy Necklace",
+        url: "./items/trophyNecklace.png",
+        value: 1500,
+        extra: {
+            type: "equipment",
+            stats: [
+                {key: "goldCoinsMultiplier", value: 0.5, description: "+50% gold multiplier"},
+                {key: "xpMultiplier", value: 0.25, description: "+25% xp multiplier"},
+            ],
+            slot: "amulet",
+        },
+    },
+    "Machete": {
+        tier: "Uncommon",
+        name: "Machete",
+        url: "./items/machete.png",
+        value: 1000,
+        extra: {
+            type: "equipment",
+            stats: [
+                {key: "attackPower", value: 5, description: "+5 attack power"},
+                {key: "critChance", value: 4, description: "+4 crit chance"},
+                {key: "critMulti", value: 0.25, description: "+4 crit multiplier"},
+            ],
+            slot: "weapon",
+        },
+    },
+    "Stone": {
+        tier: "Normal",
+        name: "Stone",
+        url: "./items/stone.png",
+        value: 1,
     },
 });
 

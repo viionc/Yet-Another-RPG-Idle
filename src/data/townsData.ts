@@ -25,6 +25,7 @@ export type TownBuildingProps = {
 };
 
 export type TownBuildingObjectProps = EntraceObject;
+
 type EntraceObject = {
     type: "zone";
     zoneId: number;
