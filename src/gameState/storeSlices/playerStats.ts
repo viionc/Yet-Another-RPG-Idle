@@ -104,14 +104,14 @@ const playerStatsSlice = createSlice({
                 const extra = ITEM_DATA[action.payload].extra;
                 if (extra?.type !== "equipment") return;
                 extra.stats.forEach((stat) => {
-                    updateStats(state, stat.type, stat.value);
+                    updateStats(state, stat.key, stat.value);
                 });
             })
             .addCase(unequipItem, (state, action) => {
                 const extra = ITEM_DATA[action.payload].extra;
                 if (extra?.type !== "equipment") return;
                 extra.stats.forEach((stat) => {
-                    updateStats(state, stat.type, stat.value * -1);
+                    updateStats(state, stat.key, stat.value * -1);
                 });
             })
             .addCase(castSpell, (state, action) => {
@@ -143,10 +143,12 @@ const updateStats = (state: PlayerStatsProps, stat: keyof PlayerStatsProps, valu
         case "critChance":
         case "critMulti":
         case "magicDamage":
+        case "xpMultiplier":
             state[stat] += value;
             break;
         case "attackSpeed":
         case "manaRegenRate":
+        case "shopRefreshCooldown":
             state[stat] -= value;
             break;
     }

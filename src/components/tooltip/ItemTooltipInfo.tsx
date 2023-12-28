@@ -20,7 +20,7 @@ function ItemTooltipInfo({item}: ItemTooltipInfoProps) {
                 <>
                     <ul className="flex flex-col text-sm">
                         {extra.stats.map((stat) => (
-                            <li key={stat.type}>{stat.description}</li>
+                            <li key={stat.key}>{stat.description}</li>
                         ))}
                     </ul>
                 </>

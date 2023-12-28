@@ -20,8 +20,13 @@ function StatsPanel() {
                 <li>
                     Xp: {playerStats.experience.toLocaleString("en-US")}/{calculateXp(playerStats.level + 1).toLocaleString("en-US")}
                 </li>
+                {playerStats.xpMultiplier > 1 ? (
+                    <li className="text-cyan-500">XP Multiplier: {Math.floor(playerStats.xpMultiplier * 100)}%</li>
+                ) : null}
                 <li className="text-yellow-500">Gold: {short(playerStats.goldCoins)}</li>
-                <li className="text-yellow-500">Gold Multiplier: {Math.floor(playerStats.goldCoinsMultiplier * 100)}%</li>
+                {playerStats.goldCoinsMultiplier > 1 ? (
+                    <li className="text-yellow-500">Gold Multiplier: {Math.floor(playerStats.goldCoinsMultiplier * 100)}%</li>
+                ) : null}
                 <li>
                     Mana: {playerStats.mana}/{playerStats.maxMana} <span className="text-blue-500">{playerStats.currentManaRegenTimer}</span>
                 </li>

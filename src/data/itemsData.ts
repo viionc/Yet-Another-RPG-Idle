@@ -21,7 +21,7 @@ export type UseItemStatProps = {
 };
 
 export type EquipmentStat = {
-    type: keyof PlayerStatsProps;
+    key: keyof PlayerStatsProps;
     value: number;
     description: string;
 };
@@ -88,8 +88,8 @@ const ITEM_DATA: Record<number, ItemProps> = {
         extra: {
             type: "equipment",
             stats: [
-                {type: "goldCoinsMultiplier", value: 0.5, description: "50% more gold from enemies"},
-                {type: "attackPower", value: 1, description: "+1 attack power"},
+                {key: "goldCoinsMultiplier", value: 0.5, description: "+50% more gold from enemies"},
+                {key: "attackPower", value: 1, description: "+1 attack power"},
             ],
             slot: "helmet",
         },
@@ -102,7 +102,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 150,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 3, description: "+3 attack power"}],
+            stats: [{key: "attackPower", value: 3, description: "+3 attack power"}],
             slot: "weapon",
         },
     },
@@ -114,7 +114,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 20,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "helmet",
         },
     },
@@ -126,7 +126,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 50,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "chest",
         },
     },
@@ -138,7 +138,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 40,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "legs",
         },
     },
@@ -150,7 +150,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 20,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "boots",
         },
     },
@@ -162,7 +162,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 20,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "gloves",
         },
     },
@@ -181,7 +181,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
         value: 10,
         extra: {
             type: "equipment",
-            stats: [{type: "attackPower", value: 1, description: "+1 attack power"}],
+            stats: [{key: "attackPower", value: 1, description: "+1 attack power"}],
             slot: "weapon",
         },
     },
@@ -194,9 +194,9 @@ const ITEM_DATA: Record<number, ItemProps> = {
         extra: {
             type: "equipment",
             stats: [
-                {type: "attackPower", value: 1, description: "+1 attack power"},
-                {type: "attackSpeed", value: 0.1, description: "+0.1 attack speed"},
-                {type: "xpMultiplier", value: 0.1, description: "+10% Experience Multiplier"},
+                {key: "attackPower", value: 1, description: "+1 attack power"},
+                {key: "attackSpeed", value: 0.1, description: "+0.1 attack speed"},
+                {key: "xpMultiplier", value: 0.1, description: "+10% Experience Multiplier"},
             ],
             slot: "ring",
         },
