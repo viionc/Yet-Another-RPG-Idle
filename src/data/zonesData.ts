@@ -34,6 +34,7 @@ const ZONES_DATA: Record<number, ZoneProps> = {
     3: {
         zoneId: 3,
         previousZoneId: 1,
+        nextZoneId: 4,
         name: "Plains",
         url: "./backgrounds/plains.png",
         enemies: [0, 1, 2],

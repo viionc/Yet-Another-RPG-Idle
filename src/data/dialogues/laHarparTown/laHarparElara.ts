@@ -6,7 +6,7 @@ const LA_HARPAR_ELARA: Record<number, DialogueProps> = {
         options: [
             {response: "I wasn't staring! (Lie)", next: 1},
             {response: "I was just admiring your beauty, didn't mean to offend", next: 1},
-            {response: "I'll be going now.", next: 1, close: true},
+            {response: "I'll be going now.", next: 0, close: true},
         ],
     },
     1: {

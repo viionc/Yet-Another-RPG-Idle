@@ -37,11 +37,20 @@ You can open the map by pressing Map button in bottom right corner of battle dis
     `,
 };
 
+const skillTreesTutorialText = {
+    title: "Skill trees unlocked!",
+    text: `
+Skill trees are one of the main means of power. Some nodes give stats, some unlock spells and some add Quality of Life features.\n
+You earn 1 skill point per level, you can also get more points as a reward from quests or other ways.
+    `,
+};
+
 const tutorialTextData: Record<UnlockKey, PopUpTextProps> = {
     "crafting": craftingTutorialText,
     "towns": townsTutorialText,
     "shops": shopsTutorialText,
     "zonesMap": zonesMapTutorialText,
+    "skillTrees": skillTreesTutorialText,
 };
 
 export default tutorialTextData;

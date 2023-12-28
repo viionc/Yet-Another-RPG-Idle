@@ -3,7 +3,7 @@ import {addItemsToInventory} from "./playerInventory";
 import {checkForUnlocksByItem} from "../../utils/unlockContentUtils";
 
 const resetAction = createAction("RESET_STATES");
-export type UnlockKey = "crafting" | "towns" | "zonesMap" | "shops";
+export type UnlockKey = "crafting" | "towns" | "zonesMap" | "shops" | "skillTrees";
 
 export type UnlocksProps = Partial<Record<UnlockKey, boolean>>;
 export type UnlockAction = {
@@ -27,6 +27,7 @@ const playerUnlockedContentSlice = createSlice({
     name: "playerUnlockedContent",
     reducers: {
         unlock: (state, action: UnlockAction) => {
+            if (state.unlocked[action.payload]) return;
             state.unlocked[action.payload] = true;
             state.allTutorialsShown.push(action.payload);
             state.currentTutorialId = action.payload;
