@@ -2,7 +2,7 @@ import {createAction, createSlice} from "@reduxjs/toolkit";
 import {calculateXp} from "../../utils/levelUtils";
 import {addSkillPoint} from "./playerSkills";
 import {equipItem, unequipItem} from "./playerEquipment";
-import ITEM_DATA from "../../data/itemsData";
+import ITEM_DATA, {ItemProps} from "../../data/itemsData";
 import {castSpell, reduceCooldowns} from "./battleState";
 import SPELLS_DATA from "../../data/spellsData";
 import {ALL_SKILLS} from "../../data/skillTreesData";
@@ -101,16 +101,16 @@ const playerStatsSlice = createSlice({
                 updateStats(state, skill.statEffect.id, skill.statEffect.value * amount);
             })
             .addCase(equipItem, (state, action) => {
-                const extra = ITEM_DATA[action.payload].extra;
-                if (extra?.type !== "equipment") return;
-                extra.stats.forEach((stat) => {
+                const item = ITEM_DATA[action.payload] as ItemProps;
+                if (item.extra?.type !== "equipment") return;
+                item.extra.stats.forEach((stat) => {
                     updateStats(state, stat.key, stat.value);
                 });
             })
             .addCase(unequipItem, (state, action) => {
-                const extra = ITEM_DATA[action.payload].extra;
-                if (extra?.type !== "equipment") return;
-                extra.stats.forEach((stat) => {
+                const item = ITEM_DATA[action.payload] as ItemProps;
+                if (item.extra?.type !== "equipment") return;
+                item.extra.stats.forEach((stat) => {
                     updateStats(state, stat.key, stat.value * -1);
                 });
             })
@@ -126,8 +126,8 @@ const playerStatsSlice = createSlice({
                 state.currentShopRefreshCooldown--;
             })
             .addCase(buyItems, (state, action) => {
-                const {shopId, itemId, amount} = action.payload;
-                const item = SHOPS_DATA[shopId].items.find((item) => item.itemId === itemId);
+                const {shopId, name: itemId, amount} = action.payload;
+                const item = SHOPS_DATA[shopId].items.find((item) => item.name === itemId);
                 if (!item) return;
                 state.goldCoins -= amount * item.price;
             });

@@ -6,10 +6,11 @@ import {closeDialogue, endQuest, nextDialogueMessage, openShopTab, progressQuest
 import {RootState} from "../../gameState/store";
 import {OptionsProps, RequiredQuestProgressProps} from "../../data/dialogues/types";
 import {decreaseStats} from "../../gameState/storeSlices/playerStats";
-import {removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
+import {InventoryItem, removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
 import DialogueSpecialOption from "./DialogueSpecialOption";
 import React from "react";
 import {checkIfCanProceedQuest, handleProceedQuest, handleCompleteQuest, checkIfCanShowQuestOption} from "../../utils/questUtils";
+import {ItemNames} from "../../data/itemsData";
 
 function DialogueModal({id}: {id: number}) {
     const dispatch = useDispatch();
@@ -34,8 +35,8 @@ function DialogueModal({id}: {id: number}) {
                     dispatch(decreaseStats([{key: special.key, amount: special.amount}]));
                     break;
                 case "item":
-                    if (itemsInInventory(special.id) < special.amount) return;
-                    dispatch(removeItemsFromInventory([{id: special.id, amount: special.amount}]));
+                    if (itemsInInventory(special.name) < special.amount) return;
+                    dispatch(removeItemsFromInventory([{name: special.name, amount: special.amount}]));
                     break;
                 case "quest":
                     if (option.requiredQuestProgress && !checkIfCanProceedQuest(option.requiredQuestProgress)) return;
@@ -75,8 +76,8 @@ function DialogueModal({id}: {id: number}) {
         }
     };
 
-    const itemsInInventory = (id: number): number => {
-        const item = playerInventory.find((item) => item && item.id === id);
+    const itemsInInventory = (name: ItemNames): number => {
+        const item = playerInventory.find((item) => item && item.name === name) as InventoryItem;
         if (item) return item.amount;
         return -1;
     };

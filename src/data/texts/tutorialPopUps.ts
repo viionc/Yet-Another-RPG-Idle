@@ -1,5 +1,3 @@
-import {UnlockKey} from "../../gameState/storeSlices/playerUnlockedContent";
-
 export type PopUpTextProps = {
     title: string;
     text: string;
@@ -45,12 +43,14 @@ You earn 1 skill point per level, you can also get more points as a reward from 
     `,
 };
 
-const tutorialTextData: Record<UnlockKey, PopUpTextProps> = {
+const tutorialTextData = {
     "crafting": craftingTutorialText,
     "towns": townsTutorialText,
     "shops": shopsTutorialText,
     "zonesMap": zonesMapTutorialText,
     "skillTrees": skillTreesTutorialText,
-};
+} as const;
+
+export type UnlockKey = keyof typeof tutorialTextData;
 
 export default tutorialTextData;

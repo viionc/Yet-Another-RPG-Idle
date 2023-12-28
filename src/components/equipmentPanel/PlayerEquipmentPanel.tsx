@@ -11,7 +11,7 @@ function PlayerEquipmentPanel() {
             <h1 className="mb-2 h-[10%]">Equipment:</h1>
             <div className="grid grid-cols-5 grid-rows-3 h-[85%] gap-2 w-full text-xs">
                 {equipmentArray.map(([key, value], index) => (
-                    <EquipmentSlot item={value ? {id: value, amount: 1} : null} placeholderText={key} key={index}></EquipmentSlot>
+                    <EquipmentSlot item={value ? {name: value, amount: 1} : null} placeholderText={key} key={index}></EquipmentSlot>
                 ))}
             </div>
         </section>

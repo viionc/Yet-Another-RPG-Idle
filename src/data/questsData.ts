@@ -1,4 +1,5 @@
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
+import {ItemNames} from "./itemsData";
 import {SkillNames} from "./skillTreesData";
 
 export type QuestProps = {
@@ -29,7 +30,7 @@ export type QuestRequirement = {
 
 export type ItemRequirement = {
     type: "item";
-    id: number;
+    name: ItemNames;
     amount: number;
 };
 
@@ -55,7 +56,7 @@ type StatReward = {
 
 type ItemReward = {
     type: "item";
-    id: number;
+    name: ItemNames;
     amount: number;
 };
 
@@ -72,7 +73,10 @@ const QUEST_DATA: QuestProps[] = [
         name: "Meat shortage",
         steps: [
             {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
-            {description: "Bartender in La Harpar tavern asked me to bring her 30 crab meat.", requirement: {type: "item", id: 1, amount: 30}},
+            {
+                description: "Bartender in La Harpar tavern asked me to bring her 30 crab meat.",
+                requirement: {type: "item", name: "Crab Meat", amount: 30},
+            },
         ],
         rewards: [
             {type: "stat", key: "unspentSkillPoints", amount: 1, label: "Skill Point"},
@@ -93,7 +97,7 @@ const QUEST_DATA: QuestProps[] = [
         rewards: [
             {type: "stat", key: "experience", amount: 1500, label: "Experience"},
             {type: "stat", key: "goldCoins", amount: 250, label: "Gold Coins"},
-            {type: "item", id: 13, amount: 1},
+            {type: "item", name: "Josh's Heirloom", amount: 1},
         ],
     },
     {
@@ -119,7 +123,7 @@ const QUEST_DATA: QuestProps[] = [
             {description: "", requirement: {type: "stat", key: "level", amount: 1, label: "Level"}},
             {
                 description: "Elara is looking for her father, Captain Theron Tidecaller. I need to find some clues",
-                requirement: {type: "item", id: 18, amount: 1},
+                requirement: {type: "item", name: "Captain's letter", amount: 1},
             },
         ],
         rewards: [],

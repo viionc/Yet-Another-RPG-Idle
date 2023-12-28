@@ -17,7 +17,7 @@ type ShopItemBoxProps = {
 function ShopItemBox({amountMultiplier, item, shopId}: ShopItemBoxProps) {
     const [show, setShow] = useState(false);
     const {refs, floatingStyles, getFloatingProps, getReferenceProps} = useTooltip({show, setShow});
-    const itemData = ITEM_DATA[item.itemId];
+    const itemData = ITEM_DATA[item.name];
     const dispatch = useDispatch();
     const {goldCoins} = useSelector((state: RootState) => state.playerStats);
 
@@ -25,7 +25,7 @@ function ShopItemBox({amountMultiplier, item, shopId}: ShopItemBoxProps) {
         // change that later
         const amount = calculateAmount();
         if (!amount) return;
-        dispatch(buyItems({amount, itemId: item.itemId, shopId}));
+        dispatch(buyItems({amount, name: item.name, shopId}));
     };
 
     const calculateAmount = (): number => {

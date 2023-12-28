@@ -22,7 +22,7 @@ function QuestRewardModal({id}: {id: number}) {
                 <ul className="flex flex-col gap-2">
                     {rewards.map((reward, index) => {
                         if (reward.type === "item") {
-                            const {name: itemName} = ITEM_DATA[reward.id];
+                            const {name: itemName} = ITEM_DATA[reward.name];
                             return (
                                 <li key={index}>
                                     {reward.amount} {itemName}

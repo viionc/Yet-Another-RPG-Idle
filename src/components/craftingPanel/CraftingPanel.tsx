@@ -16,7 +16,7 @@ function CraftingPanel() {
                 <h2 className="mb-2">Recipes:</h2>
                 <div className="flex gap-2 flex-wrap">
                     {recipeArray.map(([key, recipe]) => {
-                        const item = ITEM_DATA[recipe.itemId];
+                        const item = ITEM_DATA[recipe.name];
                         return <RecipeSlot key={key} item={item} setRecipe={() => setSelectedrecipe(recipe)}></RecipeSlot>;
                     })}
                 </div>

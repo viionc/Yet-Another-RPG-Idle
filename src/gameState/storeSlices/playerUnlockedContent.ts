@@ -1,9 +1,9 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {addItemsToInventory} from "./playerInventory";
 import {checkForUnlocksByItem} from "../../utils/unlockContentUtils";
+import {UnlockKey} from "../../data/texts/tutorialPopUps";
 
 const resetAction = createAction("RESET_STATES");
-export type UnlockKey = "crafting" | "towns" | "zonesMap" | "shops" | "skillTrees";
 
 export type UnlocksProps = Partial<Record<UnlockKey, boolean>>;
 export type UnlockAction = {
@@ -41,7 +41,7 @@ const playerUnlockedContentSlice = createSlice({
             .addCase(resetAction, () => initialState)
             .addCase(addItemsToInventory, (state, action) => {
                 action.payload.forEach((item) => {
-                    const hadUnlock = checkForUnlocksByItem(item.id, state.unlocked);
+                    const hadUnlock = checkForUnlocksByItem(item.name, state.unlocked);
                     if (hadUnlock && !state.unlocked[hadUnlock]) {
                         playerUnlockedContentSlice.caseReducers.unlock(state, {type: "", payload: hadUnlock});
                     }

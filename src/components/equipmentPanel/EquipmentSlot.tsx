@@ -1,5 +1,5 @@
 import {useState} from "react";
-import ITEM_DATA, {colorsByItemTier} from "../../data/itemsData";
+import ITEM_DATA, {ItemProps, colorsByItemTier} from "../../data/itemsData";
 import {InventoryItem, addItemsToInventory} from "../../gameState/storeSlices/playerInventory";
 import {useDispatch, useSelector} from "react-redux";
 import {unequipItem} from "../../gameState/storeSlices/playerEquipment";
@@ -20,15 +20,15 @@ function EquipmentSlot({item, placeholderText}: {item: InventoryItem | null; pla
             </div>
         );
 
-    const itemData = ITEM_DATA[item.id];
+    const itemData = ITEM_DATA[item.name] as ItemProps;
 
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         if (itemData.extra?.type !== "equipment") return;
         const equippedItem = playerEquipment[itemData.extra.slot];
         if (!equippedItem) return;
-        dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
-        dispatch(unequipItem(item.id));
+        dispatch(addItemsToInventory([{name: equippedItem, amount: 1}]));
+        dispatch(unequipItem(item.name));
         setShow(false);
     };
 

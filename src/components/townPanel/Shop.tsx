@@ -42,7 +42,7 @@ function Shop({tab, closeShop, id}: ShopBuildingProps) {
                 <h2 className="text-yellow-500 mb-4">Next refresh in: {currentShopRefreshCooldown}s</h2>
                 <div className="grid grid-cols-4 grid-rows-4 w-full">
                     {stock.map((item) => (
-                        <ShopItemBox key={item.itemId} item={item} amountMultiplier={amountMultiplier} shopId={id} />
+                        <ShopItemBox key={item.name} item={item} amountMultiplier={amountMultiplier} shopId={id} />
                     ))}
                 </div>
             </div>

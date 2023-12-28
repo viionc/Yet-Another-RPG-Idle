@@ -1,9 +1,11 @@
+import {ItemNames} from "./itemsData";
+
 export type ShopProps = {
     townId: number;
     items: ShopItemProps[];
 };
 export type ShopItemProps = {
-    itemId: number;
+    name: ItemNames;
     maxStock: number;
     currentStock: number;
     refreshable?: true;
@@ -16,20 +18,20 @@ const SHOPS_DATA: Record<number, ShopProps> = {
         townId: 0,
         items: [
             {
-                itemId: 15,
+                name: "Skill Point Book",
                 maxStock: 1,
                 currentStock: 1,
                 price: 5000,
             },
             {
-                itemId: 16,
+                name: "Fish Meat",
                 maxStock: 99,
                 currentStock: 99,
                 refreshable: true,
                 price: 10,
             },
             {
-                itemId: 17,
+                name: "Apple",
                 maxStock: 99,
                 currentStock: 99,
                 refreshable: true,

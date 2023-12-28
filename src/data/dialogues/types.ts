@@ -1,4 +1,5 @@
 import {PlayerStatsProps} from "../../gameState/storeSlices/playerStats";
+import {ItemNames} from "../itemsData";
 
 export type DialogueProps = {
     message: string;
@@ -10,10 +11,12 @@ export type OptionsProps = {
     next: number;
     nextIfQuestStarted?: number;
     requiredQuestProgress?: RequiredQuestProgressProps;
-    special?: SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
+    special?: SpecialResponseProps;
     close?: true;
     opensShop?: true;
 };
+
+export type SpecialResponseProps = SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
 
 export type RequiredQuestProgressProps = {
     id: number;
@@ -28,7 +31,7 @@ export type SpecialStatResponseProps = {
 };
 export type SpecialItemResponseProps = {
     type: "item";
-    id: number;
+    name: ItemNames;
     amount: number;
 };
 export type SpecialQuestResponseProps = {

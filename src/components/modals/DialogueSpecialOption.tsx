@@ -1,13 +1,13 @@
 import {useSelector} from "react-redux";
-import {SpecialItemResponseProps, SpecialQuestResponseProps, SpecialStatResponseProps} from "../../data/dialogues/types";
 import ITEM_DATA from "../../data/itemsData";
 import QUEST_DATA from "../../data/questsData";
 import {RootState} from "../../gameState/store";
 import ENEMIES_DATA from "../../data/enemiesData";
 import ZONES_DATA from "../../data/zonesData";
+import {SpecialResponseProps} from "../../data/dialogues/types";
 
 type DialogueSpecialOptionProps = {
-    special: SpecialItemResponseProps | SpecialQuestResponseProps | SpecialStatResponseProps;
+    special: SpecialResponseProps;
 };
 
 function DialogueSpecialOption({special}: DialogueSpecialOptionProps) {
@@ -26,7 +26,7 @@ function DialogueSpecialOption({special}: DialogueSpecialOptionProps) {
                 text = `${requirement.amount} ${ENEMIES_DATA[requirement.id].name} Killed`;
                 break;
             case "item":
-                text = `${requirement.amount} ${ITEM_DATA[requirement.id].name}`;
+                text = `${requirement.amount} ${ITEM_DATA[requirement.name].name}`;
                 break;
             case "stat":
                 text = `${requirement.amount} ${requirement.label}`;
@@ -41,7 +41,7 @@ function DialogueSpecialOption({special}: DialogueSpecialOptionProps) {
         return <span className="ml-4 text-cyan-500 group-hover:text-black">Requires {text}</span>;
     }
     if (special.type === "item") {
-        const item = ITEM_DATA[special.id];
+        const item = ITEM_DATA[special.name];
         return (
             <span className="ml-4 text-green-600 group-hover:text-black">
                 Requires: {special.amount} {item.name}

@@ -1,6 +1,6 @@
 import CloseButton from "./CloseButton";
-import tutorialTextData from "../data/texts/tutorialPopUps";
-import {UnlockKey, hideTutorial} from "../gameState/storeSlices/playerUnlockedContent";
+import tutorialTextData, {UnlockKey} from "../data/texts/tutorialPopUps";
+import {hideTutorial} from "../gameState/storeSlices/playerUnlockedContent";
 import {useDispatch} from "react-redux";
 
 type TutorialPopUpProps = {

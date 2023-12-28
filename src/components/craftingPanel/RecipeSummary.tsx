@@ -12,29 +12,29 @@ function RecipeSummary({recipe}: {recipe: CraftingRecipeProps}) {
         const itemsToRemove = [];
         for (let i = 0; i < recipe.itemsNeeded.length; i++) {
             const itemNeeded = recipe.itemsNeeded[i];
-            const inventoryItem = playerInventory.find((item) => item?.id === itemNeeded.id);
+            const inventoryItem = playerInventory.find((item) => item?.name === itemNeeded.name);
             if (!inventoryItem || inventoryItem.amount < itemNeeded.amount) return;
-            itemsToRemove.push({id: itemNeeded.id, amount: itemNeeded.amount});
+            itemsToRemove.push({name: itemNeeded.name, amount: itemNeeded.amount});
         }
         dispatch(removeItemsFromInventory(itemsToRemove));
-        dispatch(addItemsToInventory([{id: recipe.itemId, amount: recipe.createsAmount}]));
+        dispatch(addItemsToInventory([{name: recipe.name, amount: recipe.createsAmount}]));
     };
 
-    const color = colorsByItemTier[ITEM_DATA[recipe.itemId].tier];
+    const color = colorsByItemTier[ITEM_DATA[recipe.name].tier];
 
     return (
-        <article className="w-2/5 h-full bg-zinc-800 bg-opacity-80 py-2 px-4">
+        <article className="w-1/2 h-full bg-zinc-800 bg-opacity-90 py-2 px-4">
             <h2 className="text-2xl mb-4 " style={{color}}>
                 {recipe.name}
             </h2>
             <span>Items needed:</span>
             <ul>
                 {recipe.itemsNeeded.map((itemNeeded) => {
-                    const item = ITEM_DATA[itemNeeded.id];
-                    const inventoryItem = playerInventory.find((_item) => _item && _item.id === item.id);
+                    const item = ITEM_DATA[itemNeeded.name];
+                    const inventoryItem = playerInventory.find((_item) => _item && _item.name === item.name);
                     const color = inventoryItem && inventoryItem.amount >= itemNeeded.amount ? "text-white" : "text-red-500";
                     return (
-                        <li key={item.id} className={`${color}`}>
+                        <li key={item.name} className={`${color}`}>
                             {itemNeeded.amount} {item.name}
                         </li>
                     );

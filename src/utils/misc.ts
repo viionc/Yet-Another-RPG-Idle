@@ -11,8 +11,8 @@ export const short = (number: number) => {
 
 export const sortByTier = (array: InventoryItem[]): InventoryItem[] => {
     array.sort((a, b) => {
-        const itemA = ITEM_DATA[a.id];
-        const itemB = ITEM_DATA[b.id];
+        const itemA = ITEM_DATA[a.name];
+        const itemB = ITEM_DATA[b.name];
         return ITEM_TIER_VALUE[itemB.tier] - ITEM_TIER_VALUE[itemA.tier];
     });
     return array;
@@ -22,7 +22,7 @@ export const checkIfMeetsRequirements = (requirement: RequirementProps): boolean
     const {playerInventory, playerStats, dialogues} = gameState.getState();
     switch (requirement.type) {
         case "item": {
-            const item = playerInventory.find((item) => item && item?.id === requirement.id);
+            const item = playerInventory.find((item) => item && item?.name === requirement.name);
             if (!item || item.amount < requirement.amount) return false;
             break;
         }

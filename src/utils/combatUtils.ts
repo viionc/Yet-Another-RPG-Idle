@@ -13,7 +13,7 @@ export const calculateEnemyDrops = (enemy: EnemyProps) => {
         const roll = Math.ceil(Math.random() * drop.chance);
         if (roll === drop.chance) {
             const amount = Math.floor(Math.random() * (drop.maxAmount - drop.minAmount + 1) + drop.minAmount);
-            itemsToUpdate.push({id: drop.id, amount});
+            itemsToUpdate.push({name: drop.name, amount});
         }
     }
     return itemsToUpdate;

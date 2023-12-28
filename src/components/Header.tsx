@@ -23,10 +23,12 @@ function Header() {
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(resetAction())}>
                     Reset All
                 </button>
-                <button className="text-red-500 border hover:text-white " onClick={() => dispatch(addItemsToInventory([{id: 5, amount: 1}]))}>
+                <button
+                    className="text-red-500 border hover:text-white "
+                    onClick={() => dispatch(addItemsToInventory([{name: "Slime Golden Crown", amount: 1}]))}>
                     add knife
                 </button>
-                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{id: 4, amount: 1}]))}>
+                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{name: "Knife", amount: 1}]))}>
                     add crown
                 </button>
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(changeWave(ZONES_DATA[zoneId].maxWave))}>
@@ -40,7 +42,9 @@ function Header() {
                 <button className="text-red-500 border hover:text-white" onClick={() => dispatch(increaseStats([{key: "goldCoins", amount: 10000}]))}>
                     add 10k coins
                 </button>
-                <button className="text-red-500 border hover:text-white" onClick={() => dispatch(addItemsToInventory([{id: 1, amount: 100}]))}>
+                <button
+                    className="text-red-500 border hover:text-white"
+                    onClick={() => dispatch(addItemsToInventory([{name: "Crab Meat", amount: 100}]))}>
                     add 100 crab meat
                 </button>
             </div>

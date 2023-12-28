@@ -1,5 +1,5 @@
 import {useState} from "react";
-import ITEM_DATA, {EquipmentProps, UseItemStatProps, colorsByItemTier} from "../../data/itemsData";
+import ITEM_DATA, {EquipmentProps, ItemProps, UseItemStatProps, colorsByItemTier} from "../../data/itemsData";
 import {InventoryItem, addItemsToInventory, removeItemsFromInventory} from "../../gameState/storeSlices/playerInventory";
 import {useDispatch, useSelector} from "react-redux";
 import {equipItem, unequipItem} from "../../gameState/storeSlices/playerEquipment";
@@ -44,7 +44,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
         );
     }
 
-    const itemData = ITEM_DATA[item.id];
+    const itemData = ITEM_DATA[item.name] as ItemProps;
 
     const handleRightClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
@@ -56,7 +56,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
         switch (usable.type) {
             case "stat":
                 dispatch(increaseStats([{key: usable.key, amount: usable.amount}]));
-                dispatch(removeItemsFromInventory([{id: item.id, amount: 1}]));
+                dispatch(removeItemsFromInventory([{name: item.name, amount: 1}]));
         }
     };
 
@@ -64,9 +64,9 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
         const equippedItem = playerEquipment[equipment.slot];
         if (equippedItem) {
             dispatch(unequipItem(equippedItem));
-            dispatch(addItemsToInventory([{id: equippedItem, amount: 1}]));
+            dispatch(addItemsToInventory([{name: equippedItem, amount: 1}]));
         }
-        dispatch(equipItem(item.id));
+        dispatch(equipItem(item.name));
         setShow(false);
     };
 

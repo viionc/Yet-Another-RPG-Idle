@@ -3,7 +3,6 @@ import {RequirementProps} from "./questsData";
 
 export type Tiers = "Trash" | "Normal" | "Uncommon" | "Rare" | "Epic" | "Legendary";
 export type ItemProps = {
-    id: number;
     tier: Tiers;
     value: number;
     name: string;
@@ -50,37 +49,41 @@ export const ITEM_TIER_VALUE: Record<Tiers, number> = {
     "Legendary": 5,
 };
 
-const ITEM_DATA: Record<number, ItemProps> = {
-    0: {
-        id: 0,
+export type ItemNames = keyof typeof ITEM_DATA;
+export type ItemDataProps = {
+    [name: string]: ItemProps;
+};
+
+function createItemData<T extends ItemDataProps>(input: T) {
+    return input;
+}
+
+const ITEM_DATA = createItemData({
+    "Slime Resiude": {
         tier: "Normal",
         name: "Slime Residue",
         url: "./items/slimeResidue.png",
         value: 1,
     },
-    1: {
-        id: 1,
+    "Crab Meat": {
         tier: "Normal",
         name: "Crab Meat",
         url: "./items/crabMeat.png",
         value: 1,
     },
-    2: {
-        id: 2,
+    "Feather": {
         tier: "Normal",
         name: "Feather",
         url: "./items/feather.png",
         value: 1,
     },
-    3: {
-        id: 3,
+    "Turtle Shell": {
         tier: "Normal",
         name: "Turtle Shell",
         url: "./items/turtleShell.png",
         value: 1,
     },
-    4: {
-        id: 4,
+    "Slime Golden Crown": {
         tier: "Uncommon",
         name: "Slime Golden Crown",
         url: "./items/slimeGoldenCrown.png",
@@ -94,8 +97,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "helmet",
         },
     },
-    5: {
-        id: 5,
+    "Knife": {
         tier: "Uncommon",
         name: "Knife",
         url: "./items/knife.png",
@@ -106,11 +108,10 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "weapon",
         },
     },
-    6: {
-        id: 6,
+    "Turtle Shell Helmet": {
         tier: "Uncommon",
         name: "Turtle Shell Helmet",
-        url: "./items/turtleShell.png",
+        url: "./items/turtleShellHelmet.png",
         value: 20,
         extra: {
             type: "equipment",
@@ -118,11 +119,10 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "helmet",
         },
     },
-    7: {
-        id: 7,
+    "Turtle Shell Chest": {
         tier: "Uncommon",
         name: "Turtle Shell Chest",
-        url: "./items/turtleShell.png",
+        url: "./items/turtleShellChest.png",
         value: 50,
         extra: {
             type: "equipment",
@@ -130,11 +130,10 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "chest",
         },
     },
-    8: {
-        id: 8,
+    "Turtle Shell Legs": {
         tier: "Uncommon",
         name: "Turtle Shell Legs",
-        url: "./items/turtleShell.png",
+        url: "./items/turtleShellLegs.png",
         value: 40,
         extra: {
             type: "equipment",
@@ -142,11 +141,10 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "legs",
         },
     },
-    9: {
-        id: 9,
+    "Turtle Shell Boots": {
         tier: "Uncommon",
         name: "Turtle Shell Boots",
-        url: "./items/turtleShell.png",
+        url: "./items/turtleShellBoots.png",
         value: 20,
         extra: {
             type: "equipment",
@@ -154,11 +152,10 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "boots",
         },
     },
-    10: {
-        id: 10,
+    "Turtle Shell Gloves": {
         tier: "Uncommon",
         name: "Turtle Shell Gloves",
-        url: "./items/turtleShell.png",
+        url: "./items/turtleShellGloves.png",
         value: 20,
         extra: {
             type: "equipment",
@@ -166,15 +163,13 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "gloves",
         },
     },
-    11: {
-        id: 11,
+    "Stick": {
         tier: "Normal",
         name: "Stick",
         url: "./items/stick.png",
         value: 1,
     },
-    12: {
-        id: 12,
+    "Makeshift Club": {
         tier: "Normal",
         name: "Makeshift Club",
         url: "./items/makeshiftClub.png",
@@ -185,8 +180,7 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "weapon",
         },
     },
-    13: {
-        id: 13,
+    "Josh's Heirloom": {
         tier: "Uncommon",
         name: "Josh's Heirloom",
         url: "./items/joshsHeirloom.png",
@@ -201,15 +195,13 @@ const ITEM_DATA: Record<number, ItemProps> = {
             slot: "ring",
         },
     },
-    14: {
-        id: 14,
+    "Rat Tail": {
         tier: "Normal",
         name: "Rat Tail",
         url: "./items/ratTail.png",
         value: 5,
     },
-    15: {
-        id: 15,
+    "Skill Point Book": {
         tier: "Legendary",
         name: "Skill Point Book",
         url: "./items/skillPointBook.png",
@@ -221,27 +213,24 @@ const ITEM_DATA: Record<number, ItemProps> = {
             key: "unspentSkillPoints",
         },
     },
-    16: {
-        id: 16,
+    "Apple": {
         tier: "Normal",
         name: "Apple",
         url: "./items/apple.png",
         value: 1,
     },
-    17: {
-        id: 17,
+    "Fish Meat": {
         tier: "Normal",
         name: "Fish Meat",
         url: "./items/fishMeat.png",
         value: 1,
     },
-    18: {
-        id: 18,
+    "Captain's letter": {
         tier: "Normal",
         name: "Captain's letter",
         url: "./items/letter.png",
         value: -1,
     },
-} as const;
+});
 
 export default ITEM_DATA;

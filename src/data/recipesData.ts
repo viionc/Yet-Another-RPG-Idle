@@ -1,58 +1,53 @@
+import {ItemNames} from "./itemsData";
+
 export type CraftingRecipeProps = {
-    itemId: number;
-    name: string;
+    name: ItemNames;
     unlockRequirement: null;
     itemsNeeded: RecipeCost[];
     createsAmount: number;
 };
 
 export type RecipeCost = {
-    id: number;
+    name: ItemNames;
     amount: number;
 };
 
-const RECIPES_DATA: Record<number, CraftingRecipeProps> = {
-    0: {
-        itemId: 12,
+const RECIPES_DATA: Partial<Record<ItemNames, CraftingRecipeProps>> = {
+    "Makeshift Club": {
         name: "Makeshift Club",
         unlockRequirement: null,
-        itemsNeeded: [{id: 11, amount: 10}],
+        itemsNeeded: [{name: "Stick", amount: 10}],
         createsAmount: 1,
     },
 
-    1: {
-        itemId: 7,
+    "Turtle Shell Chest": {
         name: "Turtle Shell Chest",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 25}],
+        itemsNeeded: [{name: "Turtle Shell", amount: 25}],
         createsAmount: 1,
     },
-    2: {
-        itemId: 8,
+    "Turtle Shell Legs": {
         name: "Turtle Shell Legs",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 20}],
+        itemsNeeded: [{name: "Turtle Shell", amount: 20}],
         createsAmount: 1,
     },
-    3: {
-        itemId: 9,
+    "Turtle Shell Boots": {
         name: "Turtle Shell Boots",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 10}],
+        itemsNeeded: [{name: "Turtle Shell", amount: 10}],
         createsAmount: 1,
     },
-    4: {
-        itemId: 10,
+    "Turtle Shell Gloves": {
         name: "Turtle Shell Gloves",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 10}],
+        itemsNeeded: [{name: "Turtle Shell", amount: 10}],
         createsAmount: 1,
     },
-    5: {
-        itemId: 6,
+    "Turtle Shell Helmet": {
         name: "Turtle Shell Helmet",
         unlockRequirement: null,
-        itemsNeeded: [{id: 3, amount: 10}],
+        itemsNeeded: [{name: "Turtle Shell", amount: 10}],
         createsAmount: 1,
     },
 };

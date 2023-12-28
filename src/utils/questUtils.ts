@@ -11,7 +11,7 @@ export const handleProceedQuest = (dispatch: Dispatch<UnknownAction>, requiredQu
     const {requirement} = QUEST_DATA[id].steps[step];
     switch (requirement.type) {
         case "item": {
-            dispatch(removeItemsFromInventory([{id: requirement.id, amount: requirement.amount}]));
+            dispatch(removeItemsFromInventory([{name: requirement.name, amount: requirement.amount}]));
             break;
         }
         case "stat": {
@@ -27,7 +27,7 @@ export const handleCompleteQuest = (dispatch: Dispatch<UnknownAction>, questId: 
     questData.rewards.forEach((reward) => {
         switch (reward.type) {
             case "item":
-                itemRewards.push({id: reward.id, amount: reward.amount});
+                itemRewards.push({name: reward.name, amount: reward.amount});
                 break;
             case "stat":
                 statRewards.push({key: reward.key, amount: reward.amount});
@@ -53,7 +53,7 @@ export const checkIfCanProceedQuest = (requiredQuestProgress: RequiredQuestProgr
             if (battleState.totalEnemyKillCount[requirement.id] < requirement.amount) return false;
             break;
         case "item": {
-            const item = playerInventory.find((item) => item && item.id === requirement.id);
+            const item = playerInventory.find((item) => item && item.name === requirement.name);
             if (!item || item.amount < requirement.amount) return false;
             break;
         }

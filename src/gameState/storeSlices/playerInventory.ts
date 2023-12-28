@@ -2,12 +2,13 @@ import {createAction, createSlice} from "@reduxjs/toolkit";
 import {equipItem} from "./playerEquipment";
 import {sortByTier} from "../../utils/misc";
 import {buyItems} from "./shops";
+import {ItemNames} from "../../data/itemsData";
 
 export type InventoryItem = {
-    id: number;
+    name: ItemNames;
     amount: number;
+    enhanced?: number;
 };
-
 type InventoryAddItemsAction = {
     payload: InventoryItem[];
     type: string;
@@ -31,7 +32,7 @@ const playerInventorySlice = createSlice({
             const {payload} = action;
             sortByTier(payload);
             payload.forEach((item) => {
-                const inventoryItem = state.find((_item) => (_item ? _item.id === item.id : null));
+                const inventoryItem = state.find((_item) => (_item ? _item.name === item.name : null));
                 if (inventoryItem) {
                     inventoryItem.amount += item.amount;
                 } else {
@@ -45,7 +46,7 @@ const playerInventorySlice = createSlice({
         removeItemsFromInventory: (state, action: InventoryAddItemsAction) => {
             const {payload} = action;
             payload.forEach((item) => {
-                const inventoryItemIndex = state.findIndex((_item) => (_item ? _item.id === item.id : null));
+                const inventoryItemIndex = state.findIndex((_item) => (_item ? _item.name === item.name : null));
                 if (!state[inventoryItemIndex] || inventoryItemIndex === -1) return;
                 (state[inventoryItemIndex] as InventoryItem).amount -= item.amount;
                 if ((state[inventoryItemIndex] as InventoryItem).amount === 0) state[inventoryItemIndex] = null;
@@ -71,14 +72,14 @@ const playerInventorySlice = createSlice({
             .addCase(resetAction, () => initialState)
             .addCase(equipItem, (state, action) => {
                 playerInventorySlice.caseReducers.removeItemsFromInventory(state, {
-                    payload: [{amount: 1, id: action.payload}],
+                    payload: [{amount: 1, name: action.payload}],
                     type: "playerInventory/removeItemsFromInventory",
                 });
             })
             .addCase(buyItems, (state, action) => {
-                const {itemId, amount} = action.payload;
+                const {name: itemId, amount} = action.payload;
                 playerInventorySlice.caseReducers.addItemsToInventory(state, {
-                    payload: [{amount: amount, id: itemId}],
+                    payload: [{amount: amount, name: itemId}],
                     type: "playerInventory/addItemsToInventory",
                 });
             });

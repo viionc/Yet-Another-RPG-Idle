@@ -1,5 +1,7 @@
+import {ItemNames} from "./itemsData";
+
 export type EnemyDrop = {
-    id: number;
+    name: ItemNames;
     minAmount: number;
     maxAmount: number;
     chance: number;
@@ -20,7 +22,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Green Slime",
         id: 0,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/greenSlime.png",
     },
     1: {
@@ -28,7 +30,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Red Slime",
         id: 1,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/redSlime.png",
     },
     2: {
@@ -36,7 +38,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         name: "Blue Slime",
         id: 2,
         experience: 5,
-        drops: [{id: 0, minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/blueSlime.png",
     },
     3: {
@@ -45,8 +47,8 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 3,
         experience: 40,
         drops: [
-            {id: 4, minAmount: 1, maxAmount: 1, chance: 10},
-            {id: 0, minAmount: 1, maxAmount: 10, chance: 1},
+            {name: "Slime Golden Crown", minAmount: 1, maxAmount: 1, chance: 10},
+            {name: "Slime Resiude", minAmount: 1, maxAmount: 10, chance: 1},
         ],
         url: "./enemies/kingSlime.png",
         isBossEnemy: true,
@@ -57,8 +59,8 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 4,
         experience: 5,
         drops: [
-            {id: 1, minAmount: 1, maxAmount: 1, chance: 2},
-            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+            {name: "Crab Meat", minAmount: 1, maxAmount: 1, chance: 2},
+            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
         ],
         url: "./enemies/crab.png",
     },
@@ -68,8 +70,8 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 5,
         experience: 8,
         drops: [
-            {id: 2, minAmount: 1, maxAmount: 2, chance: 2},
-            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+            {name: "Feather", minAmount: 1, maxAmount: 2, chance: 2},
+            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
         ],
         url: "./enemies/seagull.png",
     },
@@ -79,8 +81,8 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 6,
         experience: 10,
         drops: [
-            {id: 3, minAmount: 1, maxAmount: 1, chance: 3},
-            {id: 11, minAmount: 1, maxAmount: 1, chance: 4},
+            {name: "Turtle Shell", minAmount: 1, maxAmount: 1, chance: 3},
+            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
         ],
         url: "./enemies/turtle.png",
     },
@@ -90,8 +92,8 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 7,
         experience: 50,
         drops: [
-            {id: 5, minAmount: 1, maxAmount: 1, chance: 10},
-            {id: 1, minAmount: 1, maxAmount: 3, chance: 1},
+            {name: "Knife", minAmount: 1, maxAmount: 1, chance: 10},
+            {name: "Crab Meat", minAmount: 1, maxAmount: 3, chance: 1},
         ],
         url: "./enemies/gangsterCrab.png",
         isBossEnemy: true,
@@ -103,7 +105,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         experience: 11,
         drops: [
             {
-                id: 14,
+                name: "Rat Tail",
                 minAmount: 1,
                 maxAmount: 1,
                 chance: 1,
@@ -118,7 +120,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         experience: 100,
         drops: [
             {
-                id: 14,
+                name: "Rat Tail",
                 minAmount: 1,
                 maxAmount: 1,
                 chance: 1,
