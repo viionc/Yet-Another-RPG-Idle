@@ -5,7 +5,7 @@ import {IncreaseStatsPayload, increaseStats} from "../gameState/storeSlices/play
 import ENEMIES_DATA from "../data/enemiesData";
 import {addItemsToInventory} from "../gameState/storeSlices/playerInventory";
 import {calculateDamageDone, calculateGoldGain, calculateEnemyDrops, calculateXpGain} from "../utils/combatUtils";
-import {Unlocks, unlock} from "../gameState/storeSlices/unlocks";
+import {checkForUnlocksByZone} from "../utils/unlockContentUtils";
 
 export type DamageDoneProps = {damage: number; wasCrit: boolean};
 
@@ -27,7 +27,7 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => 
 };
 
 export const handleEndBattle = (dispatch: Dispatch<UnknownAction>) => {
-    const {battleState, playerStats, unlocks} = gameState.getState();
+    const {battleState, playerStats} = gameState.getState();
     if (!battleState.enemy) return;
     const statsToUpdate: IncreaseStatsPayload[] = [];
     // let itemsToUpdate: InventoryItem[] = [];
@@ -45,16 +45,8 @@ export const handleEndBattle = (dispatch: Dispatch<UnknownAction>) => {
         },
         {key: "goldCoins", amount: calculateGoldGain(playerStats, battleState.zoneId, battleState.currentWave)}
     );
-    const {itemsToUpdate, unlocksArray} = calculateEnemyDrops(enemy, unlocks);
-    unlocksArray.push(...checkForUnlocksByZone(battleState.zoneId, battleState.currentWave));
+    const itemsToUpdate = calculateEnemyDrops(enemy);
+    checkForUnlocksByZone(dispatch, battleState.zoneId, battleState.currentWave);
     dispatch(addItemsToInventory(itemsToUpdate));
     dispatch(increaseStats(statsToUpdate));
-    dispatch(unlock(unlocksArray));
-};
-
-const checkForUnlocksByZone = (zoneId: number, currentWave: number) => {
-    const unlocksArray: Unlocks[] = [];
-    if (zoneId === 1 && currentWave === 5) unlocksArray.push("towns");
-    if ((zoneId === 1 && currentWave === 10) || (zoneId === 2 && currentWave === 1)) unlocksArray.push("zonesMap");
-    return unlocksArray;
 };

@@ -6,6 +6,7 @@ import Shop from "./Shop";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../gameState/store";
 import {closeShopTab} from "../../gameState/storeSlices/dialogues";
+import {unlock} from "../../gameState/storeSlices/playerUnlockedContent";
 
 type TownProps = {
     selectedTownId: number;
@@ -23,6 +24,7 @@ function Town({selectedTownId, close}: TownProps) {
     const dispatch = useDispatch();
 
     const {shopOpen} = useSelector((state: RootState) => state.dialogues);
+    const {unlocked} = useSelector((state: RootState) => state.playerUnlockedContent);
 
     useEffect(() => {
         if (shopOpen) {
@@ -43,6 +45,10 @@ function Town({selectedTownId, close}: TownProps) {
     const closeShop = () => {
         dispatch(closeShopTab());
     };
+
+    useEffect(() => {
+        if (selectedTab?.name === "Shop" && !unlocked.shops) dispatch(unlock("shops"));
+    }, [dispatch, selectedTab?.name, unlocked.shops]);
 
     return (
         <div className="h-full w-full bg-center bg-cover bg-no-repeat rounded-md" style={{backgroundImage: `url(${townData.url})`}}>

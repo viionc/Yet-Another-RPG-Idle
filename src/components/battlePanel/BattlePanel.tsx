@@ -13,7 +13,7 @@ import ZonesMap from "./ZonesMap";
 function BattlePanel() {
     const {zoneId, enemy, damageForHitSplat} = useSelector((state: RootState) => state.battleState);
     const playerSpells = useSelector((state: RootState) => state.playerSpells);
-    const {zonesMap} = useSelector((state: RootState) => state.unlocks);
+    const {unlocked} = useSelector((state: RootState) => state.playerUnlockedContent);
     const dispatch = useDispatch();
 
     const currentZoneData = ZONES_DATA[zoneId];
@@ -51,7 +51,7 @@ function BattlePanel() {
                         );
                     })}
                 </ul>
-                {zonesMap ? <ZonesMap /> : null}
+                {unlocked.zonesMap ? <ZonesMap /> : null}
                 {damageForHitSplat ? (
                     <motion.span
                         initial={{top: "50%", right: "30%"}}

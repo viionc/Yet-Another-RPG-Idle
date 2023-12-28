@@ -10,7 +10,7 @@ import ZONES_DATA from "../data/zonesData";
 function Header() {
     const dispatch = useDispatch();
     const {unspentSkillPoints, level} = useSelector((state: RootState) => state.playerStats);
-    const unlocks = useSelector((state: RootState) => state.unlocks);
+    const unlocks = useSelector((state: RootState) => state.playerUnlockedContent);
     const {zoneId} = useSelector((state: RootState) => state.battleState);
 
     const changeTab = (tab: Tabs) => {
@@ -55,12 +55,12 @@ function Header() {
                             Skill Trees {unspentSkillPoints > 0 ? <span className="text-yellow-500">({unspentSkillPoints})</span> : null}
                         </li>
                     ) : null}
-                    {unlocks.crafting ? (
+                    {unlocks.unlocked.crafting ? (
                         <li onClick={() => changeTab("Crafting")} className="cursor-pointer hover:text-yellow-500">
                             Crafting
                         </li>
                     ) : null}
-                    {unlocks.towns ? (
+                    {unlocks.unlocked.towns ? (
                         <li onClick={() => changeTab("Towns")} className="cursor-pointer hover:text-yellow-500">
                             Towns
                         </li>

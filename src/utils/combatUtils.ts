@@ -1,36 +1,22 @@
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import {EnemyProps} from "../data/enemiesData";
-import ITEM_DATA from "../data/itemsData";
 import SPELLS_DATA, {SpellMagicEffectProps, SpellNames} from "../data/spellsData";
 import {gameState} from "../gameState/store";
 import {BattleStateEnemyProps, updateEnemyHp} from "../gameState/storeSlices/battleState";
 import {InventoryItem} from "../gameState/storeSlices/playerInventory";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
-import {Unlocks, UnlocksProps} from "../gameState/storeSlices/unlocks";
 import {DamageDoneProps, handleEndBattle} from "../tickHandler/battleInterval";
 
-export const calculateEnemyDrops = (enemy: EnemyProps, unlocks: UnlocksProps) => {
+export const calculateEnemyDrops = (enemy: EnemyProps) => {
     const itemsToUpdate: InventoryItem[] = [];
-    const unlocksArray: Unlocks[] = [];
     for (const drop of enemy.drops) {
         const roll = Math.ceil(Math.random() * drop.chance);
         if (roll === drop.chance) {
             const amount = Math.floor(Math.random() * (drop.maxAmount - drop.minAmount + 1) + drop.minAmount);
             itemsToUpdate.push({id: drop.id, amount});
-            const hadUnlock = checkForUnlocksByItem(drop.id, unlocks);
-            if (hadUnlock) unlocksArray.push(hadUnlock);
         }
     }
-    return {itemsToUpdate, unlocksArray};
-};
-
-export const checkForUnlocksByItem = (id: number, unlocks: UnlocksProps): Unlocks | null => {
-    const {name} = ITEM_DATA[id];
-    switch (name) {
-        case "Turtle Shell":
-            if (!unlocks.crafting) return "crafting";
-    }
-    return null;
+    return itemsToUpdate;
 };
 
 export const calculateDamageDone = (double?: boolean): DamageDoneProps => {

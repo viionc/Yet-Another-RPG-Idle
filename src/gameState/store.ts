@@ -9,7 +9,7 @@ import playerSettingsReducer from "./storeSlices/playerSettings";
 import playerEquipmentReducer from "./storeSlices/playerEquipment";
 import playerSpellsReducer from "./storeSlices/playerSpells";
 import dialoguesReducer from "./storeSlices/dialogues";
-import unlocksReducer from "./storeSlices/unlocks";
+import playerUnlockedContentReducer from "./storeSlices/playerUnlockedContent";
 import shopsReducer from "./storeSlices/shops";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 
@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
     playerEquipment: playerEquipmentReducer,
     playerSpells: playerSpellsReducer,
     dialogues: dialoguesReducer,
-    unlocks: unlocksReducer,
+    playerUnlockedContent: playerUnlockedContentReducer,
     shops: shopsReducer,
 });
 
