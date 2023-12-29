@@ -26,12 +26,14 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
 
     const handleOnMouseEnter = () => {
         if (isDragging) {
+            setShow(false);
             setIsDragging(false);
             setTargetIndex(inventoryIndex);
         }
     };
 
     const onDragStart = () => {
+        setShow(false);
         setIsDragging(true);
         setSelectedIndex(inventoryIndex);
     };

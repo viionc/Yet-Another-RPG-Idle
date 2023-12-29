@@ -3,9 +3,11 @@ import {EnemyProps} from "../data/enemiesData";
 import SPELLS_DATA, {SpellMagicEffectProps, SpellNames} from "../data/spellsData";
 import {gameState} from "../gameState/store";
 import {BattleStateEnemyProps, updateEnemyHp} from "../gameState/storeSlices/battleState";
-import {InventoryItem} from "../gameState/storeSlices/playerInventory";
+import {InventoryItem, removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {DamageDoneProps, handleEndBattle} from "../tickHandler/battleInterval";
+import ITEM_DATA, {EquipmentProps, EquipmentStat, ItemNames, ItemProps} from "../data/itemsData";
+import {PlayerEquipment, removeArrow} from "../gameState/storeSlices/playerEquipment";
 
 export const calculateEnemyDrops = (enemy: EnemyProps) => {
     const itemsToUpdate: InventoryItem[] = [];
@@ -19,17 +21,60 @@ export const calculateEnemyDrops = (enemy: EnemyProps) => {
     return itemsToUpdate;
 };
 
-export const calculateDamageDone = (double?: boolean): DamageDoneProps => {
-    const {playerStats} = gameState.getState();
+export type CalculateDamageProps = {
+    playerStats: PlayerStatsProps;
+    arrowNameEquipped?: ItemNames;
+    isBow?: true;
+    isDoubleAttack?: true;
+};
+
+export const calculateDamageDone = ({playerStats, isBow, arrowNameEquipped, isDoubleAttack}: CalculateDamageProps): DamageDoneProps => {
     const {attackPower} = playerStats;
 
     let damage = attackPower;
+    if (!isBow && arrowNameEquipped) {
+        const equipment = (ITEM_DATA[arrowNameEquipped] as ItemProps).extra as EquipmentProps;
+        const atkBonus = equipment.stats.find((stat) => stat.key === "attackPower") as EquipmentStat;
+        damage -= atkBonus.value;
+    }
+
     // for double attack spell
-    double ? (damage *= 2) : null;
+    isDoubleAttack ? (damage *= 2) : null;
 
     const crit = calculateCritDamage(damage);
 
     return crit;
+};
+
+export const handleBowDamage = (
+    dispatch: Dispatch<UnknownAction>,
+    arrowNameEquipped: ItemNames | false,
+    playerInventory: (InventoryItem | null)[],
+    playerStats: PlayerStatsProps
+): DamageDoneProps | false => {
+    if (!arrowNameEquipped) return false;
+    const arrowsInInventory = playerInventory.find((item) => item && item.name === arrowNameEquipped);
+    if (!arrowsInInventory) {
+        dispatch(removeArrow());
+    } else {
+        dispatch(removeItemsFromInventory([{name: arrowNameEquipped, amount: 1}]));
+    }
+    const damageDone = calculateDamageDone({playerStats, isBow: true, arrowNameEquipped});
+    return damageDone;
+};
+
+export const checkIfWeaponIsBow = (playerEquipment: PlayerEquipment): boolean => {
+    if (!playerEquipment.weapon) return false;
+    const item = ITEM_DATA[playerEquipment.weapon] as ItemProps;
+    if (item.extra?.type === "equipment" && item.extra.bow) return true;
+    return false;
+};
+
+export const checkIfOffhandIsArrow = (playerEquipment: PlayerEquipment): ItemNames | false => {
+    if (!playerEquipment.offhand) return false;
+    const item = ITEM_DATA[playerEquipment.offhand] as ItemProps;
+    if (item.extra?.type === "equipment" && item.extra.arrow) return playerEquipment.offhand;
+    return false;
 };
 
 export const calculateXpGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number, enemyExperience: number) => {
@@ -44,12 +89,12 @@ export const calculateGoldGain = (playerStats: PlayerStatsProps, zoneId: number,
     return Math.ceil(gold * goldMulti);
 };
 
-export const spellHit = (spellName: SpellNames): DamageDoneProps => {
+export const spellHit = (spellName: SpellNames, playerStats: PlayerStatsProps): DamageDoneProps => {
     // makeshift solution for now, rework later
     let damageDone = {damage: 0, wasCrit: false};
     switch (spellName) {
         case "Double Attack":
-            damageDone = calculateDamageDone(true);
+            damageDone = calculateDamageDone({isDoubleAttack: true, playerStats}) as DamageDoneProps;
             break;
         case "Fire Strike":
             damageDone = calculateSpellDamageDone(spellName);
@@ -85,8 +130,13 @@ export const calculateSpellDamageDone = (spellName: SpellNames): DamageDoneProps
     return hit;
 };
 
-export const doSpellDamage = (dispatch: Dispatch<UnknownAction>, spellName: SpellNames, enemy: BattleStateEnemyProps | null) => {
-    const hit = spellHit(spellName);
+export const doSpellDamage = (
+    dispatch: Dispatch<UnknownAction>,
+    spellName: SpellNames,
+    enemy: BattleStateEnemyProps | null,
+    playerStats: PlayerStatsProps
+) => {
+    const hit = spellHit(spellName, playerStats);
     if (!enemy) return;
     const hpAfterDamage = Math.max(0, enemy.currentHp - hit.damage);
     dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${hit.damage}${hit.wasCrit ? "!" : ""}`}));

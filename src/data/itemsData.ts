@@ -12,6 +12,7 @@ export type ItemProps = {
     description?: string;
     requirement?: RequirementProps;
     unique?: true;
+    enhancementLevel?: number;
 };
 
 export type UseItemProps = UseItemStatProps;
@@ -30,6 +31,8 @@ export type EquipmentProps = {
     type: "equipment";
     stats: EquipmentStat[];
     slot: EquipmentSlotNames;
+    bow?: true;
+    arrow?: true;
 };
 
 export const colorsByItemTier: Record<Tiers, string> = {
@@ -253,7 +256,7 @@ const ITEM_DATA = createTypedArrayForKeys({
     "Vial of Water": {
         tier: "Normal",
         name: "Vial of Water",
-        url: "./items/deerPelt.png",
+        url: "./items/vialOfWater.png",
         value: 1,
     },
     "Rat Catcher": {
@@ -283,6 +286,7 @@ const ITEM_DATA = createTypedArrayForKeys({
                 {key: "critChance", value: 2, description: "+2% crit chance"},
             ],
             slot: "weapon",
+            bow: true,
         },
     },
     "Stone Arrow": {
@@ -292,8 +296,9 @@ const ITEM_DATA = createTypedArrayForKeys({
         value: 4,
         extra: {
             type: "equipment",
-            stats: [{key: "attackPower", value: 1, description: "+2 attack power"}],
+            stats: [{key: "attackPower", value: 2, description: "+2 attack power"}],
             slot: "offhand",
+            arrow: true,
         },
     },
     "Trophy Necklace": {

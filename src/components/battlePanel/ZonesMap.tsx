@@ -19,7 +19,7 @@ function ZonesMap() {
                 <article className="p-2 absolute top-0 left-0 right-0 bottom-0 bg-zinc-800 z-[300]">
                     <CloseButton position="top-right" callback={() => setIsOpen(false)} />
                     <h1 className="text-red-500 text-xl mb-2">this is a temporary setup so you don't get soft locked in a zone</h1>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                         {zones.map((zone) => {
                             return (
                                 <button

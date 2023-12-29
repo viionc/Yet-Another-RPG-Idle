@@ -52,6 +52,9 @@ const playerEquipmentSlice = createSlice({
             const slot = item.extra.slot;
             state[slot] = null;
         },
+        removeArrow: (state) => {
+            state["offhand"] = null;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(resetAction, () => initialState);
@@ -59,4 +62,4 @@ const playerEquipmentSlice = createSlice({
 });
 
 export default playerEquipmentSlice.reducer;
-export const {equipItem, unequipItem} = playerEquipmentSlice.actions;
+export const {equipItem, unequipItem, removeArrow} = playerEquipmentSlice.actions;

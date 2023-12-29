@@ -19,16 +19,16 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const dispatch = useDispatch();
     const {refs, floatingStyles, getFloatingProps, getReferenceProps} = useTooltip({show, setShow});
     const {spellsQuickBar} = useSelector((state: RootState) => state.playerSpells);
-    const {mana, cooldownReduction} = useSelector((state: RootState) => state.playerStats);
+    const playerStats = useSelector((state: RootState) => state.playerStats);
     const {isBattleStarted, enemy} = useSelector((state: RootState) => state.battleState);
 
     const handleClick = (spellName: SpellNames, quickBarIndex: number) => {
         const {effect, manaCost, name, cooldown} = SPELLS_DATA[spellName];
         const quickBarSpell = spellsQuickBar[quickBarIndex] as QuickBarSpellProps;
-        if (manaCost > mana || quickBarSpell.currentCooldown > 0) return;
+        if (manaCost > playerStats.mana || quickBarSpell.currentCooldown > 0) return;
         if (effect.type.includes("Damage") && !isBattleStarted) return;
-        dispatch(castSpell({name: spellName, cooldown: getSpellCooldown(cooldown, cooldownReduction), duration: spell?.duration}));
-        if (effect.type.includes("Damage")) doSpellDamage(dispatch, name, enemy);
+        dispatch(castSpell({name: spellName, cooldown: getSpellCooldown(cooldown, playerStats.cooldownReduction), duration: spell?.duration}));
+        if (effect.type.includes("Damage")) doSpellDamage(dispatch, name, enemy, playerStats);
     };
 
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;
@@ -36,7 +36,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const {cooldown, url, name} = spellData;
 
     // css magic stuff for a neat background overlay that goes in a "circle" when cooldown goes down
-    const passedTime = (spell.currentCooldown / getSpellCooldown(cooldown, cooldownReduction)) * 100;
+    const passedTime = (spell.currentCooldown / getSpellCooldown(cooldown, playerStats.cooldownReduction)) * 100;
     if (refs.reference.current) (refs.reference.current as HTMLElement).style.setProperty("--time-left", `${passedTime}%`);
 
     return (
