@@ -3,7 +3,6 @@ import {SkillProps} from "../../data/skillTreesData";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../gameState/store";
 import {addSkillPoint} from "../../gameState/storeSlices/playerSkills";
-import {decreaseStats} from "../../gameState/storeSlices/playerStats";
 import useTooltip from "../../hooks/useTooltip";
 import Tooltip from "../tooltip/Tooltip";
 
@@ -22,7 +21,6 @@ function SkillSlot({skill}: {skill: SkillProps}) {
         const skillLevel = playerSkills[skill.name] ?? 0;
         const amount = event.ctrlKey ? Math.min(unspentSkillPoints, skill.maxLevel - skillLevel) : 1;
         dispatch(addSkillPoint({name: skill.name, amount}));
-        dispatch(decreaseStats([{key: "unspentSkillPoints", amount}]));
     };
 
     return (

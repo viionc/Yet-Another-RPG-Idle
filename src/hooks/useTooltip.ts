@@ -14,7 +14,7 @@ const useTooltip = ({show, setShow}: UseTooltipProps) => {
             size({
                 apply({elements}) {
                     Object.assign(elements.floating.style, {
-                        width: "300px",
+                        width: "auto",
                     });
                 },
             }),

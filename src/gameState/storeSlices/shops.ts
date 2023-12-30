@@ -7,6 +7,16 @@ export type BuyItemActionProps = {
     payload: BuyItemPayloadProps;
 };
 
+export type UpdateStockActionProps = {
+    type: string;
+    payload: UpdateStockPayloadProps;
+};
+
+export type UpdateStockPayloadProps = {
+    newItems: ShopItemProps[];
+    shopId: number;
+};
+
 export type BuyItemPayloadProps = {
     shopId: number;
     name: ItemNames;
@@ -36,6 +46,9 @@ const shops = createSlice({
                 });
             }
         },
+        updateStock: (state, action: UpdateStockActionProps) => {
+            state[action.payload.shopId] = [...(state[action.payload.shopId] ?? []), ...action.payload.newItems];
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(resetAction, () => initialState);
@@ -43,4 +56,4 @@ const shops = createSlice({
 });
 
 export default shops.reducer;
-export const {buyItems, refreshStock} = shops.actions;
+export const {buyItems, refreshStock, updateStock} = shops.actions;

@@ -17,7 +17,7 @@ function ZoneInfoBar() {
     };
 
     return (
-        <div className="flex bg-black bg-opacity-75 p-2 rounded-t-md">
+        <div className="flex bg-black bg-opacity-75 p-2 rounded-t-sm">
             <div className="flex-col ">
                 <h1 className="mb-2 text-xl">
                     {currentZoneData.name} {getEnemyName()}

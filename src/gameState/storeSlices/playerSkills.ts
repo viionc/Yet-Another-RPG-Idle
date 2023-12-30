@@ -21,7 +21,6 @@ const playerSkillsSlice = createSlice({
         addSkillPoint: (state, action: AddSkillPointsAction) => {
             const {name, amount} = action.payload;
             state[name] = (state[name] ?? 0) + amount;
-            console.log(state[name]);
         },
     },
     extraReducers: (builder) => {

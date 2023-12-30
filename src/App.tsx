@@ -14,7 +14,7 @@ import {RootState} from "./gameState/store";
 import TownsPanel from "./components/townPanel/TownsPanel";
 import QuestsPanel from "./components/questsPanel/QuestsPanel";
 import QuestRewardModal from "./components/modals/QuestRewardModal";
-import TutorialPopUp from "./components/TutorialPopUp";
+import TutorialPopUp from "./components/modals/TutorialPopUp";
 
 export type Tabs = "Main" | "Skill Trees" | "Crafting" | "Towns";
 

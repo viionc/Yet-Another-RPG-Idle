@@ -38,12 +38,12 @@ function ShopItemBox({amountMultiplier, item, shopId}: ShopItemBoxProps) {
 
     return (
         <div
+            className={`h-12 bg-zinc-800 bg-opacity-80 hover:bg-zinc-700 hover:bg-opacity-100 cursor-pointer border rounded-md flex items-center gap-2 px-2 justify-between relative
+        ${item.refreshable ? "border-cyan-600" : "border-purple-600"}
+        `}
             ref={refs.setReference}
             {...getReferenceProps()}
-            onClick={buyItem}
-            className={`w-40 h-12 bg-zinc-800 bg-opacity-80 hover:bg-zinc-700 hover:bg-opacity-100 cursor-pointer border  rounded-md flex items-center gap-2 px-2 justify-between relative
-            ${item.refreshable ? "border-cyan-600" : "border-purple-600"}
-            `}>
+            onClick={buyItem}>
             <img src={itemData.url} className="h-8" />
             <span className="text-md text-yellow-500">{short(item.price)}</span>
             <span>

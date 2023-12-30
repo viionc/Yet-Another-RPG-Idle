@@ -16,7 +16,8 @@ export type SkillNames =
     | "Mana Regen"
     | "Spell Crit"
     | "Spell Cooldown"
-    | "Gold Gain";
+    | "Gold Gain"
+    | "Knowledge";
 
 export type SkillProps = {
     id: number;
@@ -82,6 +83,21 @@ const EXPLORATION_SKILLS_DATA: SkillProps[] = [
         description: "Increases gold gain by 10%.",
         statEffect: {
             id: "goldCoinsMultiplier",
+            value: 0.1,
+        },
+    },
+    {
+        id: 3,
+        name: "Knowledge",
+        skillPointCost: 1,
+        unlockRequirements: null,
+        row: 5,
+        col: 3,
+        maxLevel: 5,
+        url: "./skills/knowledge.png",
+        description: "Increases xp gain by 10%.",
+        statEffect: {
+            id: "xpMultiplier",
             value: 0.1,
         },
     },

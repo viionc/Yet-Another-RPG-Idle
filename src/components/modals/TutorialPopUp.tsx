@@ -1,6 +1,6 @@
-import CloseButton from "./CloseButton";
-import tutorialTextData, {UnlockKey} from "../data/texts/tutorialPopUps";
-import {hideTutorial} from "../gameState/storeSlices/playerUnlockedContent";
+import CloseButton from "../CloseButton";
+import tutorialTextData, {UnlockKey} from "../../data/texts/tutorialPopUps";
+import {hideTutorial} from "../../gameState/storeSlices/playerUnlockedContent";
 import {useDispatch} from "react-redux";
 
 type TutorialPopUpProps = {
@@ -23,9 +23,11 @@ function TutorialPopUp({tutorialId}: TutorialPopUpProps) {
                 <CloseButton callback={close} position="top-right" />
                 <h1 className="text-2xl text-yellow-500">{tutorial.title}</h1>
                 <p className="mb-2 whitespace-pre-wrap">{tutorial.text}</p>
-                <button onClick={close} className="border rounded-md w-1/2 text-lg hover:text-black hover:bg-yellow-500">
-                    Close
-                </button>
+                <div className="w-full flex justify-center">
+                    <button onClick={close} className="border rounded-md w-1/2 text-lg hover:text-black hover:bg-yellow-500">
+                        Close
+                    </button>
+                </div>
             </div>
         </article>
     );

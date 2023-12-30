@@ -282,7 +282,7 @@ const ITEM_DATA = createTypedArrayForKeys({
         extra: {
             type: "equipment",
             stats: [
-                {key: "attackPower", value: 4, description: "+4 attack power"},
+                {key: "attackPower", value: 6, description: "+6 attack power"},
                 {key: "critChance", value: 2, description: "+2% crit chance"},
             ],
             slot: "weapon",
@@ -324,8 +324,8 @@ const ITEM_DATA = createTypedArrayForKeys({
             type: "equipment",
             stats: [
                 {key: "attackPower", value: 5, description: "+5 attack power"},
-                {key: "critChance", value: 4, description: "+4 crit chance"},
-                {key: "critMulti", value: 0.25, description: "+4 crit multiplier"},
+                {key: "critChance", value: 4, description: "+4% crit chance"},
+                {key: "critMulti", value: 0.25, description: "+25% crit multiplier"},
             ],
             slot: "weapon",
         },

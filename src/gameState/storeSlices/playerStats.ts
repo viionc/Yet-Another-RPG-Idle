@@ -28,6 +28,7 @@ export type PlayerStatsProps = {
     xpMultiplier: number;
     shopRefreshCooldown: number;
     currentShopRefreshCooldown: number;
+    arrowRecoveryChance: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -58,6 +59,7 @@ const initialState: PlayerStatsProps = {
     xpMultiplier: 1,
     shopRefreshCooldown: 300,
     currentShopRefreshCooldown: 300,
+    arrowRecoveryChance: 0,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -98,6 +100,7 @@ const playerStatsSlice = createSlice({
                 const {name, amount} = action.payload;
                 const skill = ALL_SKILLS.find((skill) => skill.name === name);
                 if (!skill || !skill.statEffect) return;
+                state.unspentSkillPoints -= amount;
                 updateStats(state, skill.statEffect.id, skill.statEffect.value * amount);
             })
             .addCase(equipItem, (state, action) => {
@@ -144,6 +147,7 @@ const updateStats = (state: PlayerStatsProps, stat: keyof PlayerStatsProps, valu
         case "critMulti":
         case "magicDamage":
         case "xpMultiplier":
+        case "arrowRecoveryChance":
             state[stat] += value;
             break;
         case "attackSpeed":
