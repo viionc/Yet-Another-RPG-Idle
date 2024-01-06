@@ -29,6 +29,13 @@ export type PlayerStatsProps = {
     shopRefreshCooldown: number;
     currentShopRefreshCooldown: number;
     arrowRecoveryChance: number;
+    extraFireDamage: number;
+    extraAirDamage: number;
+    extraWaterDamage: number;
+    extraEarthDamage: number;
+    extraLightDamage: number;
+    extraDarkDamage: number;
+    extraPhysicalDamage: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -60,6 +67,13 @@ const initialState: PlayerStatsProps = {
     shopRefreshCooldown: 300,
     currentShopRefreshCooldown: 300,
     arrowRecoveryChance: 0,
+    extraFireDamage: 1,
+    extraAirDamage: 1,
+    extraWaterDamage: 1,
+    extraEarthDamage: 1,
+    extraLightDamage: 1,
+    extraDarkDamage: 1,
+    extraPhysicalDamage: 1,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {

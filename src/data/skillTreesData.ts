@@ -17,7 +17,8 @@ export type SkillNames =
     | "Spell Crit"
     | "Spell Cooldown"
     | "Gold Gain"
-    | "Knowledge";
+    | "Knowledge"
+    | "Weaknesses";
 
 export type SkillProps = {
     id: number;
@@ -100,6 +101,17 @@ const EXPLORATION_SKILLS_DATA: SkillProps[] = [
             id: "xpMultiplier",
             value: 0.1,
         },
+    },
+    {
+        id: 4,
+        name: "Weaknesses",
+        skillPointCost: 2,
+        unlockRequirements: null,
+        row: 4,
+        col: 2,
+        maxLevel: 1,
+        url: "./skills/weaknesses.png",
+        description: "Allows you to take advantage of enemy weaknesses.",
     },
 ];
 

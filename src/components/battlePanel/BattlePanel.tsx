@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../gameState/store";
-import Spinner from "../Spinner";
 import ZONES_DATA from "../../data/zonesData";
 import EnemyComponent from "./EnemyComponent";
 import {motion} from "framer-motion";
@@ -14,6 +13,7 @@ function BattlePanel() {
     const {zoneId, enemy, damageForHitSplat} = useSelector((state: RootState) => state.battleState);
     const playerSpells = useSelector((state: RootState) => state.playerSpells);
     const {unlocked} = useSelector((state: RootState) => state.playerUnlockedContent);
+    const {Weaknesses} = useSelector((state: RootState) => state.playerSkills);
     const dispatch = useDispatch();
 
     const currentZoneData = ZONES_DATA[zoneId];
@@ -31,13 +31,7 @@ function BattlePanel() {
             style={{backgroundImage: `url(${currentZoneData.url})`}}>
             <div className="w-full h-full relative">
                 <ZoneInfoBar />
-                {enemy ? (
-                    <EnemyComponent enemy={enemy} />
-                ) : (
-                    <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Spinner variant="xl" />
-                    </div>
-                )}
+                <EnemyComponent enemy={enemy} weaknessesUnlocked={Weaknesses} />
                 <BuffsInfoBar playerSpells={playerSpells} />
                 {unlocked.zonesMap ? <ZonesMap /> : null}
                 {damageForHitSplat ? (

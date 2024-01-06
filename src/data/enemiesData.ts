@@ -1,5 +1,8 @@
 import {ItemNames} from "./itemsData";
 
+export const ELEMENTS = ["Physical", "Fire", "Water", "Air", "Earth", "Dark", "Light"] as const;
+export type ElementsNames = (typeof ELEMENTS)[number];
+
 export type EnemyDrop = {
     name: ItemNames;
     minAmount: number;
@@ -11,6 +14,7 @@ export interface EnemyProps {
     name: string;
     id: number;
     experience: number;
+    weakness: ElementsNames;
     drops: EnemyDrop[];
     url: string;
     isBossEnemy?: boolean;
@@ -21,6 +25,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         maxHp: 2,
         name: "Green Slime",
         id: 0,
+        weakness: "Fire",
         experience: 5,
         drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/greenSlime.png",
@@ -28,6 +33,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     1: {
         maxHp: 3,
         name: "Red Slime",
+        weakness: "Water",
         id: 1,
         experience: 5,
         drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
@@ -36,6 +42,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     2: {
         maxHp: 2,
         name: "Blue Slime",
+        weakness: "Air",
         id: 2,
         experience: 5,
         drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
@@ -44,6 +51,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     3: {
         maxHp: 100,
         name: "King Slime",
+        weakness: "Fire",
         id: 3,
         experience: 40,
         drops: [
@@ -56,6 +64,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     4: {
         maxHp: 2,
         name: "Crab",
+        weakness: "Physical",
         id: 4,
         experience: 5,
         drops: [
@@ -67,6 +76,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     5: {
         maxHp: 3,
         name: "Seagull",
+        weakness: "Physical",
         id: 5,
         experience: 8,
         drops: [
@@ -78,6 +88,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     6: {
         maxHp: 5,
         name: "Turtle",
+        weakness: "Fire",
         id: 6,
         experience: 10,
         drops: [
@@ -89,6 +100,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     7: {
         maxHp: 50,
         name: "Gangster Crab",
+        weakness: "Physical",
         id: 7,
         experience: 50,
         drops: [
@@ -101,6 +113,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     8: {
         maxHp: 8,
         name: "Rat",
+        weakness: "Fire",
         id: 8,
         experience: 11,
         drops: [
@@ -122,6 +135,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     9: {
         maxHp: 75,
         name: "Giant Rat",
+        weakness: "Fire",
         id: 9,
         experience: 100,
         drops: [
@@ -150,6 +164,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     10: {
         maxHp: 50,
         name: "Wolf",
+        weakness: "Fire",
         id: 10,
         experience: 30,
         drops: [
@@ -165,6 +180,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     11: {
         maxHp: 25,
         name: "Deer",
+        weakness: "Fire",
         id: 11,
         experience: 20,
         drops: [
@@ -180,6 +196,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     12: {
         maxHp: 75,
         name: "Bandit",
+        weakness: "Air",
         id: 12,
         experience: 50,
         drops: [
@@ -207,6 +224,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     13: {
         maxHp: 30,
         name: "Goblin Scout",
+        weakness: "Fire",
         id: 13,
         experience: 25,
         drops: [],
@@ -215,6 +233,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
     14: {
         maxHp: 200,
         name: "Troll",
+        weakness: "Water",
         id: 14,
         experience: 500,
         drops: [],

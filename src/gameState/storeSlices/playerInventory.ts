@@ -33,7 +33,7 @@ const playerInventorySlice = createSlice({
             sortByTier(payload);
             payload.forEach((item) => {
                 const inventoryItem = state.find((_item) => (_item ? _item.name === item.name : null));
-                if (inventoryItem) {
+                if (inventoryItem && inventoryItem.enhanced === item.enhanced) {
                     inventoryItem.amount += item.amount;
                 } else {
                     const emptySlotIndex = state.findIndex((item) => item === null);

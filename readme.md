@@ -52,6 +52,7 @@ Additional libraries used so far:
 -   Fix overkill damage
 -   Figure out better formulas for enemy XP, HP, and gold gain
 -   Improve drag and drop system in inventory, it's a bit buggy atm
+-   There is a bug that sometimes doesn't reset stats after buff ends (couldn't catch it "live" yet so idk why it happens)
 -   Fix bugs that show up after fixing other bugs
 
 <br>

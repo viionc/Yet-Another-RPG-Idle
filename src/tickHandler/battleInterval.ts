@@ -28,14 +28,15 @@ export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => 
     if (!battleState.isBattleStarted || !battleState.enemy) return playerStats.attackSpeed * 1000;
 
     let damageDone;
+    const enemyWeakness = ENEMIES_DATA[battleState.enemy.id].weakness;
     if (hasBowEquipped) {
-        damageDone = handleBowDamage(dispatch, arrowNameEquipped, playerInventory, playerStats);
+        damageDone = handleBowDamage({dispatch, arrowNameEquipped, playerInventory, playerStats, enemyWeakness});
         if (!damageDone) {
             dispatch(updateEnemyHp({hpAfterDamage: battleState.enemy.currentHp, damageForHitSplat: `No arrows.`}));
             return playerStats.attackSpeed * 1000;
         }
     } else {
-        damageDone = calculateDamageDone({playerStats});
+        damageDone = calculateDamageDone({enemyWeakness});
     }
 
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;

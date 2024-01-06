@@ -28,7 +28,7 @@ function SpellSlot({spell, index}: SpellSlotProps) {
         if (manaCost > playerStats.mana || quickBarSpell.currentCooldown > 0) return;
         if (effect.type.includes("Damage") && !isBattleStarted) return;
         dispatch(castSpell({name: spellName, cooldown: getSpellCooldown(cooldown, playerStats.cooldownReduction), duration: spell?.duration}));
-        if (effect.type.includes("Damage")) doSpellDamage(dispatch, name, enemy, playerStats);
+        if (effect.type.includes("Damage")) doSpellDamage(dispatch, name, enemy);
     };
 
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;

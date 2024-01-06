@@ -47,6 +47,23 @@ function Header() {
                     onClick={() => dispatch(addItemsToInventory([{name: "Crab Meat", amount: 100}]))}>
                     add 100 crab meat
                 </button>
+                <button
+                    className="text-red-500 border hover:text-white"
+                    onClick={() =>
+                        dispatch(
+                            increaseStats([
+                                {key: "extraAirDamage", amount: 1},
+                                {key: "extraDarkDamage", amount: 1},
+                                {key: "extraEarthDamage", amount: 1},
+                                {key: "extraFireDamage", amount: 1},
+                                {key: "extraLightDamage", amount: 1},
+                                {key: "extraPhysicalDamage", amount: 1},
+                                {key: "extraWaterDamage", amount: 1},
+                            ])
+                        )
+                    }>
+                    increase elemental stats
+                </button>
             </div>
 
             <nav className="h-full w-full">
