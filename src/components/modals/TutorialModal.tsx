@@ -1,13 +1,13 @@
-import CloseButton from "../CloseButton";
-import tutorialTextData, {UnlockKey} from "../../data/texts/tutorialPopUps";
+import CloseButton from "../ui/CloseButton";
+import tutorialTextData, {UnlockKey} from "../../data/texts/tutorials";
 import {hideTutorial} from "../../gameState/storeSlices/playerUnlockedContent";
 import {useDispatch} from "react-redux";
 
-type TutorialPopUpProps = {
+type TutorialModalProps = {
     tutorialId: UnlockKey;
 };
 
-function TutorialPopUp({tutorialId}: TutorialPopUpProps) {
+function TutorialModal({tutorialId}: TutorialModalProps) {
     const tutorial = tutorialTextData[tutorialId];
     const dispatch = useDispatch();
 
@@ -23,14 +23,14 @@ function TutorialPopUp({tutorialId}: TutorialPopUpProps) {
                 <CloseButton callback={close} position="top-right" />
                 <h1 className="text-2xl text-yellow-500">{tutorial.title}</h1>
                 <p className="mb-2 whitespace-pre-wrap">{tutorial.text}</p>
-                <div className="w-full flex justify-center">
-                    <button onClick={close} className="border rounded-md w-1/2 text-lg hover:text-black hover:bg-yellow-500">
-                        Close
-                    </button>
-                </div>
+                {/* <div className="w-full flex justify-center"> */}
+                <button onClick={close} className="border mx-auto rounded-md w-1/2 text-lg hover:text-black hover:bg-yellow-500">
+                    Close
+                </button>
+                {/* </div> */}
             </div>
         </article>
     );
 }
 
-export default TutorialPopUp;
+export default TutorialModal;

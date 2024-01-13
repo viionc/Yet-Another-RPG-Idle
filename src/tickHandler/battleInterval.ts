@@ -9,36 +9,26 @@ import {
     calculateGoldGain,
     calculateEnemyDrops,
     calculateXpGain,
-    checkIfWeaponIsBow,
-    checkIfOffhandIsArrow,
-    handleBowDamage,
+    // checkIfWeaponIsBow,
+    // checkIfOffhandIsArrow,
+    // handleBowDamage,
 } from "../utils/combatUtils";
 import {checkForUnlocksByZone} from "../utils/unlockContentUtils";
 
 export type DamageDoneProps = {damage: number; wasCrit: boolean};
 
-let timestmap = Date.now();
+// let timestmap = Date.now();
 
 export const battleTickHandler = (dispatch: Dispatch<UnknownAction>): number => {
-    const {playerStats, battleState, playerEquipment, playerInventory} = gameState.getState();
-    const hasBowEquipped = checkIfWeaponIsBow(playerEquipment);
-    const arrowNameEquipped = checkIfOffhandIsArrow(playerEquipment);
-    console.log("last tick duration: ", Date.now() - timestmap);
-    timestmap = Date.now();
+    // console.log("last battle tick duration: ", Date.now() - timestmap);
+    // timestmap = Date.now();
+
+    const {playerStats, battleState} = gameState.getState();
     if (!battleState.isBattleStarted || !battleState.enemy) return playerStats.attackSpeed * 1000;
 
-    let damageDone;
     const enemyWeakness = ENEMIES_DATA[battleState.enemy.id].weakness;
-    if (hasBowEquipped) {
-        damageDone = handleBowDamage({dispatch, arrowNameEquipped, playerInventory, playerStats, enemyWeakness});
-        if (!damageDone) {
-            dispatch(updateEnemyHp({hpAfterDamage: battleState.enemy.currentHp, damageForHitSplat: `No arrows.`}));
-            return playerStats.attackSpeed * 1000;
-        }
-    } else {
-        damageDone = calculateDamageDone({enemyWeakness});
-    }
 
+    const damageDone = calculateDamageDone({enemyWeakness});
     const hpAfterDamage = battleState.enemy.currentHp - damageDone.damage;
     dispatch(updateEnemyHp({hpAfterDamage, damageForHitSplat: `${damageDone.damage}${damageDone.wasCrit ? "!" : ""}`}));
     if (hpAfterDamage <= 0) {
@@ -73,3 +63,20 @@ export const handleEndBattle = (dispatch: Dispatch<UnknownAction>) => {
     dispatch(addItemsToInventory(itemsToUpdate));
     dispatch(increaseStats(statsToUpdate));
 };
+
+/*
+        bow stuff scrapped for now, not a fan
+    */
+
+// const hasBowEquipped = checkIfWeaponIsBow(playerEquipment);
+// const arrowNameEquipped = checkIfOffhandIsArrow(playerEquipment);
+
+// if (hasBowEquipped) {
+//     damageDone = handleBowDamage({dispatch, arrowNameEquipped, playerInventory, playerStats, enemyWeakness});
+//     if (!damageDone) {
+//         dispatch(updateEnemyHp({hpAfterDamage: battleState.enemy.currentHp, damageForHitSplat: `No arrows.`}));
+//         return playerStats.attackSpeed * 1000;
+//     }
+// } else {
+//     damageDone = calculateDamageDone({enemyWeakness});
+// }

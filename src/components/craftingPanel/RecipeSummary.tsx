@@ -40,9 +40,9 @@ function RecipeSummary({recipe}: {recipe: CraftingRecipeProps}) {
                     );
                 })}
             </ul>
-            <div className="w-full h-52 flex justify-center items-end">
+            <div className="w-full mt-8 flex justify-center items-end">
                 <button
-                    className="text-2xl border rounded-md p-2 bg-zinc-800 hover:bg-yellow-500 hover:text-black cursor-pointer"
+                    className="text-2xl ms-auto me-auto mt-auto  border rounded-md p-2 bg-zinc-800 hover:bg-yellow-500 hover:text-black cursor-pointer"
                     onClick={handleLeftClick}>
                     Craft
                 </button>

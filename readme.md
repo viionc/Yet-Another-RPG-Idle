@@ -43,6 +43,7 @@ Additional libraries used so far:
     -   4 quests
 -   Shop system
     -   refreshable stock and unique stock of items
+-   Elemental damage system, 7 different elements that monsters can be weak to
 
 ## TODO:
 

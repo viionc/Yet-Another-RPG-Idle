@@ -11,8 +11,8 @@ export type OptionsProps = {
     next: number;
     nextIfQuestStarted?: number;
     requiredQuestProgress?: RequiredQuestProgressProps;
-    special?: SpecialResponseProps;
-    close?: true;
+    specialResponse?: SpecialResponseProps;
+    closeDialogue?: true;
     opensShop?: true;
 };
 

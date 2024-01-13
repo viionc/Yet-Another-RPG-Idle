@@ -25,7 +25,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
                     id: 0,
                     step: 1,
                 },
-                special: {
+                specialResponse: {
                     type: "quest",
                     id: 0,
                     end: true,
@@ -34,7 +34,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
             {
                 response: "What is this place?",
                 next: 3,
-                special: {
+                specialResponse: {
                     type: "stat",
                     key: "goldCoins",
                     amount: 20,
@@ -44,7 +44,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
             {
                 response: "Do you have any work for me?",
                 next: 4,
-                special: {
+                specialResponse: {
                     type: "stat",
                     key: "goldCoins",
                     amount: 40,
@@ -54,7 +54,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
             {
                 response: "Do you know anyone who could train me?",
                 next: 5,
-                special: {
+                specialResponse: {
                     type: "stat",
                     key: "goldCoins",
                     amount: 60,
@@ -64,7 +64,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
             {
                 response: "That's all for now. Have a good day.",
                 next: 2,
-                close: true,
+                closeDialogue: true,
             },
         ],
     },
@@ -76,7 +76,7 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
         message:
             "Yes! All those lazy rats hanging out here made me run out of crab meat. Bring me 50 pieces and I'll give you your money back and toss something extra.",
         options: [
-            {response: "I'm on it, boss.", next: 2, nextIfQuestStarted: 7, special: {type: "quest", id: 0, start: true}},
+            {response: "I'm on it, boss.", next: 2, nextIfQuestStarted: 7, specialResponse: {type: "quest", id: 0, start: true}},
             {response: "I think I'll pass. (You will have to pay again if you change your mind)", next: 2},
         ],
     },
@@ -90,14 +90,14 @@ const LA_HARPAR_BARTENDER: Record<number, DialogueProps> = {
             {response: "More gold hungry than you? I don't think that's possible.", next: 6},
         ],
     },
-    6: {message: "Hmmph. Go away.", options: [{response: "...", next: 2, close: true}]},
+    6: {message: "Hmmph. Go away.", options: [{response: "...", next: 2, closeDialogue: true}]},
     7: {
         message: "Nothing new currently. Check again later.",
         options: [
             {
                 response: "Cheers.",
                 next: 2,
-                close: true,
+                closeDialogue: true,
             },
         ],
     },

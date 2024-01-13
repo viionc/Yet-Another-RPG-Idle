@@ -48,7 +48,7 @@ const dialoguesSlice = createSlice({
             state.quests[action.payload] = -1;
             state.questCompletedIdForModal = action.payload;
         },
-        hideQuestCompletedPopUp: (state) => {
+        hideQuestCompletedModal: (state) => {
             state.questCompletedIdForModal = null;
         },
         openShopTab: (state) => {
@@ -71,7 +71,7 @@ export const {
     startQuest,
     progressQuest,
     endQuest,
-    hideQuestCompletedPopUp,
+    hideQuestCompletedModal,
     openShopTab,
     closeShopTab,
 } = dialoguesSlice.actions;

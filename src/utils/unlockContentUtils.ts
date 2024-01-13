@@ -1,7 +1,7 @@
 import {Dispatch, UnknownAction} from "@reduxjs/toolkit";
 import ITEM_DATA, {ItemNames} from "../data/itemsData";
 import {UnlocksProps, unlock} from "../gameState/storeSlices/playerUnlockedContent";
-import {UnlockKey} from "../data/texts/tutorialPopUps";
+import {UnlockKey} from "../data/texts/tutorials";
 
 export const checkForUnlocksByZone = (dispatch: Dispatch<UnknownAction>, zoneId: number, currentWave: number) => {
     if (zoneId === 1 && currentWave === 5) dispatch(unlock("towns"));

@@ -10,34 +10,26 @@ function StatsPanel() {
             <h1 className="mb-2">Stats:</h1>
             <ul>
                 <li className="flex gap-2 items-center">
-                    Level: {playerStats.level}{" "}
-                    {playerStats.unspentSkillPoints ? (
-                        <>
-                            <span>- Skill Points: {playerStats.unspentSkillPoints}</span>
-                        </>
-                    ) : null}
+                    Level: {playerStats.level}
+                    {playerStats.unspentSkillPoints && <span> - Skill Points: {playerStats.unspentSkillPoints}</span>}
                 </li>
-                <li>
+                <li className="text-cyan-500">
                     Xp: {playerStats.experience.toLocaleString("en-US")}/{calculateXp(playerStats.level + 1).toLocaleString("en-US")}
                 </li>
-                {playerStats.xpMultiplier > 1 ? (
-                    <li className="text-cyan-500">XP Multiplier: {Math.floor(playerStats.xpMultiplier * 100)}%</li>
-                ) : null}
+                <li className="text-cyan-500">XP Multiplier: {Math.floor(playerStats.xpMultiplier * 100)}%</li>
                 <li className="text-yellow-500">Gold: {short(playerStats.goldCoins)}</li>
-                {playerStats.goldCoinsMultiplier > 1 ? (
-                    <li className="text-yellow-500">Gold Multiplier: {Math.floor(playerStats.goldCoinsMultiplier * 100)}%</li>
-                ) : null}
+                <li className="text-yellow-500">Gold Multiplier: {Math.floor(playerStats.goldCoinsMultiplier * 100)}%</li>
                 <li>
                     Mana: {playerStats.mana}/{playerStats.maxMana} <span className="text-blue-500">{playerStats.currentManaRegenTimer}</span>
                 </li>
                 <li>Attack Power: {playerStats.attackPower}</li>
                 <li>Attack Speed: {playerStats.attackSpeed.toFixed(1)}</li>
-                {playerStats.critChance > 0 ? (
+                {playerStats.critChance > 0 && (
                     <>
                         <li>Crit Chance: {playerStats.critChance}%</li>
                         <li>Crit Multi: {Math.floor((playerStats.critMulti - 1) * 100)}%</li>
                     </>
-                ) : null}
+                )}
             </ul>
         </section>
     );

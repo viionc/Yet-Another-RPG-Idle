@@ -6,7 +6,7 @@ const LA_HARPAR_ELARA: Record<number, DialogueProps> = {
         options: [
             {response: "I wasn't staring! (Lie)", next: 1},
             {response: "I was just admiring your beauty, didn't mean to offend", next: 1},
-            {response: "I'll be going now.", next: 0, close: true},
+            {response: "I'll be going now.", next: 0, closeDialogue: true},
         ],
     },
     1: {
@@ -35,8 +35,8 @@ const LA_HARPAR_ELARA: Record<number, DialogueProps> = {
     5: {
         message: "No, not like that. He was more about the thrill of an adventure than plundering and murdering people.",
         options: [
-            {response: "If I find any clues I'll let you know.", close: true, special: {type: "quest", start: true, id: 3}, next: 1},
-            {response: "Well, hope you can find him.", next: 1, close: true},
+            {response: "If I find any clues I'll let you know.", closeDialogue: true, specialResponse: {type: "quest", start: true, id: 3}, next: 1},
+            {response: "Well, hope you can find him.", next: 1, closeDialogue: true},
         ],
     },
     8: {
@@ -92,7 +92,7 @@ const LA_HARPAR_ELARA: Record<number, DialogueProps> = {
     },
     32: {
         message: "He is probably training people in the local exploration guild.",
-        options: [{response: "Thanks, I'll look for him.", next: 1, close: true}],
+        options: [{response: "Thanks, I'll look for him.", next: 1, closeDialogue: true}],
     },
     33: {
         message: "Believe, you will have enough of every one of them after spending here significant amount of time here.",

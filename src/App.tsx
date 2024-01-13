@@ -1,5 +1,5 @@
 import BattlePanel from "./components/battlePanel/BattlePanel";
-import Header from "./components/Header";
+import Header from "./components/ui/Header";
 import StatsPanel from "./components/statsPanel/StatsPanel";
 import InventoryPanel from "./components/inventoryPanel/InventoryPanel";
 import SkillTreePanel from "./components/skillTreePanel/SkillTreePanel";
@@ -14,7 +14,7 @@ import {RootState} from "./gameState/store";
 import TownsPanel from "./components/townPanel/TownsPanel";
 import QuestsPanel from "./components/questsPanel/QuestsPanel";
 import QuestRewardModal from "./components/modals/QuestRewardModal";
-import TutorialPopUp from "./components/modals/TutorialPopUp";
+import TutorialModal from "./components/modals/TutorialModal";
 
 export type Tabs = "Main" | "Skill Trees" | "Crafting" | "Towns";
 
@@ -27,7 +27,7 @@ function App() {
         <>
             {dialogues.currentNpcId !== null ? <DialogueModal id={dialogues.currentNpcId} /> : null}
             {dialogues.questCompletedIdForModal !== null ? <QuestRewardModal id={dialogues.questCompletedIdForModal} /> : null}
-            {currentTutorialId !== null ? <TutorialPopUp tutorialId={currentTutorialId} /> : null}
+            {currentTutorialId !== null ? <TutorialModal tutorialId={currentTutorialId} /> : null}
             <GameLoopComponent />
             <Header />
             <main className="container grid grid-cols-4 gap-2 text-white" style={{gridTemplateRows: "20rem 5rem 20rem"}}>
@@ -47,6 +47,7 @@ function App() {
                         <CraftingPanel />
                         <InventoryPanel />
                         <PlayerEquipmentPanel />
+                        <QuestsPanel />
                     </>
                 ) : null}
                 {navTab === "Towns" ? (

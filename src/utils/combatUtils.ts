@@ -160,3 +160,5 @@ export const doSpellDamage = (dispatch: Dispatch<UnknownAction>, spellName: Spel
 };
 
 export const getSpellCooldown = (spellCooldown: number, cooldownReduction: number) => spellCooldown - (spellCooldown > 10 ? cooldownReduction : 0);
+
+export const getSpellDuration = (spellDuration: number, increasedSpellDuration: number) => (spellDuration += increasedSpellDuration);

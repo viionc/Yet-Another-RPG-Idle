@@ -1,7 +1,7 @@
 import {createAction, createSlice} from "@reduxjs/toolkit";
 import {addItemsToInventory} from "./playerInventory";
 import {checkForUnlocksByItem} from "../../utils/unlockContentUtils";
-import {UnlockKey} from "../../data/texts/tutorialPopUps";
+import {UnlockKey} from "../../data/texts/tutorials";
 
 const resetAction = createAction("RESET_STATES");
 

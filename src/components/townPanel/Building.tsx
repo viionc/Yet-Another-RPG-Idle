@@ -1,5 +1,5 @@
 import {checkIfMeetsRequirements} from "../../utils/misc";
-import CloseButton from "../CloseButton";
+import CloseButton from "../ui/CloseButton";
 import BuildingObject from "./BuildingObject";
 import NpcAvatar from "./NpcAvatar";
 import {BuildingProps} from "./Town";

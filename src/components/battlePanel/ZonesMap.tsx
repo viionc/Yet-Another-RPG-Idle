@@ -1,5 +1,5 @@
 import {useState} from "react";
-import CloseButton from "../CloseButton";
+import CloseButton from "../ui/CloseButton";
 import ZONES_DATA from "../../data/zonesData";
 import {useDispatch} from "react-redux";
 import {changeZone} from "../../gameState/storeSlices/battleState";

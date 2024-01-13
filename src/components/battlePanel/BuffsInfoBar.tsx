@@ -8,10 +8,8 @@ type BuffsInfoBarProps = {
 function BuffsInfoBar({playerSpells}: BuffsInfoBarProps) {
     return (
         <ul className="absolute bottom-1 left-1 flex gap-2">
-            {playerSpells.spellsQuickBar.map((spell) => {
-                if (!spell || !spell.currentDuration) return;
+            {playerSpells.activeSpells.map((spell) => {
                 const spellData = SPELLS_DATA[spell.name];
-                if (spellData.effect.type !== "Support Stat Buff") return;
                 return (
                     <li className="w-12 h-12 relative" key={spell.name}>
                         <img src={spellData.url} className="h-12 w-12" alt={`${spellData.name} spell buff`}></img>

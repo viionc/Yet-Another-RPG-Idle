@@ -1,7 +1,7 @@
 import {createPortal} from "react-dom";
 import NPC_Data from "../../data/npcData";
 import {useDispatch, useSelector} from "react-redux";
-import CloseButton from "../CloseButton";
+import CloseButton from "../ui/CloseButton";
 import {closeDialogue, endQuest, nextDialogueMessage, openShopTab, progressQuest, startQuest} from "../../gameState/storeSlices/dialogues";
 import {RootState} from "../../gameState/store";
 import {OptionsProps, RequiredQuestProgressProps} from "../../data/dialogues/types";
@@ -27,8 +27,8 @@ function DialogueModal({id}: {id: number}) {
     };
 
     const next = (option: OptionsProps) => {
-        if (option.special) {
-            const {special} = option;
+        if (option.specialResponse) {
+            const {specialResponse: special} = option;
             switch (special.type) {
                 case "stat":
                     if (playerStats[special.key] < special.amount) return;
@@ -60,20 +60,18 @@ function DialogueModal({id}: {id: number}) {
 
         const nextDialogue = checkIfNextDialogueStartsQuest(option);
         dispatch(nextDialogueMessage(nextDialogue));
-        if (option.close) close();
+        if (option.closeDialogue) close();
     };
 
     const checkIfNextDialogueStartsQuest = (option: OptionsProps): number => {
         const doesNextDialogueStartAQuest = npc.dialogues[option.next].options.find((option) => option.nextIfQuestStarted);
-        if (doesNextDialogueStartAQuest) {
-            const {special} = doesNextDialogueStartAQuest;
-            if (special && special.type === "quest" && quests[special.id] !== undefined) {
-                return doesNextDialogueStartAQuest.nextIfQuestStarted as number;
-            }
-            return option.next;
-        } else {
-            return option.next;
+        if (!doesNextDialogueStartAQuest) return option.next;
+
+        const {specialResponse: special} = doesNextDialogueStartAQuest;
+        if (special && special.type === "quest" && quests[special.id] !== undefined) {
+            return doesNextDialogueStartAQuest.nextIfQuestStarted as number;
         }
+        return option.next;
     };
 
     const itemsInInventory = (name: ItemNames): number => {
@@ -108,7 +106,7 @@ function DialogueModal({id}: {id: number}) {
                                 onClick={() => next(option)}
                                 className="group border px-2 py-2 hover:bg-yellow-500 hover:text-black rounded-md cursor-pointer">
                                 {option.response}
-                                {option.special ? <DialogueSpecialOption special={option.special} /> : null}
+                                {option.specialResponse ? <DialogueSpecialOption special={option.specialResponse} /> : null}
                             </li>
                         );
                     })}

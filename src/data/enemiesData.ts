@@ -27,7 +27,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         id: 0,
         weakness: "Fire",
         experience: 5,
-        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/greenSlime.png",
     },
     1: {
@@ -36,7 +36,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         weakness: "Water",
         id: 1,
         experience: 5,
-        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/redSlime.png",
     },
     2: {
@@ -45,7 +45,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         weakness: "Air",
         id: 2,
         experience: 5,
-        drops: [{name: "Slime Resiude", minAmount: 1, maxAmount: 2, chance: 3}],
+        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
         url: "./enemies/blueSlime.png",
     },
     3: {
@@ -56,7 +56,7 @@ const ENEMIES_DATA: Record<number, EnemyProps> = {
         experience: 40,
         drops: [
             {name: "Slime Golden Crown", minAmount: 1, maxAmount: 1, chance: 10},
-            {name: "Slime Resiude", minAmount: 1, maxAmount: 10, chance: 1},
+            {name: "Slime Residue", minAmount: 1, maxAmount: 10, chance: 1},
         ],
         url: "./enemies/kingSlime.png",
         isBossEnemy: true,

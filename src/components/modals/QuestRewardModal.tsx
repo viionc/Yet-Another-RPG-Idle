@@ -1,13 +1,13 @@
 import {useDispatch} from "react-redux";
-import {hideQuestCompletedPopUp} from "../../gameState/storeSlices/dialogues";
+import {hideQuestCompletedModal} from "../../gameState/storeSlices/dialogues";
 import QUEST_DATA from "../../data/questsData";
 import ITEM_DATA from "../../data/itemsData";
-import CloseButton from "../CloseButton";
+import CloseButton from "../ui/CloseButton";
 
 function QuestRewardModal({id}: {id: number}) {
     const dispatch = useDispatch();
 
-    const close = () => dispatch(hideQuestCompletedPopUp());
+    const close = () => dispatch(hideQuestCompletedModal());
     const {name, rewards} = QUEST_DATA[id];
     return (
         <article

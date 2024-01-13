@@ -50,16 +50,17 @@ const RECIPES_DATA: Partial<Record<ItemNames, CraftingRecipeProps>> = {
         itemsNeeded: [{name: "Turtle Shell", amount: 10}],
         createsAmount: 1,
     },
-    "Stone Arrow": {
-        name: "Stone Arrow",
-        unlockRequirement: null,
-        itemsNeeded: [
-            {name: "Stick", amount: 1},
-            {name: "Stone", amount: 1},
-            {name: "Feather", amount: 1},
-        ],
-        createsAmount: 1,
-    },
 };
 
 export default RECIPES_DATA;
+
+// "Stone Arrow": {
+//     name: "Stone Arrow",
+//     unlockRequirement: null,
+//     itemsNeeded: [
+//         {name: "Stick", amount: 1},
+//         {name: "Stone", amount: 1},
+//         {name: "Feather", amount: 1},
+//     ],
+//     createsAmount: 1,
+// },

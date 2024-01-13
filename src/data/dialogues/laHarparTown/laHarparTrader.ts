@@ -38,13 +38,13 @@ const LA_HARPAR_TRADER: Record<number, DialogueProps> = {
                     id: 2,
                     step: 1,
                 },
-                special: {
+                specialResponse: {
                     type: "quest",
                     id: 2,
                     end: true,
                 },
             },
-            {response: "Let me see your wares.", next: 3, opensShop: true, close: true},
+            {response: "Let me see your wares.", next: 3, opensShop: true, closeDialogue: true},
             {response: "Tell me something about you.", next: 4},
             {response: "What can you tell me about La Harpar?.", next: 10},
             {response: "Any people I should meet?.", next: 15},
@@ -135,8 +135,8 @@ const LA_HARPAR_TRADER: Record<number, DialogueProps> = {
             {
                 response: "Rats? Should be easy.",
                 next: 3,
-                close: true,
-                special: {id: 2, type: "quest", start: true},
+                closeDialogue: true,
+                specialResponse: {id: 2, type: "quest", start: true},
                 nextIfQuestStarted: 21,
             },
             {response: "No thanks, I'm not a basement dweller.", next: 3},

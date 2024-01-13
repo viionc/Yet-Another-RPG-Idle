@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {TownBuildingProps} from "../../data/townsData";
-import CloseButton from "../CloseButton";
+import CloseButton from "../ui/CloseButton";
 import ShopItemBox from "./ShopItemBox";
 import AmountMultiplierList from "./AmountMultiplierList";
 import SHOPS_DATA from "../../data/shopsData";

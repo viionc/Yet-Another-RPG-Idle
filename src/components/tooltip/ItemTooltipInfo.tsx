@@ -1,14 +1,16 @@
-import {ItemProps, colorsByItemTier} from "../../data/itemsData";
+import {EquipmentProps, ItemProps, UseItemStatProps, colorsByItemTier} from "../../data/itemsData";
 type ItemTooltipInfoProps = {
     item: ItemProps;
 };
 
 function ItemTooltipInfo({item}: ItemTooltipInfoProps) {
     const {name, tier, extra, description} = item;
-    const getText = () => {
-        if (extra?.type === "equipment") return "Equip";
-        if (extra?.type === "stat") return "Use";
+
+    const getText = (extra: EquipmentProps | UseItemStatProps) => {
+        if (extra.type === "equipment") return "Equip";
+        if (extra.type === "stat") return "Use";
     };
+
     return (
         <>
             <span className="text-lg">{name}</span>
@@ -27,7 +29,7 @@ function ItemTooltipInfo({item}: ItemTooltipInfoProps) {
             ) : null}
             {extra ? (
                 <span className="flex gap-1 ms-auto items-center text-xs">
-                    {getText()}
+                    {getText(extra)}
                     <img src="./other/rightClick.png" alt={`right click to equip`} height={16} width={16}></img>
                 </span>
             ) : null}

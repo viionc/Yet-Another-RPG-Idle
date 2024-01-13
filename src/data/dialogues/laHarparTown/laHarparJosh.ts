@@ -5,14 +5,14 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
         message: "What do you want? Don't bother me.",
         options: [
             {response: "Just wanted to ask few questions about this place.", next: 1},
-            {response: "Nothing...", next: 0, close: true},
+            {response: "Nothing...", next: 0, closeDialogue: true},
         ],
     },
     1: {
         message: "Pay for my next beer and I'll talk to you.",
         options: [
-            {response: "Okay, here is 20 gold coins.", next: 2, special: {type: "stat", label: "Gold Coins", amount: 20, key: "goldCoins"}},
-            {response: "I'll pass, you can buy one yourself.", next: 0, close: true},
+            {response: "Okay, here is 20 gold coins.", next: 2, specialResponse: {type: "stat", label: "Gold Coins", amount: 20, key: "goldCoins"}},
+            {response: "I'll pass, you can buy one yourself.", next: 0, closeDialogue: true},
         ],
     },
     2: {
@@ -25,7 +25,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
                     id: 1,
                     step: 1,
                 },
-                special: {
+                specialResponse: {
                     type: "quest",
                     id: 1,
                     end: true,
@@ -34,7 +34,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
             {response: "Who are you?", next: 3},
             {response: "What can you tell me about this place?", next: 4},
             {response: "Do you have any work for me?", next: 5},
-            {response: "I don't have any more questions, enjoy your drink.", next: 2, close: true},
+            {response: "I don't have any more questions, enjoy your drink.", next: 2, closeDialogue: true},
         ],
     },
     3: {
@@ -55,7 +55,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
     5: {
         message:
             "Work? Here? There is always work to do. We had some animal overpopulation issues on our beach lately. Come back when you kill 50 enemies on Wave 7 in Beach.",
-        options: [{response: "On my way.", next: 2, nextIfQuestStarted: 13, special: {type: "quest", id: 1, start: true}}],
+        options: [{response: "On my way.", next: 2, nextIfQuestStarted: 13, specialResponse: {type: "quest", id: 1, start: true}}],
     },
     6: {
         message: "Oi, mate. You don't want to make enemies here, you're a new face and new faces can disappear overnight here.",
@@ -64,7 +64,7 @@ const LA_HARPAR_JOSH: Record<number, DialogueProps> = {
                 response: "I'm sorry, I got carried away.",
                 next: 2,
             },
-            {response: "Don't care, you will trip over those chairs before you could catch me, bye...", next: 2, close: true},
+            {response: "Don't care, you will trip over those chairs before you could catch me, bye...", next: 2, closeDialogue: true},
         ],
     },
     7: {

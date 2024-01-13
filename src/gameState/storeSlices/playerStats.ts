@@ -3,11 +3,12 @@ import {calculateXp} from "../../utils/levelUtils";
 import {addSkillPoint} from "./playerSkills";
 import {equipItem, unequipItem} from "./playerEquipment";
 import ITEM_DATA, {ItemProps} from "../../data/itemsData";
-import {castSpell, reduceCooldowns} from "./battleState";
+import {reduceCooldowns} from "./battleState";
 import SPELLS_DATA from "../../data/spellsData";
 import {ALL_SKILLS} from "../../data/skillTreesData";
 import {buyItems} from "./shops";
 import SHOPS_DATA from "../../data/shopsData";
+import {castSpell} from "./playerSpells";
 
 export type PlayerStatsProps = {
     mana: number;
@@ -36,6 +37,7 @@ export type PlayerStatsProps = {
     extraLightDamage: number;
     extraDarkDamage: number;
     extraPhysicalDamage: number;
+    increasedSpellDuration: number;
 };
 export type IncreaseStatsAction = {
     payload: IncreaseStatsPayload[];
@@ -74,6 +76,7 @@ const initialState: PlayerStatsProps = {
     extraLightDamage: 1,
     extraDarkDamage: 1,
     extraPhysicalDamage: 1,
+    increasedSpellDuration: 0,
 };
 
 const checkIfLeveledUp = (state: PlayerStatsProps) => {
@@ -132,7 +135,7 @@ const playerStatsSlice = createSlice({
                 });
             })
             .addCase(castSpell, (state, action) => {
-                const {manaCost, effect} = SPELLS_DATA[action.payload.name];
+                const {baseManaCost: manaCost, effect} = SPELLS_DATA[action.payload.name];
                 state.mana -= manaCost;
                 if (effect.type === "Support Stat Buff") {
                     updateStats(state, effect.key, effect.value);
@@ -162,6 +165,7 @@ const updateStats = (state: PlayerStatsProps, stat: keyof PlayerStatsProps, valu
         case "magicDamage":
         case "xpMultiplier":
         case "arrowRecoveryChance":
+        case "increasedSpellDuration":
             state[stat] += value;
             break;
         case "attackSpeed":

@@ -16,6 +16,7 @@ export type ItemProps = {
 };
 
 export type UseItemProps = UseItemStatProps;
+
 export type UseItemStatProps = {
     type: "stat";
     key: keyof PlayerStatsProps;
@@ -63,7 +64,7 @@ export function createTypedArrayForKeys<T extends ItemDataProps>(input: T) {
 }
 
 const ITEM_DATA = createTypedArrayForKeys({
-    "Slime Resiude": {
+    "Slime Residue": {
         tier: "Normal",
         name: "Slime Residue",
         url: "./items/slimeResidue.png",
@@ -194,7 +195,7 @@ const ITEM_DATA = createTypedArrayForKeys({
             stats: [
                 {key: "attackPower", value: 1, description: "+1 attack power"},
                 {key: "attackSpeed", value: 0.1, description: "+0.1 attack speed"},
-                {key: "xpMultiplier", value: 0.1, description: "+10% Experience Multiplier"},
+                {key: "xpMultiplier", value: 0.1, description: "+10% xp Multiplier"},
             ],
             slot: "ring",
         },
@@ -282,8 +283,8 @@ const ITEM_DATA = createTypedArrayForKeys({
         extra: {
             type: "equipment",
             stats: [
-                {key: "attackPower", value: 6, description: "+6 attack power"},
-                {key: "critChance", value: 2, description: "+2% crit chance"},
+                {key: "attackPower", value: 3, description: "+3 attack power"},
+                {key: "critChance", value: 4, description: "+4% crit chance"},
             ],
             slot: "weapon",
             bow: true,
@@ -309,8 +310,8 @@ const ITEM_DATA = createTypedArrayForKeys({
         extra: {
             type: "equipment",
             stats: [
-                {key: "goldCoinsMultiplier", value: 0.5, description: "+50% gold multiplier"},
-                {key: "xpMultiplier", value: 0.25, description: "+25% xp multiplier"},
+                {key: "goldCoinsMultiplier", value: 0.5, description: `+50% gold multiplier`},
+                {key: "xpMultiplier", value: 0.25, description: `+25% xp multiplier`},
             ],
             slot: "amulet",
         },

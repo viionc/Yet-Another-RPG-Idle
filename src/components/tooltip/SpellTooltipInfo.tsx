@@ -7,7 +7,7 @@ type SpellToolTipInfoProps = {
 };
 
 function SpellTooltipInfo({spell}: SpellToolTipInfoProps) {
-    const {name, manaCost, description, cooldown, effect} = spell;
+    const {name, baseManaCost: manaCost, description, baseCooldown: cooldown, effect} = spell;
     const {cooldownReduction} = useSelector((state: RootState) => state.playerStats);
 
     return (

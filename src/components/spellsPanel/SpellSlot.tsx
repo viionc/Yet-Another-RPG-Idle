@@ -1,10 +1,9 @@
 import {useState} from "react";
-import {QuickBarSpellProps} from "../../gameState/storeSlices/playerSpells";
+import {QuickBarSpellProps, SpellPayloadProps, castSpell} from "../../gameState/storeSlices/playerSpells";
 import {useDispatch, useSelector} from "react-redux";
-import SPELLS_DATA, {SpellNames} from "../../data/spellsData";
-import {castSpell} from "../../gameState/storeSlices/battleState";
+import SPELLS_DATA, {SpellEffectProps, SpellNames} from "../../data/spellsData";
 import {RootState} from "../../gameState/store";
-import {doSpellDamage, getSpellCooldown} from "../../utils/combatUtils";
+import {doSpellDamage, getSpellCooldown, getSpellDuration} from "../../utils/combatUtils";
 import styles from "./SpellSlot.module.css";
 import Tooltip from "../tooltip/Tooltip";
 import useTooltip from "../../hooks/useTooltip";
@@ -23,17 +22,31 @@ function SpellSlot({spell, index}: SpellSlotProps) {
     const {isBattleStarted, enemy} = useSelector((state: RootState) => state.battleState);
 
     const handleClick = (spellName: SpellNames, quickBarIndex: number) => {
-        const {effect, manaCost, name, cooldown} = SPELLS_DATA[spellName];
-        const quickBarSpell = spellsQuickBar[quickBarIndex] as QuickBarSpellProps;
-        if (manaCost > playerStats.mana || quickBarSpell.currentCooldown > 0) return;
-        if (effect.type.includes("Damage") && !isBattleStarted) return;
-        dispatch(castSpell({name: spellName, cooldown: getSpellCooldown(cooldown, playerStats.cooldownReduction), duration: spell?.duration}));
+        const {effect, name, baseManaCost: manaCost, baseCooldown: cooldown} = SPELLS_DATA[spellName];
+        // check if player can cast spell
+        if (!canCastSpell(manaCost, effect, quickBarIndex)) return;
+        const spellCooldown = getSpellCooldown(cooldown, playerStats.cooldownReduction);
+        const spellToCast = {name: spellName, cooldown: spellCooldown} as SpellPayloadProps;
+        // add duration to payload if it's a buff spell
+        if (effect.type === "Support Stat Buff") {
+            spellToCast.duration = getSpellDuration(effect.duration, playerStats.increasedSpellDuration);
+        }
+        dispatch(castSpell(spellToCast));
+        // if it's a damage type spell run damage calculations
         if (effect.type.includes("Damage")) doSpellDamage(dispatch, name, enemy);
     };
 
+    const canCastSpell = (manaCost: number, spellEffect: SpellEffectProps, quickBarIndex: number): boolean => {
+        const quickBarSpell = spellsQuickBar[quickBarIndex] as QuickBarSpellProps;
+        if (manaCost > playerStats.mana || quickBarSpell.currentCooldown > 0 || (spellEffect.type.includes("Damage") && !isBattleStarted))
+            return false;
+        return true;
+    };
+
+    // if slot is empty render an empty cell
     if (!spell) return <div className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"></div>;
     const spellData = SPELLS_DATA[spell.name];
-    const {cooldown, url, name} = spellData;
+    const {baseCooldown: cooldown, url, name} = spellData;
 
     // css magic stuff for a neat background overlay that goes in a "circle" when cooldown goes down
     const passedTime = (spell.currentCooldown / getSpellCooldown(cooldown, playerStats.cooldownReduction)) * 100;

@@ -41,7 +41,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
     if (!item) {
         return (
             <div
-                className="border  flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
+                className="border flex justify-center items-center rounded-md  border-zinc-600 bg-zinc-800 flex-col"
                 onMouseEnter={handleOnMouseEnter}></div>
         );
     }
@@ -84,7 +84,7 @@ function InventorySlot({item, inventoryIndex, setSelectedIndex, setTargetIndex, 
             style={{
                 boxShadow: `${colorsByItemTier[itemData.tier]} 0px 3px 8px`,
             }}>
-            <img src={itemData.url} className="h-7" alt={`${name} item`}></img>
+            <img src={itemData.url} className="h-8 w-8 object-contain" alt={`${name} item`}></img>
             <span>{item.amount}</span>
 
             {show ? (

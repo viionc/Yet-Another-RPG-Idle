@@ -1,6 +1,6 @@
 import ENEMIES_DATA from "../../data/enemiesData";
 import {BattleStateEnemyProps} from "../../gameState/storeSlices/battleState";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 type EnemyComponentProps = {
     weaknessesUnlocked: number | undefined;

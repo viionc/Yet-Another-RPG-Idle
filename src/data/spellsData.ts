@@ -5,8 +5,8 @@ export type SpellTypesNames = "Melee Damage" | "Magic Damage" | "Support Stat Bu
 export type SpellProps = {
     id: number;
     name: SpellNames;
-    manaCost: number;
-    cooldown: number;
+    baseManaCost: number;
+    baseCooldown: number;
     url: string;
     effect: SpellEffectProps;
     description: string;
@@ -34,9 +34,9 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
     "Fire Strike": {
         id: 0,
         name: "Fire Strike",
-        manaCost: 2,
-        cooldown: 60,
-        description: "Weak Fire Spell that deals 8 damage.",
+        baseManaCost: 2,
+        baseCooldown: 60,
+        description: "Weak Fire Spell that deals 15 base damage.",
         url: "./skills/fireStrike.png",
         effect: {
             type: "Magic Damage",
@@ -46,8 +46,8 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
     "Haste": {
         id: 1,
         name: "Haste",
-        manaCost: 5,
-        cooldown: 300,
+        baseManaCost: 5,
+        baseCooldown: 300,
         description: "Increases attack speed by 0.3 for 1 minute.",
         url: "./skills/haste.png",
         effect: {
@@ -60,8 +60,8 @@ const SPELLS_DATA: Record<SpellNames, SpellProps> = {
     "Double Attack": {
         id: 2,
         name: "Double Attack",
-        manaCost: 2,
-        cooldown: 60,
+        baseManaCost: 2,
+        baseCooldown: 60,
         description: "Quick double attack.",
         url: "./skills/doubleAttack.png",
         effect: {

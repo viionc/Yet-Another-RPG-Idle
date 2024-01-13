@@ -22,6 +22,10 @@ class ErrorBoundary extends Component<Props, State> {
         console.error("Uncaught error:", error, errorInfo);
     }
 
+    private clearStorage() {
+        localStorage.clear();
+    }
+
     public render() {
         if (this.state.hasError) {
             return (
@@ -30,6 +34,9 @@ class ErrorBoundary extends Component<Props, State> {
                     <p className="text-white">
                         There is a lot of changes happening pretty often, so if the app crashes you might need to clear your local storage data.
                     </p>
+                    <button className="px-2 py-1 text-white border rounded-md hover:bg-yellow-500 hover:text-black" onClick={this.clearStorage}>
+                        Clear local storage
+                    </button>
                 </div>
             );
         }
