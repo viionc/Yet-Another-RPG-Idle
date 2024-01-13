@@ -7,7 +7,7 @@ export type PlayerEquipment = {
     legs: ItemNames | null;
     boots: ItemNames | null;
     weapon: ItemNames | null;
-    offhand: ItemNames | null;
+    cape: ItemNames | null;
     amulet: ItemNames | null;
     ring: ItemNames | null;
     gloves: ItemNames | null;
@@ -23,7 +23,7 @@ const initialState: PlayerEquipment = {
     chest: null,
     legs: null,
     boots: null,
-    offhand: null,
+    cape: null,
     gloves: null,
     belt: null,
     amulet: null,
@@ -52,9 +52,9 @@ const playerEquipmentSlice = createSlice({
             const slot = item.extra.slot;
             state[slot] = null;
         },
-        removeArrow: (state) => {
-            state["offhand"] = null;
-        },
+        // removeArrow: (state) => {
+        //     state["offhand"] = null;
+        // },
     },
     extraReducers: (builder) => {
         builder.addCase(resetAction, () => initialState);
@@ -62,4 +62,4 @@ const playerEquipmentSlice = createSlice({
 });
 
 export default playerEquipmentSlice.reducer;
-export const {equipItem, unequipItem, removeArrow} = playerEquipmentSlice.actions;
+export const {equipItem, unequipItem} = playerEquipmentSlice.actions;

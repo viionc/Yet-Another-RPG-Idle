@@ -290,18 +290,18 @@ const ITEM_DATA = createTypedArrayForKeys({
             bow: true,
         },
     },
-    "Stone Arrow": {
-        tier: "Normal",
-        name: "Stone Arrow",
-        url: "./items/stoneArrow.png",
-        value: 4,
-        extra: {
-            type: "equipment",
-            stats: [{key: "attackPower", value: 2, description: "+2 attack power"}],
-            slot: "offhand",
-            arrow: true,
-        },
-    },
+    // "Stone Arrow": {
+    //     tier: "Normal",
+    //     name: "Stone Arrow",
+    //     url: "./items/stoneArrow.png",
+    //     value: 4,
+    //     extra: {
+    //         type: "equipment",
+    //         stats: [{key: "attackPower", value: 2, description: "+2 attack power"}],
+    //         slot: "offhand",
+    //         arrow: true,
+    //     },
+    // },
     "Trophy Necklace": {
         tier: "Uncommon",
         name: "Trophy Necklace",

@@ -3,11 +3,10 @@ import ENEMIES_DATA, {ElementsNames, EnemyProps} from "../data/enemiesData";
 import SPELLS_DATA, {SpellMagicEffectProps, SpellNames} from "../data/spellsData";
 import {gameState} from "../gameState/store";
 import {BattleStateEnemyProps, updateEnemyHp} from "../gameState/storeSlices/battleState";
-import {InventoryItem, removeItemsFromInventory} from "../gameState/storeSlices/playerInventory";
+import {InventoryItem} from "../gameState/storeSlices/playerInventory";
 import {PlayerStatsProps} from "../gameState/storeSlices/playerStats";
 import {DamageDoneProps, handleEndBattle} from "../tickHandler/battleInterval";
 import ITEM_DATA, {EquipmentProps, EquipmentStat, ItemNames, ItemProps} from "../data/itemsData";
-import {PlayerEquipment, removeArrow} from "../gameState/storeSlices/playerEquipment";
 
 export const calculateEnemyDrops = (enemy: EnemyProps) => {
     const itemsToUpdate: InventoryItem[] = [];
@@ -69,31 +68,35 @@ export type HandleBowDamageProps = {
     enemyWeakness: ElementsNames;
 };
 
-export const handleBowDamage = ({dispatch, arrowNameEquipped, playerInventory, enemyWeakness}: HandleBowDamageProps): DamageDoneProps | false => {
-    if (!arrowNameEquipped) return false;
-    const arrowsInInventory = playerInventory.find((item) => item && item.name === arrowNameEquipped);
-    if (!arrowsInInventory) {
-        dispatch(removeArrow());
-    } else {
-        dispatch(removeItemsFromInventory([{name: arrowNameEquipped, amount: 1}]));
-    }
-    const damageDone = calculateDamageDone({isBow: true, arrowNameEquipped, enemyWeakness});
-    return damageDone;
-};
+/*
+    bow and arrow stuff for now scraped, i didnt like it
+*/
 
-export const checkIfWeaponIsBow = (playerEquipment: PlayerEquipment): boolean => {
-    if (!playerEquipment.weapon) return false;
-    const item = ITEM_DATA[playerEquipment.weapon] as ItemProps;
-    if (item.extra?.type === "equipment" && item.extra.bow) return true;
-    return false;
-};
+// export const handleBowDamage = ({dispatch, arrowNameEquipped, playerInventory, enemyWeakness}: HandleBowDamageProps): DamageDoneProps | false => {
+//     if (!arrowNameEquipped) return false;
+//     const arrowsInInventory = playerInventory.find((item) => item && item.name === arrowNameEquipped);
+//     if (!arrowsInInventory) {
+//         dispatch(removeArrow());
+//     } else {
+//         dispatch(removeItemsFromInventory([{name: arrowNameEquipped, amount: 1}]));
+//     }
+//     const damageDone = calculateDamageDone({isBow: true, arrowNameEquipped, enemyWeakness});
+//     return damageDone;
+// };
 
-export const checkIfOffhandIsArrow = (playerEquipment: PlayerEquipment): ItemNames | false => {
-    if (!playerEquipment.offhand) return false;
-    const item = ITEM_DATA[playerEquipment.offhand] as ItemProps;
-    if (item.extra?.type === "equipment" && item.extra.arrow) return playerEquipment.offhand;
-    return false;
-};
+// export const checkIfWeaponIsBow = (playerEquipment: PlayerEquipment): boolean => {
+//     if (!playerEquipment.weapon) return false;
+//     const item = ITEM_DATA[playerEquipment.weapon] as ItemProps;
+//     if (item.extra?.type === "equipment" && item.extra.bow) return true;
+//     return false;
+// };
+
+// export const checkIfOffhandIsArrow = (playerEquipment: PlayerEquipment): ItemNames | false => {
+//     if (!playerEquipment.offhand) return false;
+//     const item = ITEM_DATA[playerEquipment.offhand] as ItemProps;
+//     if (item.extra?.type === "equipment" && item.extra.arrow) return playerEquipment.offhand;
+//     return false;
+// };
 
 export const calculateXpGain = (playerStats: PlayerStatsProps, zoneId: number, currentWave: number, enemyExperience: number) => {
     const xp = Math.floor((enemyExperience + zoneId + 1) * currentWave + Math.pow(zoneId, 3));
