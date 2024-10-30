@@ -1,5 +1,5 @@
 .spell {
-    overflow: hidden;
+  overflow: hidden;
 }
 /* .spell::before {
     content: "";
@@ -13,13 +13,13 @@
 } */
 
 .spell::before {
-    position: absolute;
-    background: conic-gradient(#000b var(--time-left), transparent var(--time-left));
-    border-radius: 8px;
-    opacity: 0.8;
-    content: "";
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+  position: absolute;
+  background: conic-gradient(#000b var(--time-left), transparent var(--time-left));
+  border-radius: 8px;
+  opacity: 0.8;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }

@@ -1,33 +1,33 @@
-import {useFloating, useHover, useInteractions} from "@floating-ui/react";
-import {size} from "@floating-ui/dom";
+import { useFloating, useHover, useInteractions } from '@floating-ui/react'
+import { size } from '@floating-ui/dom'
 
 type UseTooltipProps = {
-    setShow: React.Dispatch<React.SetStateAction<boolean>>;
-    show: boolean;
-};
+  setShow: React.Dispatch<React.SetStateAction<boolean>>
+  show: boolean
+}
 
-const useTooltip = ({show, setShow}: UseTooltipProps) => {
-    const {refs, floatingStyles, context} = useFloating({
-        open: show,
-        onOpenChange: setShow,
-        middleware: [
-            size({
-                apply({elements}) {
-                    Object.assign(elements.floating.style, {
-                        width: "auto",
-                    });
-                },
-            }),
-        ],
-    });
-    const hover = useHover(context, {
-        delay: {
-            open: 200,
-            close: 0,
+const useTooltip = ({ show, setShow }: UseTooltipProps) => {
+  const { refs, floatingStyles, context } = useFloating({
+    open: show,
+    onOpenChange: setShow,
+    middleware: [
+      size({
+        apply({ elements }) {
+          Object.assign(elements.floating.style, {
+            width: 'auto',
+          })
         },
-    });
-    const {getReferenceProps, getFloatingProps} = useInteractions([hover]);
-    return {refs, floatingStyles, getReferenceProps, getFloatingProps};
-};
+      }),
+    ],
+  })
+  const hover = useHover(context, {
+    delay: {
+      open: 200,
+      close: 0,
+    },
+  })
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover])
+  return { refs, floatingStyles, getReferenceProps, getFloatingProps }
+}
 
-export default useTooltip;
+export default useTooltip

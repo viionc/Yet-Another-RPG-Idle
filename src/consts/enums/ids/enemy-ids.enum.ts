@@ -1,0 +1,17 @@
+export enum EnemyIds {
+  greenSlime = 0,
+  redSlime = 1,
+  blueSlime = 2,
+  kingSlime = 3,
+  crab = 4,
+  seagull = 5,
+  turtle = 6,
+  gangsterCrab = 7,
+  rat = 8,
+  giantRat = 9,
+  wolf = 10,
+  deer = 11,
+  bandit = 12,
+  goblinScout = 13,
+  troll = 14,
+}

@@ -1,245 +1,299 @@
-import {ItemNames} from "./itemsData";
-
-export const ELEMENTS = ["Physical", "Fire", "Water", "Air", "Earth", "Dark", "Light"] as const;
-export type ElementsNames = (typeof ELEMENTS)[number];
+import { Element } from '../consts/enums/element.enum'
+import { EnemyIds } from '../consts/enums/ids/enemy-ids.enum'
+import { ItemIds } from '../consts/enums/ids/item-ids.enum'
 
 export type EnemyDrop = {
-    name: ItemNames;
-    minAmount: number;
-    maxAmount: number;
-    chance: number;
-};
+  id: ItemIds
+  minAmount: number
+  maxAmount: number
+  chance: number
+}
 export interface EnemyProps {
-    maxHp: number;
-    name: string;
-    id: number;
-    experience: number;
-    weakness: ElementsNames;
-    drops: EnemyDrop[];
-    url: string;
-    isBossEnemy?: boolean;
+  maxHp: number
+  name: string
+  experience: number
+  weakness: Element
+  drops: EnemyDrop[]
+  url: string
+  isBossEnemy?: boolean
 }
 
-const ENEMIES_DATA: Record<number, EnemyProps> = {
-    0: {
-        maxHp: 2,
-        name: "Green Slime",
-        id: 0,
-        weakness: "Fire",
-        experience: 5,
-        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
-        url: "./enemies/greenSlime.png",
-    },
-    1: {
-        maxHp: 3,
-        name: "Red Slime",
-        weakness: "Water",
-        id: 1,
-        experience: 5,
-        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
-        url: "./enemies/redSlime.png",
-    },
-    2: {
-        maxHp: 2,
-        name: "Blue Slime",
-        weakness: "Air",
-        id: 2,
-        experience: 5,
-        drops: [{name: "Slime Residue", minAmount: 1, maxAmount: 2, chance: 3}],
-        url: "./enemies/blueSlime.png",
-    },
-    3: {
-        maxHp: 100,
-        name: "King Slime",
-        weakness: "Fire",
-        id: 3,
-        experience: 40,
-        drops: [
-            {name: "Slime Golden Crown", minAmount: 1, maxAmount: 1, chance: 10},
-            {name: "Slime Residue", minAmount: 1, maxAmount: 10, chance: 1},
-        ],
-        url: "./enemies/kingSlime.png",
-        isBossEnemy: true,
-    },
-    4: {
-        maxHp: 2,
-        name: "Crab",
-        weakness: "Physical",
-        id: 4,
-        experience: 5,
-        drops: [
-            {name: "Crab Meat", minAmount: 1, maxAmount: 1, chance: 2},
-            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
-        ],
-        url: "./enemies/crab.png",
-    },
-    5: {
-        maxHp: 3,
-        name: "Seagull",
-        weakness: "Physical",
-        id: 5,
-        experience: 8,
-        drops: [
-            {name: "Feather", minAmount: 1, maxAmount: 2, chance: 2},
-            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
-        ],
-        url: "./enemies/seagull.png",
-    },
-    6: {
-        maxHp: 5,
-        name: "Turtle",
-        weakness: "Fire",
-        id: 6,
-        experience: 10,
-        drops: [
-            {name: "Turtle Shell", minAmount: 1, maxAmount: 1, chance: 3},
-            {name: "Stick", minAmount: 1, maxAmount: 1, chance: 4},
-        ],
-        url: "./enemies/turtle.png",
-    },
-    7: {
-        maxHp: 50,
-        name: "Gangster Crab",
-        weakness: "Physical",
-        id: 7,
-        experience: 50,
-        drops: [
-            {name: "Knife", minAmount: 1, maxAmount: 1, chance: 10},
-            {name: "Crab Meat", minAmount: 1, maxAmount: 3, chance: 1},
-        ],
-        url: "./enemies/gangsterCrab.png",
-        isBossEnemy: true,
-    },
-    8: {
-        maxHp: 8,
-        name: "Rat",
-        weakness: "Fire",
-        id: 8,
-        experience: 11,
-        drops: [
-            {
-                name: "Rat Tail",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 1,
-            },
-            {
-                name: "Cheese",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 8,
-            },
-        ],
-        url: "./enemies/rat.png",
-    },
-    9: {
-        maxHp: 75,
-        name: "Giant Rat",
-        weakness: "Fire",
-        id: 9,
-        experience: 100,
-        drops: [
-            {
-                name: "Rat Tail",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 1,
-            },
-            {
-                name: "Cheese",
-                minAmount: 1,
-                maxAmount: 3,
-                chance: 2,
-            },
-            {
-                name: "Rat Catcher",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 40,
-            },
-        ],
-        url: "./enemies/giantRat.png",
-        isBossEnemy: true,
-    },
-    10: {
-        maxHp: 50,
-        name: "Wolf",
-        weakness: "Fire",
-        id: 10,
-        experience: 30,
-        drops: [
-            {
-                name: "Wolf Fangs",
-                minAmount: 1,
-                maxAmount: 3,
-                chance: 2,
-            },
-        ],
-        url: "./enemies/wolf.png",
-    },
-    11: {
-        maxHp: 25,
-        name: "Deer",
-        weakness: "Fire",
-        id: 11,
-        experience: 20,
-        drops: [
-            {
-                name: "Deer Pelt",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 4,
-            },
-        ],
-        url: "./enemies/deer.png",
-    },
-    12: {
-        maxHp: 75,
-        name: "Bandit",
-        weakness: "Air",
-        id: 12,
-        experience: 50,
-        drops: [
-            {
-                name: "Vial of Water",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 6,
-            },
-            {
-                name: "Trophy Necklace",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 100,
-            },
-            {
-                name: "Machete",
-                minAmount: 1,
-                maxAmount: 1,
-                chance: 80,
-            },
-        ],
-        url: "./enemies/bandit.png",
-    },
-    13: {
-        maxHp: 30,
-        name: "Goblin Scout",
-        weakness: "Fire",
-        id: 13,
-        experience: 25,
-        drops: [],
-        url: "./enemies/goblinScout.png",
-    },
-    14: {
-        maxHp: 200,
-        name: "Troll",
-        weakness: "Water",
-        id: 14,
-        experience: 500,
-        drops: [],
-        url: "./enemies/troll.png",
-        isBossEnemy: true,
-    },
-};
+const ENEMIES_DATA: Record<EnemyIds, EnemyProps> = {
+  [EnemyIds.greenSlime]: {
+    name: 'Green Slime',
+    maxHp: 2,
+    weakness: Element.fire,
+    experience: 5,
+    drops: [
+      {
+        id: ItemIds.slimeResidue,
+        minAmount: 1,
+        maxAmount: 2,
+        chance: 3,
+      },
+    ],
+    url: './enemies/greenSlime.png',
+  },
+  [EnemyIds.redSlime]: {
+    name: 'Red Slime',
+    maxHp: 3,
+    weakness: Element.water,
+    experience: 5,
+    drops: [
+      {
+        id: ItemIds.slimeResidue,
+        minAmount: 1,
+        maxAmount: 2,
+        chance: 3,
+      },
+    ],
+    url: './enemies/redSlime.png',
+  },
+  [EnemyIds.blueSlime]: {
+    name: 'Blue Slime',
+    maxHp: 2,
+    weakness: Element.air,
+    experience: 5,
+    drops: [
+      {
+        id: ItemIds.slimeResidue,
+        minAmount: 1,
+        maxAmount: 2,
+        chance: 3,
+      },
+    ],
+    url: './enemies/blueSlime.png',
+  },
+  [EnemyIds.kingSlime]: {
+    name: 'King Slime',
+    maxHp: 100,
+    weakness: Element.fire,
+    experience: 40,
+    drops: [
+      {
+        id: ItemIds.slimeGoldenCrown,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 10,
+      },
+      {
+        id: ItemIds.slimeResidue,
+        minAmount: 1,
+        maxAmount: 10,
+        chance: 1,
+      },
+    ],
+    url: './enemies/kingSlime.png',
+    isBossEnemy: true,
+  },
+  [EnemyIds.crab]: {
+    name: 'Crab',
+    maxHp: 2,
+    weakness: Element.physical,
+    experience: 5,
+    drops: [
+      {
+        id: ItemIds.crabMeat,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 2,
+      },
+      {
+        id: ItemIds.stick,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 4,
+      },
+    ],
+    url: './enemies/crab.png',
+  },
+  [EnemyIds.seagull]: {
+    name: 'Seagull',
+    maxHp: 3,
+    weakness: Element.physical,
+    experience: 8,
+    drops: [
+      {
+        id: ItemIds.feather,
+        minAmount: 1,
+        maxAmount: 2,
+        chance: 2,
+      },
+      {
+        id: ItemIds.stick,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 4,
+      },
+    ],
+    url: './enemies/seagull.png',
+  },
+  [EnemyIds.turtle]: {
+    name: 'Turtle',
+    maxHp: 5,
+    weakness: Element.fire,
+    experience: 10,
+    drops: [
+      {
+        id: ItemIds.turtleShell,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 3,
+      },
+      {
+        id: ItemIds.stick,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 4,
+      },
+    ],
+    url: './enemies/turtle.png',
+  },
+  [EnemyIds.gangsterCrab]: {
+    name: 'Gangster Crab',
+    maxHp: 50,
+    weakness: Element.physical,
+    experience: 50,
+    drops: [
+      {
+        id: ItemIds.knife,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 10,
+      },
+      {
+        id: ItemIds.crabMeat,
+        minAmount: 1,
+        maxAmount: 3,
+        chance: 1,
+      },
+    ],
+    url: './enemies/gangsterCrab.png',
+    isBossEnemy: true,
+  },
+  [EnemyIds.rat]: {
+    name: 'Rat',
+    maxHp: 8,
+    weakness: Element.fire,
+    experience: 11,
+    drops: [
+      {
+        id: ItemIds.ratTail,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 1,
+      },
+      {
+        id: ItemIds.cheese,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 8,
+      },
+    ],
+    url: './enemies/rat.png',
+  },
+  [EnemyIds.giantRat]: {
+    name: 'Giant Rat',
+    maxHp: 75,
+    weakness: Element.fire,
+    experience: 100,
+    drops: [
+      {
+        id: ItemIds.ratTail,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 1,
+      },
+      {
+        id: ItemIds.cheese,
+        minAmount: 1,
+        maxAmount: 3,
+        chance: 2,
+      },
+      {
+        id: ItemIds.ratCatcher,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 40,
+      },
+    ],
+    url: './enemies/giantRat.png',
+    isBossEnemy: true,
+  },
+  [EnemyIds.wolf]: {
+    name: 'Wolf',
+    maxHp: 50,
+    weakness: Element.fire,
+    experience: 30,
+    drops: [
+      {
+        id: ItemIds.wolfFangs,
+        minAmount: 1,
+        maxAmount: 3,
+        chance: 2,
+      },
+    ],
+    url: './enemies/wolf.png',
+  },
+  [EnemyIds.deer]: {
+    name: 'Deer',
+    maxHp: 25,
+    weakness: Element.fire,
+    experience: 20,
+    drops: [
+      {
+        id: ItemIds.deerPelt,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 4,
+      },
+    ],
+    url: './enemies/deer.png',
+  },
+  [EnemyIds.bandit]: {
+    name: 'Bandit',
+    maxHp: 75,
+    weakness: Element.air,
+    experience: 50,
+    drops: [
+      {
+        id: ItemIds.vialOfWater,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 6,
+      },
+      {
+        id: ItemIds.trophyNecklace,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 100,
+      },
+      {
+        id: ItemIds.machete,
+        minAmount: 1,
+        maxAmount: 1,
+        chance: 80,
+      },
+    ],
+    url: './enemies/bandit.png',
+  },
+  [EnemyIds.goblinScout]: {
+    name: 'Goblin Scout',
+    maxHp: 30,
+    weakness: Element.fire,
+    experience: 25,
+    drops: [],
+    url: './enemies/goblinScout.png',
+  },
+  [EnemyIds.troll]: {
+    name: 'Troll',
+    maxHp: 200,
+    weakness: Element.water,
+    experience: 500,
+    drops: [],
+    url: './enemies/troll.png',
+    isBossEnemy: true,
+  },
+}
 
-export default ENEMIES_DATA;
+export default ENEMIES_DATA

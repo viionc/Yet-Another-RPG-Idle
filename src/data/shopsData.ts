@@ -1,51 +1,52 @@
-import {ItemNames} from "./itemsData";
+import { ItemIds } from '../consts/enums/ids/item-ids.enum'
+import { ShopIds } from '../consts/enums/ids/shop-ids.enum'
+import { TownIds } from '../consts/enums/ids/town-ids.enum'
 
 export type ShopProps = {
-    townId: number;
-    items: ShopItemProps[];
-};
+  townId: TownIds
+  items: ShopItemProps[]
+}
 export type ShopItemProps = {
-    name: ItemNames;
-    maxStock: number;
-    currentStock: number;
-    refreshable?: true;
-    price: number;
-};
+  itemId: ItemIds
+  maxStock: number
+  currentStock: number
+  refreshable?: true
+  price: number
+}
 
-//                  number = townId
-const SHOPS_DATA: Record<number, ShopProps> = {
-    0: {
-        townId: 0,
-        items: [
-            {
-                name: "Skill Point Book",
-                maxStock: 1,
-                currentStock: 1,
-                price: 5000,
-            },
-            {
-                name: "Fish Meat",
-                maxStock: 99,
-                currentStock: 99,
-                refreshable: true,
-                price: 10,
-            },
-            {
-                name: "Apple",
-                maxStock: 99,
-                currentStock: 99,
-                refreshable: true,
-                price: 25,
-            },
-            {
-                name: "Wooden Bow",
-                maxStock: 1,
-                currentStock: 1,
-                refreshable: true,
-                price: 2500,
-            },
-        ],
-    },
-};
+const SHOPS_DATA: Record<TownIds, ShopProps> = {
+  [ShopIds.laHarparShop]: {
+    townId: TownIds.laHarpar,
+    items: [
+      {
+        itemId: ItemIds.skillPointBook,
+        maxStock: 1,
+        currentStock: 1,
+        price: 5000,
+      },
+      {
+        itemId: ItemIds.fishMeat,
+        maxStock: 99,
+        currentStock: 99,
+        refreshable: true,
+        price: 10,
+      },
+      {
+        itemId: ItemIds.apple,
+        maxStock: 99,
+        currentStock: 99,
+        refreshable: true,
+        price: 25,
+      },
+      {
+        itemId: ItemIds.woodenBow,
+        maxStock: 1,
+        currentStock: 1,
+        refreshable: true,
+        price: 2500,
+      },
+    ],
+  },
+}
 
-export default SHOPS_DATA;
+export default SHOPS_DATA

@@ -1,40 +1,54 @@
-import {EquipmentProps, ItemProps, UseItemStatProps, colorsByItemTier} from "../../data/itemsData";
+import ITEM_DATA from '../../data/itemsData'
+import { clickableItemTypes, colorsByItemTier, tierToString } from '../../consts/item'
+import { statToDescription } from '../../consts/tooltip'
+
+import { TooltipItemType } from './Tooltip'
+import { ItemType } from '../../consts/enums/item-type.enum'
 type ItemTooltipInfoProps = {
-    item: ItemProps;
-};
-
-function ItemTooltipInfo({item}: ItemTooltipInfoProps) {
-    const {name, tier, extra, description} = item;
-
-    const getText = (extra: EquipmentProps | UseItemStatProps) => {
-        if (extra.type === "equipment") return "Equip";
-        if (extra.type === "stat") return "Use";
-    };
-
-    return (
-        <>
-            <span className="text-lg">{name}</span>
-            <span className="text-md" style={{color: colorsByItemTier[tier]}}>
-                {tier} {extra?.type === "equipment" ? extra.slot : null}
-            </span>
-            {description ? <span>{description}</span> : null}
-            {extra?.type === "equipment" ? (
-                <>
-                    <ul className="flex flex-col text-sm">
-                        {extra.stats.map((stat) => (
-                            <li key={stat.key}>{stat.description}</li>
-                        ))}
-                    </ul>
-                </>
-            ) : null}
-            {extra ? (
-                <span className="flex gap-1 ms-auto items-center text-xs">
-                    {getText(extra)}
-                    <img src="./other/rightClick.png" alt={`right click to equip`} height={16} width={16}></img>
-                </span>
-            ) : null}
-        </>
-    );
+  item: TooltipItemType
 }
 
-export default ItemTooltipInfo;
+function ItemTooltipInfo({ item }: ItemTooltipInfoProps) {
+  const { name, tier, description, ...itemData } = ITEM_DATA[item.id]
+
+  const getText = () => {
+    if (item.type === ItemType.equipment) return 'Equip'
+    if (item.type === ItemType.rewardsStats) return 'Use'
+  }
+
+  return (
+    <>
+      <span className="text-lg">{name}</span>
+      <span
+        className="text-md"
+        style={{ color: colorsByItemTier[tier] }}
+      >
+        {tierToString[tier]} {itemData.type === ItemType.equipment && itemData.slot}
+        {/* {tier} {item.type === ItemType.equipment ? extra.slot : null} */}
+      </span>
+      {description ? <span>{description}</span> : null}
+      {item.type === ItemType.equipment && (
+        <>
+          <ul className="flex flex-col text-sm">
+            {item.stats.map((stat) => (
+              <li key={stat.id}>{statToDescription[stat.id](stat.amount)}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      {clickableItemTypes.includes(item.type) && (
+        <span className="flex gap-1 ms-auto items-center text-xs">
+          {getText()}
+          <img
+            src="./other/rightClick.png"
+            alt={`right click to equip`}
+            height={16}
+            width={16}
+          ></img>
+        </span>
+      )}
+    </>
+  )
+}
+
+export default ItemTooltipInfo

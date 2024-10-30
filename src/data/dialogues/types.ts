@@ -1,42 +1,65 @@
-import {PlayerStatsProps} from "../../gameState/storeSlices/playerStats";
-import {ItemNames} from "../itemsData";
+import { ItemIds } from '../../consts/enums/ids/item-ids.enum'
+import { PlayerStatIds } from '../../consts/enums/ids/player-stat-ids'
+import { QuestIds } from '../../consts/enums/ids/quest-ids.enum'
+import { SpecialDialogueType } from '../../consts/enums/special-dialogue-type.enum'
 
 export type DialogueProps = {
-    message: string;
-    options: OptionsProps[];
-};
+  message: string
+  options: OptionsProps[]
+}
 
 export type OptionsProps = {
-    response: string;
-    next: number;
-    nextIfQuestStarted?: number;
-    requiredQuestProgress?: RequiredQuestProgressProps;
-    specialResponse?: SpecialResponseProps;
-    closeDialogue?: true;
-    opensShop?: true;
-};
+  response: string
+  next: number
+  nextIfQuestStarted?: number
+  requiredQuestProgress?: RequiredQuestProgressProps
+  specialResponse?: SpecialResponseProps
+  closeDialogue?: true
+  opensShop?: true
+}
 
-export type SpecialResponseProps = SpecialStatResponseProps | SpecialItemResponseProps | SpecialQuestResponseProps;
+export type SpecialResponseProps =
+  | SpecialRequiresStatResponse
+  | SpecialRequiresItemResponse
+  | SpecialRequiresQuestResponse
+  | SpecialStartsQuestResponse
+  | SpecialEndsQuestResponse
+  | SpecialProgressesQuestResponse
 
 export type RequiredQuestProgressProps = {
-    id: number;
-    step: number;
-};
+  id: QuestIds
+  step: number
+}
 
-export type SpecialStatResponseProps = {
-    type: "stat";
-    key: keyof PlayerStatsProps;
-    amount: number;
-    label: string;
-};
-export type SpecialItemResponseProps = {
-    type: "item";
-    name: ItemNames;
-    amount: number;
-};
-export type SpecialQuestResponseProps = {
-    type: "quest";
-    id: number;
-    start?: true;
-    end?: true;
-};
+export type SpecialRequiresStatResponse = {
+  type: SpecialDialogueType.requiresStat
+  id: PlayerStatIds
+  amount: number
+  label: string
+}
+
+export type SpecialRequiresItemResponse = {
+  type: SpecialDialogueType.requiresItem
+  id: ItemIds
+  amount: number
+}
+
+export type SpecialRequiresQuestResponse = {
+  type: SpecialDialogueType.requiresQuest
+  id: QuestIds
+}
+
+export type SpecialStartsQuestResponse = {
+  type: SpecialDialogueType.startsQuest
+  id: QuestIds
+}
+
+export type SpecialEndsQuestResponse = {
+  type: SpecialDialogueType.endsQuest
+  id: QuestIds
+}
+
+export type SpecialProgressesQuestResponse = {
+  type: SpecialDialogueType.progressesQuests
+  id: QuestIds
+}
